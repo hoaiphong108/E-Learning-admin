@@ -2,14 +2,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+// Components
+import Course from "../Course";
 import "./style.css";
+
+// Redux store
+import {
+  fetchCourseList
+} from "../../Redux/Actions/CourseAction";
 
 const MENU_CONTENT = {
   HOME: "home",
   TABLES: "tables",
   FORMS: "forms",
-  UI_ELEMENTS: "ui-elements"
-}
+  UI_ELEMENTS: "ui-elements",
+  COURSE: "course",
+};
 
 /**
  * test commit
@@ -22,23 +32,31 @@ export default function Home() {
 
   const [menuContent, setMenuContent] = useState("");
 
+  const dispatch = useDispatch();
+
   const setActiveMenuItem = (uid) => {
     switch (uid) {
       case MENU_CONTENT.HOME:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.TABLES:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.FORMS:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.UI_ELEMENTS:
         setMenuContent(uid);
-        return;
+        break;
+
+      case MENU_CONTENT.COURSE:
+        setMenuContent(uid);
+        dispatch(fetchCourseList());
+
+        break;
 
       default:
         return;
@@ -55,6 +73,9 @@ export default function Home() {
 
       case MENU_CONTENT.UI_ELEMENTS:
         return <main>ui-elements</main>;
+
+      case MENU_CONTENT.COURSE:
+        return <Course />;
 
       default:
         return (
@@ -578,15 +599,17 @@ export default function Home() {
 
       <div className="flex h-screen bg-gray-200">
         <div
-          className={`${sidebarOpen ? "block" : "hidden"
-            } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
+          className={`${
+            sidebarOpen ? "block" : "hidden"
+          } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
           onClick={() => {
             setSidebarOpen(false);
           }}
         />
         <div
-          className={`${sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
-            } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
+          className={`${
+            sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
+          } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
         >
           <div className="flex items-center justify-center mt-8">
             <div className="flex items-center">
@@ -709,6 +732,28 @@ export default function Home() {
               </svg>
               <span className="mx-3">Tìm kiếm người dùng</span>
             </div>
+            <div
+              onClick={() => {
+                setActiveMenuItem("course");
+              }}
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                ></path>
+              </svg>
+              <span className="mx-3">Khóa Học</span>
+            </div>
           </nav>
         </div>
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -790,8 +835,9 @@ export default function Home() {
                   style={{ display: "none" }}
                 />
                 <div
-                  className={` ${notificationOpen ? "w-80 hidden" : ""
-                    }    absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10`}
+                  className={` ${
+                    notificationOpen ? "w-80 hidden" : ""
+                  }    absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10`}
                 >
                   <a
                     href="#"
@@ -890,8 +936,9 @@ export default function Home() {
                   style={{ display: "none" }}
                 />
                 <div
-                  className={` ${dropdownOpen ? "hidden" : ""
-                    } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
+                  className={` ${
+                    dropdownOpen ? "hidden" : ""
+                  } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
                 >
                   <a
                     href="#"

@@ -1,22 +1,34 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
 import "./style.css";
 
-const MENU_CONTENT  = {
+import axios from "axios";
+import { getUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
+
+const MENU_CONTENT = {
   HOME: "home",
   TABLES: "tables",
   FORMS: "forms",
   UI_ELEMENTS: "ui-elements"
 }
 
+
+
+/**
+ * test commit
+ */
+
 export default function Home() {
+  const dispatch = useDispatch();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const [menuContent, setMenuContent] = useState("");
+  const [courseCodeName, setCourseCodeName] = useState(""); //test: "ITEC2104"
 
   const setActiveMenuItem = (uid) => {
     switch (uid) {
@@ -41,6 +53,15 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    dispatch(getUnRegistCourseUserList("ITEC2104"))
+  }, [dispatch, courseCodeName])
+
+  const unRegistCourseUserList = useSelector((state) => {
+    return state.user.unRegistCourseUserList;
+  });
+  // console.log("unRegistCourseUserList", unRegistCourseUserList);
+
   const getMenuContent = () => {
     switch (menuContent) {
       case MENU_CONTENT.TABLES:
@@ -49,7 +70,7 @@ export default function Home() {
       case MENU_CONTENT.FORMS:
         return <main>forms</main>;
 
-      case  MENU_CONTENT.UI_ELEMENTS:
+      case MENU_CONTENT.UI_ELEMENTS:
         return <main>ui-elements</main>;
 
       default:
@@ -574,17 +595,15 @@ export default function Home() {
 
       <div className="flex h-screen bg-gray-200">
         <div
-          className={`${
-            sidebarOpen ? "block" : "hidden"
-          } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
+          className={`${sidebarOpen ? "block" : "hidden"
+            } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
           onClick={() => {
             setSidebarOpen(false);
           }}
         />
         <div
-          className={`${
-            sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
-          } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
+          className={`${sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
+            } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
         >
           <div className="flex items-center justify-center mt-8">
             <div className="flex items-center">
@@ -788,9 +807,8 @@ export default function Home() {
                   style={{ display: "none" }}
                 />
                 <div
-                  className={` ${
-                    notificationOpen ? "w-80 hidden" : ""
-                  }    absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10`}
+                  className={` ${notificationOpen ? "w-80 hidden" : ""
+                    }    absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10`}
                 >
                   <a
                     href="#"
@@ -889,9 +907,8 @@ export default function Home() {
                   style={{ display: "none" }}
                 />
                 <div
-                  className={` ${
-                    dropdownOpen ? "hidden" : ""
-                  } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
+                  className={` ${dropdownOpen ? "hidden" : ""
+                    } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
                 >
                   <a
                     href="#"

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-tailwind-table";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Style
 import "react-tailwind-table/dist/index.css";
@@ -8,93 +8,74 @@ import "react-tailwind-table/dist/index.css";
 // Components
 import AddCourseModal from "./AddCourseModal";
 
+// Redux
+import { showCreateModal } from "../../Redux/Actions/CourseAction";
+
 const Course = () => {
+  const dispatch = useDispatch();
+
   const courseList = useSelector((state) => {
     return state.course.courseList;
   });
 
-  const {
-    hinhAnh,
-    tenKhoaHoc,
-    nguoiTao,
-    ngayTao,
-    luotXem,
-    moTa,
-    maKhoaHoc
-  } = courseList;
+  const handleShowModal = () => {
+    dispatch(showCreateModal(true));
+  };
 
-  console.log("courseList", courseList);
+  const rowRender = (row, column) => {
+    if (column.field === "action") {
+      return (
+        <div className="text-center">
+          <button
+            className="py-3 text-xl text-white bg-green-600 rounded-lg"
+            onClick={() => {
+              handleShowModal();
+            }}
+          >
+            Sửa
+          </button>
+          <button className="py-3 text-white bg-red-600 rounded-lg">Xóa</button>
+        </div>
+      );
+    }
+  };
 
-  //The full data format can be
-  var rows = [
-    {
-      id: 1,
-      name: "tenKhoaHoc",
-      country_id: 3,
-      club_id: 2,
-      front_end_position: {
-        name: {
-          full_name: "Forward",
-          short_code: "FW",
-        },
-        id: 2,
-      },
-    },
-    {
-      id: 3,
-      name: "Virgil VanDijk",
-      country_id: 30,
-      club_id: 2,
-      front_end_position: {
-        name: {
-          full_name: "Defence",
-          short_code: "DF",
-        },
-        id: 2,
-      },
-    },
-  ];
+  const rows = courseList;
 
-  /**
-   * The Example rows above can have its column data looking thus.
-   */
-  var columns = [
+  const columns = [
     {
-      field: "",
+      field: "tenKhoaHoc",
       use: "Tên Khóa Học",
-      //Will not be used in search filtering
-      use_in_search: false,
     },
     {
-      field: "",
+      field: "hinhAnh",
       use: "Hình Ảnh",
     },
     {
-      field: "",
+      field: "moTa",
       use: "Mô Tả",
     },
     {
-      field: "country_id",
+      field: "luotXem",
       use: "Lượt Xem",
-
-      //Will not be displayed in the table
-      use_in_display: false,
     },
     {
-      field: "club_id",
+      field: "nguoiTao.hoTen",
       use: "Người Tạo",
-      //would not be exported as a CSV column
-      use_in_export: false,
     },
     {
-      field: "",
+      field: "ngayTao",
       use: "Ngày Tạo",
+    },
+    {
+      field: "action",
+      use: "Action",
     },
   ];
 
   return (
-    <div>
-      <Table columns={columns} rows={rows} />
+    <div className="overflow-y-auto">
+      <Table columns={columns} rows={rows} row_render={rowRender} />
       <AddCourseModal />
     </div>
   );

@@ -9,6 +9,8 @@ const initialState = {
     userEdit: {},
     userLogin: {},
     listUser: [],
+
+    open: true,
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -25,6 +27,11 @@ const reducer = (state = initialState, action) => {
             state.userEdit = action.payload;
             console.log(state.userEdit);
             return {...state };
+        case "SET_OPEN":
+            state.open = action.payload;
+            console.log(state.open);
+            return {...state };
+
         default:
             return {...state };
     }

@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import UserModal from "../../Components/UserModal";
+
 import { createAction } from "../../Redux/Actions";
 import { USER_EDIT } from "../../Redux/Actions/Types/UserType";
 import { deleteUserAction } from "../../Redux/Actions/UserAction";
-import EditInfo from "../EditInfo";
 
 export default function InfoUser(props) {
   const listUser = props.listUser || [];
@@ -17,22 +18,23 @@ export default function InfoUser(props) {
       return "Học Viên";
     } else return "Giảng viên";
   };
-  let userEdit = {};
+
+  const open = useSelector((state) => state.user.open);
 
   const deleteUser = (taiKhoan) => {
     const action = deleteUserAction(taiKhoan);
     dispatch(action);
   };
-  const [showEdit, setShowEdit] = useState(false);
+
+  const [showEdit, setShowEdit] = useState(open);
   const handleShowEdit = () => {
+    dispatch(createAction("SET_OPEN", !showEdit));
     return setShowEdit(!showEdit);
   };
 
   return (
     <>
-      <div
-        className={`container mx-auto px-6 py-8 ${showEdit ? "hidden" : ""} `}
-      >
+      <div className={`container mx-auto px-6 py-8  `}>
         <h3 className="text-gray-700 text-3xl font-medium">Dashboard</h3>
         <div className="mt-4">
           <div className="flex flex-wrap -mx-6">
@@ -169,8 +171,8 @@ export default function InfoUser(props) {
           </div>
         </div>
       </div>
-      <div className={`${showEdit ? "" : "hidden"}  `}>
-        <EditInfo userEdit={userEdit} handleShowEdit={handleShowEdit} />
+      <div>
+        <UserModal />
       </div>
     </>
   );

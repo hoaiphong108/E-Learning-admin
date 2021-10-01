@@ -1,8 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux"
 import "./style.css";
+
+import axios from "axios";
+import { getUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
 
 const MENU_CONTENT = {
   HOME: "home",
@@ -10,6 +14,8 @@ const MENU_CONTENT = {
   FORMS: "forms",
   UI_ELEMENTS: "ui-elements"
 }
+
+
 
 /**
  * test commit
@@ -44,6 +50,41 @@ export default function Home() {
         return;
     }
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUnRegistCourseUserList())
+  }, [dispatch])
+
+  const list = useSelector((state) => {
+    return state.user.unRegistCourseUserList;
+  })
+
+  console.log("list", list);
+
+  // dùng Authorization admin
+  const _getUnRegistCourseUserList = async (maKhoaHoc) => {
+    try {
+      const result = await axios({
+        url: `https://elearningnew.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+        method: "POST",
+        data: {
+          "maKhoaHoc": maKhoaHoc
+        },
+        headers: {
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTIzIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiR1YiLCJuYmYiOjE2MzI5OTA5MDQsImV4cCI6MTYzMjk5NDUwNH0.wPQX33_2MdJ792k8IuMgxF1l8fqfUZvLH9X-LHmsijI",
+          TokenCybersoft:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJGcm9udCBFbmQgNjQiLCJIZXRIYW5TdHJpbmciOiIyMS8wMS8yMDIyIiwiSGV0SGFuVGltZSI6IjE2NDI3MjMyMDAwMDAiLCJuYmYiOjE2MTYxNzMyMDAsImV4cCI6MTY0Mjg3MDgwMH0.2sSWVGy-3Ce9iJ8bIYmYOJ9aE1eu3fz07DtA2ECfiyk",
+        },
+      })
+      console.log(result.data);
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+  // _getUnRegistCourseUserList("ITEC2104");
 
   const getMenuContent = () => {
     switch (menuContent) {
@@ -563,6 +604,8 @@ export default function Home() {
         );
     }
   };
+
+  // console.log("list", getUnRegistCourseUserList("ITEC2104"));
 
   setActiveMenuItem();
 

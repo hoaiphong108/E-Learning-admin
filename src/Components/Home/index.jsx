@@ -5,6 +5,14 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import "./style.css";
 
+// Components
+import Course from "../Course";
+
+// Redux store
+import {
+  fetchCourseList
+} from "../../Redux/Actions/CourseAction";
+
 import axios from "axios";
 import { getUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
 

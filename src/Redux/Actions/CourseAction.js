@@ -14,3 +14,14 @@ export const fetchCourseList = () => {
     }
   };
 };
+
+export const showCreateModal = (isOpen) => {
+  return async (dispatch) => {
+    try {
+      console.log("showCreateModal isOpen", isOpen);
+      dispatch(createAction(actionCourseTypes.SHOW_CREATE_COURSE_MODAL, isOpen));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};

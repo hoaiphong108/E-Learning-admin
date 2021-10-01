@@ -6,12 +6,7 @@ export default function Header() {
   return (
     <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
       <div className="flex items-center">
-        <button
-          onClick={() => {
-            // setSidebarOpen(true);
-          }}
-          className="text-gray-500 focus:outline-none lg:hidden"
-        >
+        <button className="text-gray-500 focus:outline-none lg:hidden">
           <svg
             className="h-6 w-6"
             viewBox="0 0 24 24"
@@ -174,8 +169,6 @@ export default function Header() {
             />
           </button>
           <div
-            // x-show="dropdownOpen"
-            // onClick="dropdownOpen = false"
             onClick={() => {
               setDropdownOpen(false);
             }}

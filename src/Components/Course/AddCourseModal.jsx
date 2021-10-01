@@ -1,7 +1,9 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
+
+import { useFormik } from "formik";
 
 // Redux
 import { showCreateModal } from "../../Redux/Actions/CourseAction";
@@ -16,6 +18,22 @@ export default function AddCourseModal(props) {
   const handleHideModal = () => {
     dispatch(showCreateModal(false));
   };
+
+  const formik = useFormik({
+    initialValues: {
+      taiKhoan: "",
+      matKhau: "",
+      hoTen: "",
+      soDT: "",
+      maLoaiNguoiDung: "",
+      maNhom: "",
+      email: "",
+    },
+    onSubmit: useCallback((values) => {
+      // const action = addUserAction(values);
+      // dispatch(action);
+    }, []),
+  });
 
   return (
     <Transition.Root show={showCreateCourseModal} as={Fragment}>
@@ -54,50 +72,167 @@ export default function AddCourseModal(props) {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-                  <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <ExclamationIcon
-                      className="h-6 w-6 text-red-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg leading-6 font-medium text-gray-900"
-                    >
-                      Deactivate account
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed. This action
-                        cannot be undone.
-                      </p>
+              <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
+                <h3 className="text-2xl text-center font-bold">Tạo khóa học</h3>
+                <form
+                  className="pt-6 pb-8 mb-4 bg-white rounded"
+                  onSubmit={formik.handleSubmit}
+                >
+                  <div className="grid grid-cols-1">
+                    <div>
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Mã Khóa Học
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="maKhoaHoc"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Mã Khóa Học"
+                        required
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Tên Khóa Học
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="tenKhoaHoc"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Tên Khóa Học"
+                        required
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Mô Tả
+                      </label>
+                      <textarea
+                        onChange={formik.handleChange}
+                        name="moTa"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="Tên Khóa Học"
+                        required
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Upload Hình Ảnh
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="hinhAnh"
+                        className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        type="file"
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="col-6 mt-4">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Lượt xem
+                        </label>
+                        <input
+                          onChange={formik.handleChange}
+                          name="luotXem"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          type="text"
+                          placeholder="Lượt xem"
+                          required
+                        />
+                      </div>
+                      <div className="col-6 mt-4">
+                        <label className="block mb-2 text-sm font-bold text-gray-700">
+                          Mã Nhóm
+                        </label>
+                        <input
+                          onChange={formik.handleChange}
+                          name="maNhom"
+                          className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                          type="text"
+                          placeholder="GP01-GP07"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => {
-                    handleHideModal();
-                  }}
-                >
-                  Deactivate
-                </button>
-                <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => {
-                    handleHideModal();
-                  }}
-                >
-                  Cancel
-                </button>
+                  <div className="grid grid-cols-2 gap-4">
+                  <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Mã Danh Mục Khóa Học
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="maDanhMucKhoaHoc"
+                        required
+                        className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        placeholder="Mã Danh Mục Khóa Học"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Đánh giá
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="danhGia"
+                        required
+                        className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        placeholder="Đánh giá"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Tài Khoản Người Tạo
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="taiKhoanNguoiTao"
+                        required
+                        className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        placeholder="Tài Khoản Người Tạo"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block mb-2 text-sm font-bold text-gray-700">
+                        Ngày Tạo
+                      </label>
+                      <input
+                        onChange={formik.handleChange}
+                        name="ngayTao"
+                        required
+                        className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                        placeholder="Ngày Tạo"
+                      />
+                    </div>
+                  </div>
+                  <div className="text-right mt-4">
+                    <button
+                      type="button"
+                      className="rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      onClick={() => {
+                        handleHideModal();
+                      }}
+                    >
+                      Hủy
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded-md border border-gray-300 shadow-sm px-4 py-2 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      onClick={() => {
+                        handleHideModal();
+                      }}
+                    >
+                      Thêm
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </Transition.Child>

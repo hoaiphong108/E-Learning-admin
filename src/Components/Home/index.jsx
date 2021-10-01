@@ -3,18 +3,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+
 import { getInfoUserAction } from "../../Redux/Actions/UserAction";
 import AddUser from "../../Views/AddUser";
 import EditInfo from "../../Views/EditInfo";
 import InfoUser from "../../Views/InfoUser";
 import "./style.css";
 
+
+
+// Components
+import Course from "../Course";
+import "./style.css";
+
+// Redux store
+import {
+  fetchCourseList
+} from "../../Redux/Actions/CourseAction";
+
+
 const MENU_CONTENT = {
   HOME: "home",
   ADD_USER: "add-user",
   FORMS: "forms",
   UI_ELEMENTS: "ui-elements",
+  COURSE: "course",
 };
+
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -30,23 +45,31 @@ export default function Home() {
 
   const [menuContent, setMenuContent] = useState("");
 
+
+
   const setActiveMenuItem = (uid) => {
     switch (uid) {
       case MENU_CONTENT.HOME:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.ADD_USER:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.FORMS:
         setMenuContent(uid);
-        return;
+        break;
 
       case MENU_CONTENT.UI_ELEMENTS:
         setMenuContent(uid);
-        return;
+        break;
+
+      case MENU_CONTENT.COURSE:
+        setMenuContent(uid);
+        dispatch(fetchCourseList());
+
+        break;
 
       default:
         return;
@@ -67,6 +90,9 @@ export default function Home() {
 
       case MENU_CONTENT.UI_ELEMENTS:
         return <main>ui-elements</main>;
+
+      case MENU_CONTENT.COURSE:
+        return <Course />;
 
       default:
         return (
@@ -223,6 +249,28 @@ export default function Home() {
                 ></path>
               </svg>
               <span className="mx-3">Tìm kiếm người dùng</span>
+            </div>
+            <div
+              onClick={() => {
+                setActiveMenuItem("course");
+              }}
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                ></path>
+              </svg>
+              <span className="mx-3">Khóa Học</span>
             </div>
           </nav>
         </div>

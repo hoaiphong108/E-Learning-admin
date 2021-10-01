@@ -9,12 +9,11 @@ export class UserService extends baseService {
     return this.post(`api/QuanLyNguoiDung/DangNhap`, thongTinDangNhap);
   };
 
-  unRegistCourseUserList = (courseCodeName) => {
-    return this.post(
+  unRegistCourseUserList = (courseCodeName) =>
+    this.post(
       `api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
       courseCodeName
     );
-  };
 }
 
 export const userService = new UserService();

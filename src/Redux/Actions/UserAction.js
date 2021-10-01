@@ -17,7 +17,7 @@ export const signInAction = (thongTinDangNhap, callBack) => {
   };
 };
 
-export const getUnRegistCourseUserList = async (courseCodeName) => {
+export const getUnRegistCourseUserList = (courseCodeName) => {
   const requestData = { maKhoaHoc: courseCodeName };
   return async (dispatch) => {
     try {

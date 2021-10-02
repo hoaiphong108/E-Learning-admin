@@ -1,14 +1,18 @@
 import { useFormik } from "formik";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { signInAction } from "../../Redux/Actions/UserAction";
+import { getUnRegistCourseUserList, signInAction } from "../../Redux/Actions/UserAction";
 
 export default function SignIn() {
   const dispatch = useDispatch();
   const history = useHistory();
   const userLogin = useSelector((state) => state.user.userLogin);
+
+  useEffect(() => {
+    // dispatch(getUnRegistCourseUserList("ITEC2104"));
+  }, [dispatch]);
 
   const { maLoaiNguoiDung } = userLogin || {};
   const goTo = useCallback(() => {

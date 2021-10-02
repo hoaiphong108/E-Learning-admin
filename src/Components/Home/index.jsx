@@ -1,16 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { getInfoUserAction } from "../../Redux/Actions/UserAction";
+import { getInfoUserAction, getUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
 import AddUser from "../../Views/AddUser";
 import EditInfo from "../../Views/EditInfo";
 import InfoUser from "../../Views/InfoUser";
 import "./style.css";
-
-
 
 // Components
 import Course from "../Course";
@@ -21,7 +20,6 @@ import {
   fetchCourseList
 } from "../../Redux/Actions/CourseAction";
 
-
 const MENU_CONTENT = {
   HOME: "home",
   ADD_USER: "add-user",
@@ -29,7 +27,6 @@ const MENU_CONTENT = {
   UI_ELEMENTS: "ui-elements",
   COURSE: "course",
 };
-
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -43,7 +40,11 @@ export default function Home() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuContent, setMenuContent] = useState("");
+  const [courseCodeName, setCourseCodeName] = useState(""); //test: "ITEC2104"
 
 
 
@@ -75,6 +76,15 @@ export default function Home() {
         return;
     }
   };
+
+  useEffect(() => {
+    dispatch(getUnRegistCourseUserList("ITEC2104"))
+  }, [dispatch, courseCodeName])
+
+  const unRegistCourseUserList = useSelector((state) => {
+    return state.user.unRegistCourseUserList;
+  });
+  // console.log("unRegistCourseUserList", unRegistCourseUserList);
 
   const getMenuContent = () => {
     switch (menuContent) {

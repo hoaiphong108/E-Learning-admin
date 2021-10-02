@@ -13,6 +13,11 @@ export class UserService extends baseService {
             `api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${CODE_GROUP}`
         );
     };
+    unRegistCourseUserList = (courseCodeName) =>
+        this.post(
+      `api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+      courseCodeName
+    );
     addUser = (thongTinNguoiDung) => {
         return this.post(`api/QuanLyNguoiDung/ThemNguoiDung`, thongTinNguoiDung);
     };

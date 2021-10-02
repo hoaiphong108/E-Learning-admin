@@ -1,23 +1,38 @@
 import { createAction } from ".";
 import { userService } from "../../Services/UserService";
+
 import {
+    SIGN_IN_ACTION, SET_UNREGIST_COURSE_USERLIST,
     ADD_USER_ACTION,
     GET_INFO_USER_ACTION,
     SIGN_IN_ACTION,
 } from "./Types/UserType";
 
-export const signInAction = (thongTinDangNhap, callBack) => {
-    return async(dispatch) => {
-        try {
-            const result = await userService.signIn(thongTinDangNhap);
-            dispatch(createAction(SIGN_IN_ACTION, result.data));
 
-            callBack();
-        } catch (err) {
-            alert(err.response.data);
-        }
-    };
+export const signInAction = (thongTinDangNhap, callBack) => {
+  return async (dispatch) => {
+    try {
+      const result = await userService.signIn(thongTinDangNhap);
+      dispatch(createAction(SIGN_IN_ACTION, result.data));
+
+      callBack();
+    } catch (err) {
+      alert(err.content);
+    }
+  };
 };
+
+export const getUnRegistCourseUserList = (courseCodeName) => {
+  const requestData = { maKhoaHoc: courseCodeName };
+  return async (dispatch) => {
+    try {
+      const result = await userService.unRegistCourseUserList(requestData);
+      dispatch(createAction(SET_UNREGIST_COURSE_USERLIST, result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+   
 export const getInfoUserAction = () => {
     return async(dispatch) => {
         try {

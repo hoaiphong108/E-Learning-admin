@@ -1,6 +1,8 @@
 import { TOKEN } from "../../util/settings/config";
 import {
-    GET_INFO_USER_ACTION,
+  SIGN_IN_ACTION,
+  SET_UNREGIST_COURSE_USERLIST,
+  GET_INFO_USER_ACTION,
     SIGN_IN_ACTION,
     USER_EDIT,
 } from "../Actions/Types/UserType";
@@ -9,6 +11,7 @@ const initialState = {
     userEdit: {},
     userLogin: {},
     listUser: [],
+    unRegistCourseUserList: [],
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -25,6 +28,9 @@ const reducer = (state = initialState, action) => {
             state.userEdit = action.payload;
             console.log(state.userEdit);
             return {...state };
+       case SET_UNREGIST_COURSE_USERLIST:
+            state.unRegistCourseUserList = action.payload;
+             return { ...state };
         default:
             return {...state };
     }

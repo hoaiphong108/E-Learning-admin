@@ -2,8 +2,6 @@ import { createAction } from ".";
 import { userService } from "../../Services/UserService";
 import { SIGN_IN_ACTION, SET_UNREGIST_COURSE_USERLIST } from "./Types/UserType";
 
-// get
-
 export const signInAction = (thongTinDangNhap, callBack) => {
   return async (dispatch) => {
     try {
@@ -17,7 +15,7 @@ export const signInAction = (thongTinDangNhap, callBack) => {
   };
 };
 
-export const getUnRegistCourseUserList = (courseCodeName) => {
+export const fetchUnRegistCourseUserList = (courseCodeName) => {
   const requestData = { maKhoaHoc: courseCodeName };
   return async (dispatch) => {
     try {
@@ -27,13 +25,4 @@ export const getUnRegistCourseUserList = (courseCodeName) => {
       console.log(error);
     }
   };
-
-  // await userService
-  //   .unRegistCourseUserList(requestData)
-  //   .then((result) => {
-  //     console.log("user action getUnRegistCourseUserList", result.data);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
 };

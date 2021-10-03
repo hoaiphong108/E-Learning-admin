@@ -3,30 +3,43 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
+import Slider from "react-slick";
+
+import { fetchUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
+import { fetchCourseList } from "../../Redux/Actions/CourseAction";
 import "./style.css";
-
-// Components
-import Course from "../Course";
-
-// Redux store
-import {
-  fetchCourseList
-} from "../../Redux/Actions/CourseAction";
-
-import axios from "axios";
-import { getUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
 
 const MENU_CONTENT = {
   HOME: "home",
   TABLES: "tables",
   FORMS: "forms",
-  UI_ELEMENTS: "ui-elements"
+  UI_ELEMENTS: "ui-elements",
+  REGISTER: "register",
 }
 
-
+const REGISTER_CONTENT = {
+  USER_IN_TO_COURSE: "userToCourse",
+  COURSE_BY_USER: "courseByUser",
+  TEST_UI: "test-ui",
+}
 
 /**
- * test commit
+ * Thiếu các API:
+ * 
+ * GhiDanhKhoaHoc
+ * HuyGhiDanh
+ * LayDanhSachHocVienKhoaHoc ( Lấy danh sách người dùng đã ghi danh vào khóa học đó )
+ */
+
+/**
+ * Xài API danh sách user đã ghi danh theo course:
+ * 
+ * Vào getRegiterContent thay cái list input 
+ * ở hàm renderRegistCourseUserList chỗ thẻ p Đã ghi danh
+ * 
+ * Xài API ghi danh/ hủy ghi danh:
+ * 
+ * 2 nút đó ở hàm renderRegistCourseUserList
  */
 
 export default function Home() {
@@ -36,7 +49,131 @@ export default function Home() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuContent, setMenuContent] = useState("");
-  const [courseCodeName, setCourseCodeName] = useState(""); //test: "ITEC2104"
+  const [regiterContent, setRegisterContent] = useState("userToCourse");
+  const [courseCodeName, setCourseCodeName] = useState("ITEC2104"); //test: "ITEC2104"
+  const [courseName, setCourseName] = useState("Kiểm Thử Phần Mềm ABCD");
+
+
+  const testtingList = [
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+    { img: "https://picsum.photos/300/200" },
+  ]
+
+  useEffect(() => {
+    dispatch(fetchUnRegistCourseUserList(courseCodeName))
+    dispatch(fetchCourseList())
+  }, [dispatch, courseCodeName])
+
+  const unRegistCourseUserList = useSelector((state) => {
+    // console.log("Home unRegistCourseUserList gotten");
+    return state.user.unRegistCourseUserList;
+  });
+  // console.log("unRegistCourseUserList", unRegistCourseUserList);
+
+  const courseList = useSelector((state) => {
+    // console.log("Home courseList gotten");
+    return state.course.courseList;
+  });
+  // console.log("courseList", courseList);
+
+  const subjectListSliderSettings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    arrows: false,
+    variableWidth: true,
+  };
+
+  const userListSliderSettings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    rows: 4,
+    initialSlide: 0,
+    arrows: false,
+    variableWidth: true,
+  };
+
+  const renderSubjectListItemSlider = () => {
+    const _courseList = [...courseList];
+    return _courseList.map((item, index) => {
+      const { tenKhoaHoc, maKhoaHoc } = item;
+      return (
+        <div onClick={() => { setCourseCodeName(maKhoaHoc); setCourseName(tenKhoaHoc) }} className="mx-3 py-3  border-t-2 border-b-2 border-gray-600 cursor-pointer" key={index} >
+          {tenKhoaHoc}
+        </div>
+      )
+    })
+  }
+
+  const renderRegistCourseUserList = (list, isRegisted) => {
+    return list.map((item, index) => {
+      const { taiKhoan, hoTen } = item;
+      return (
+        <tr key={index}>
+          <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div className="flex items-center">
+              <div className="ml-1">
+                <div className="text-sm leading-5 font-medium text-gray-500">
+                  Họ tên: {hoTen}
+                </div>
+                <div className="text-sm leading-5 text-gray-500">
+                  Tài khoản: {taiKhoan}
+                </div>
+              </div>
+            </div>
+          </td>
+          <td className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
+          leading-5 font-medium">
+            {isRegisted ? (
+              <>
+                <button
+                  className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+                >
+                  Ghi danh
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700"
+                >
+                  Hủy ghi danh
+                </button>
+              </>
+            )}
+
+          </td>
+        </tr>
+      )
+    })
+  }
+
+
+  const setActiveRegisterItem = (uid) => {
+    switch (uid) {
+      case REGISTER_CONTENT.USER_IN_TO_COURSE:
+        setRegisterContent(uid);
+        return;
+      case REGISTER_CONTENT.COURSE_BY_USER:
+        setRegisterContent(uid);
+        return;
+      default:
+        return;
+    }
+  }
 
   const setActiveMenuItem = (uid) => {
     switch (uid) {
@@ -56,30 +193,234 @@ export default function Home() {
         setMenuContent(uid);
         return;
 
+      case MENU_CONTENT.REGISTER:
+        setMenuContent(uid);
+        return;
       default:
         return;
     }
   };
 
-  useEffect(() => {
-    dispatch(getUnRegistCourseUserList("ITEC2104"))
-  }, [dispatch, courseCodeName])
+  const getRegiterContent = () => {
+    const _unRegistCourseUserList = [...unRegistCourseUserList];
+    switch (regiterContent) {
+      case REGISTER_CONTENT.USER_IN_TO_COURSE:
+        return (
+          <main>
+            <div>
+              {/* -----Subject list slider start----- */}
+              <div className="max-w-3xl">
+                <Slider {...subjectListSliderSettings}>
+                  {renderSubjectListItemSlider()}
+                </Slider>
+              </div>
+              {/* -----Subject list slider end----- */}
 
-  const unRegistCourseUserList = useSelector((state) => {
-    return state.user.unRegistCourseUserList;
-  });
-  // console.log("unRegistCourseUserList", unRegistCourseUserList);
+              <div className="flex justify-evenly">
+
+                {/* -----Chưa ghi danh list container start----- */}
+                <div>
+                  <p className="mb-1 ml-5 font-bold">Chưa ghi danh</p>
+                  <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                    <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                      <table className="min-w-full">
+                        <thead>
+                          <tr>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                              {courseName.slice(0, 20)}...
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                          {renderRegistCourseUserList(_unRegistCourseUserList, true)}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                {/* -----Chưa ghi danh list container end----- */}
+
+                {/* -----Đã ghi danh list container start----- */}
+                <div>
+                  <p className="mb-1 ml-5 font-bold">Đã ghi danh</p>
+                  <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                    <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                      <table className="min-w-full">
+                        <thead>
+                          <tr>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                              {courseName.slice(0, 20)}...
+                            </th>
+                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                          {renderRegistCourseUserList(_unRegistCourseUserList, false)}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                {/* -----Đã ghi danh list container end----- */}
+
+              </div>
+            </div>
+          </main>
+        );
+      case REGISTER_CONTENT.COURSE_BY_USER:
+        return (
+          <main>
+            <div>
+              <div>Khóa học theo danh sách user</div>
+              {/* -----User list slider start----- */}
+              <div className="max-w-3xl">
+                <Slider {...userListSliderSettings}>
+                  {renderSubjectListItemSlider()}
+                </Slider>
+              </div>
+              {/* -----User list slider end----- */}
+            </div>
+          </main>
+        );
+      case REGISTER_CONTENT.TEST_UI:
+        return <main>TEST UI</main>;
+      default:
+        return;
+    }
+  }
 
   const getMenuContent = () => {
     switch (menuContent) {
       case MENU_CONTENT.TABLES:
-        return <main>tables</main>;
+        return <main>Thêm, sửa người dùng</main>;
 
       case MENU_CONTENT.FORMS:
-        return <main>forms</main>;
+        return <main>Tìm kiếm người dùng</main>;
 
       case MENU_CONTENT.UI_ELEMENTS:
-        return <main>ui-elements</main>;
+        return <main>Xoá người dùng</main>;
+
+      case MENU_CONTENT.REGISTER:
+        return (
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+            <div className="container mx-auto px-6 py-8">
+              <h3 className="text-gray-700 text-3xl font-medium">Ghi danh</h3>
+
+              {/* -----Switch người dùng/ khóa học start----- */}
+              <div className="mt-3">
+                <div className="flex flex-wrap -mx-6 justify-evenly">
+
+                  {/* -----Người dùng button start----- */}
+                  <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
+                    <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
+                      <div className="mx-5">
+                        <button onClick={() => setActiveRegisterItem("userToCourse")} className="text-gray-500"
+                        >Người dùng vào khóa học
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {/* -----Người dùng button end----- */}
+
+                  {/* -----Khóa học button start----- */}
+                  <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+                    <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
+                      <div className="mx-5">
+                        <button onClick={() => setActiveRegisterItem("courseByUser")} className="text-gray-500"
+                        >Khóa học cho người dùng
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {/* -----Khóa học button end----- */}
+
+                </div>
+              </div>
+              {/* -----Switch người dùng/ khóa học end----- */}
+
+
+              {/* -----List container start----- */}
+              <div className="mt-8">
+                {getRegiterContent()}
+              </div>
+              <div className="flex flex-col mt-8">
+                <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Name
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Title
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Status
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Role
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div className="flex items-center">
+                              <div className="flex-shrink-0 h-10 w-10">
+                                <img
+                                  className="h-10 w-10 rounded-full"
+                                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                  alt
+                                />
+                              </div>
+                              <div className="ml-4">
+                                <div className="text-sm leading-5 font-medium text-gray-900">
+                                  John Doe
+                                </div>
+                                <div className="text-sm leading-5 text-gray-500">
+                                  john@example.com
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div className="text-sm leading-5 text-gray-900">
+                              Software Engineer
+                            </div>
+                            <div className="text-sm leading-5 text-gray-500">
+                              Web dev
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              Active
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                            Owner
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                            <a
+                              href="#"
+                              className="text-indigo-600 hover:text-indigo-900"
+                            >
+                              Edit
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {/* -----List container end----- */}
+
+            </div >
+          </main >
+        );
 
       default:
         return (
@@ -123,12 +464,14 @@ export default function Home() {
                           />
                         </svg>
                       </div>
+
                       <div className="mx-5">
                         <h4 className="text-2xl font-semibold text-gray-700">
                           8,282
                         </h4>
                         <div className="text-gray-500">New Users</div>
                       </div>
+
                     </div>
                   </div>
                   <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
@@ -609,10 +952,13 @@ export default function Home() {
             setSidebarOpen(false);
           }}
         />
+
+        {/* -----Side bar start----- */}
         <div
           className={`${sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
             } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
         >
+          {/* -----Dashboard icon start----- */}
           <div className="flex items-center justify-center mt-8">
             <div className="flex items-center">
               <svg
@@ -639,6 +985,9 @@ export default function Home() {
               </span>
             </div>
           </div>
+          {/* -----Dashboard icon end----- */}
+
+          {/* -----Side bar buttons start----- */}
           <nav className="mt-10">
             <div
               onClick={() => {
@@ -734,10 +1083,38 @@ export default function Home() {
               </svg>
               <span className="mx-3">Tìm kiếm người dùng</span>
             </div>
+            <div
+              onClick={() => {
+                setActiveMenuItem("register");
+              }}
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                ></path>
+              </svg>
+              <span className="mx-3">Ghi danh</span>
+            </div>
           </nav>
+          {/* -----Side bar buttons end----- */}
         </div>
+        {/* -----Side bar end----- */}
+
+        {/* -----Content start----- */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
+
+            {/* -----Search container start----- */}
             <div className="flex items-center">
               <button
                 onClick={() => {
@@ -760,6 +1137,7 @@ export default function Home() {
                   />
                 </svg>
               </button>
+
               <div className="relative mx-4 lg:mx-0">
                 <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
                   <svg
@@ -783,7 +1161,10 @@ export default function Home() {
                 />
               </div>
             </div>
+            {/* -----Search container end----- */}
+
             <div className="flex items-center">
+              {/* -----Notification bell container start----- */}
               <div className="relative">
                 <button
                   // onClick="notificationOpen = ! notificationOpen"
@@ -892,6 +1273,9 @@ export default function Home() {
                   </a>
                 </div>
               </div>
+              {/* -----Notification bell container end----- */}
+
+              {/* -----User avatar container start----- */}
               <div className="relative">
                 <button
                   onClick={() => {
@@ -938,10 +1322,13 @@ export default function Home() {
                   </a>
                 </div>
               </div>
+              {/* -----User avatar container end----- */}
             </div>
           </header>
           {getMenuContent()}
         </div>
+        {/* -----Content end----- */}
+
       </div>
     </div>
   );

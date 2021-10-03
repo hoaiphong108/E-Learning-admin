@@ -1,14 +1,14 @@
 import { baseService } from "./baseService";
-import { CODE_GROUP } from "../util/settings/config";
+import { CODE_GROUP } from "./../util/settings/config";
 
 export class CourseService extends baseService {
   constructor() {
     super();
   }
 
-  getCourseList = (courseName = "") =>
+  getCourseList = (dataRequest = "") =>
     this.get(
-      `api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${courseName}&MaNhom=${CODE_GROUP}`
+      `api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${CODE_GROUP}&tenKhoaHoc=${dataRequest}`
     );
 }
 

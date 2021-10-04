@@ -38,7 +38,7 @@ export default function EditInfo(props) {
             {/* Col */}
             <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
               <form
-                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                className=" pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}
               >
                 <div className="mb-4 md:flex md:justify-between">

@@ -1,47 +1,53 @@
-import { Fragment, useCallback } from "react";
+import { Fragment, useRef, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
+
 import { useFormik } from "formik";
 
 // Redux
-import { addCourseToList, showCreateModal } from "../../Redux/Actions/CourseAction";
+import {
+  showEditModal,
+  updateCourseToList,
+} from "../../Redux/Actions/CourseAction";
 
-export default function AddCourseModal(props) {
+export default function EditCourseModal(props) {
   const dispatch = useDispatch();
 
-  const showCreateCourseModal = useSelector((state) => {
-    return state.course.showCreateCourseModal;
+  const courseUpdated = useSelector((state) => state.course.courseUpdated);
+
+  const showEditCourseModal = useSelector((state) => {
+    return state.course.showEditCourseModal;
   });
 
   const handleHideModal = () => {
-    dispatch(showCreateModal(false));
+    dispatch(showEditModal(false));
   };
 
   const formik = useFormik({
     initialValues: {
-      maKhoaHoc: "",
-      biDanh: "",
-      tenKhoaHoc: "",
-      moTa: "",
-      luotXem: parseInt(0),
-      danhGia: parseInt(0),
-      hinhAnh: "",
-      maNhom: "",
-      ngayTao: "",
-      maDanhMucKhoaHoc: "",
-      taiKhoanNguoiTao: ""
+      maKhoaHoc: courseUpdated.maKhoaHoc,
+      biDanh: courseUpdated.biDanh,
+      tenKhoaHoc: courseUpdated.tenKhoaHoc,
+      moTa: courseUpdated.moTa,
+      luotXem: courseUpdated.luotXem,
+      danhGia: courseUpdated.danhGia,
+      hinhAnh: courseUpdated.hinhAnh,
+      maNhom: courseUpdated.maNhom,
+      ngayTao: courseUpdated.ngayTao,
+      maDanhMucKhoaHoc: courseUpdated.maDanhMucKhoaHoc,
+      taiKhoanNguoiTao: courseUpdated.taiKhoanNguoiTao,
     },
     onSubmit: useCallback((values) => {
       console.log("values", values);
 
-      dispatch(addCourseToList(values));
-
+      dispatch(updateCourseToList(values));
+      
       handleHideModal();
     }, []),
   });
 
   return (
-    <Transition.Root show={showCreateCourseModal} as={Fragment}>
+    <Transition.Root show={showEditCourseModal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
@@ -78,7 +84,7 @@ export default function AddCourseModal(props) {
           >
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
-                <h3 className="text-2xl text-center font-bold">Tạo khóa học</h3>
+                <h3 className="text-2xl text-center font-bold">Sửa khóa học</h3>
                 <form
                   className="pt-6 pb-8 mb-4 bg-white rounded"
                   onSubmit={formik.handleSubmit}
@@ -89,12 +95,12 @@ export default function AddCourseModal(props) {
                         Mã Khóa Học
                       </label>
                       <input
+                        value={formik.values.maKhoaHoc}
                         onChange={formik.handleChange}
                         name="maKhoaHoc"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Mã Khóa Học"
-                        required
                       />
                     </div>
                     <div className="mt-4">
@@ -102,12 +108,12 @@ export default function AddCourseModal(props) {
                         Tên Khóa Học
                       </label>
                       <input
+                        value={formik.values.tenKhoaHoc}
                         onChange={formik.handleChange}
                         name="tenKhoaHoc"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Tên Khóa Học"
-                        required
                       />
                     </div>
                     <div className="mt-4">
@@ -115,12 +121,12 @@ export default function AddCourseModal(props) {
                         Mô Tả
                       </label>
                       <textarea
+                        value={formik.values.moTa}
                         onChange={formik.handleChange}
                         name="moTa"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="text"
                         placeholder="Tên Khóa Học"
-                        required
                       />
                     </div>
                     <div className="mt-4">
@@ -128,11 +134,11 @@ export default function AddCourseModal(props) {
                         Upload Hình Ảnh
                       </label>
                       <input
+                        value={formik.values.hinhAnh}
                         onChange={formik.handleChange}
                         name="hinhAnh"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="file"
-                        required
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -141,12 +147,12 @@ export default function AddCourseModal(props) {
                           Lượt xem
                         </label>
                         <input
+                          value={formik.values.luotXem}
                           onChange={formik.handleChange}
                           name="luotXem"
                           className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                           type="text"
                           placeholder="Lượt xem"
-                          required
                         />
                       </div>
                       <div className="col-6 mt-4">
@@ -154,12 +160,12 @@ export default function AddCourseModal(props) {
                           Mã Nhóm
                         </label>
                         <input
+                          value={formik.values.maNhom}
                           onChange={formik.handleChange}
                           name="maNhom"
                           className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                           type="text"
                           placeholder="GP01-GP07"
-                          required
                         />
                       </div>
                     </div>
@@ -170,9 +176,9 @@ export default function AddCourseModal(props) {
                         Mã Danh Mục Khóa Học
                       </label>
                       <input
+                        value={formik.values.maDanhMucKhoaHoc}
                         onChange={formik.handleChange}
                         name="maDanhMucKhoaHoc"
-                        required
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         placeholder="Mã Danh Mục Khóa Học"
                       />
@@ -182,9 +188,9 @@ export default function AddCourseModal(props) {
                         Đánh giá
                       </label>
                       <input
+                        value={formik.values.danhGia}
                         onChange={formik.handleChange}
                         name="danhGia"
-                        required
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         placeholder="Đánh giá"
                       />
@@ -196,9 +202,9 @@ export default function AddCourseModal(props) {
                         Tài Khoản Người Tạo
                       </label>
                       <input
+                        value={formik.values.dantaiKhoanNguoiTaohGia}
                         onChange={formik.handleChange}
                         name="taiKhoanNguoiTao"
-                        required
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         placeholder="Tài Khoản Người Tạo"
                       />
@@ -208,9 +214,9 @@ export default function AddCourseModal(props) {
                         Bí Danh
                       </label>
                       <input
+                        value={formik.values.biDanh}
                         onChange={formik.handleChange}
                         name="biDanh"
-                        required
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         placeholder="Bí Danh"
                       />
@@ -221,9 +227,9 @@ export default function AddCourseModal(props) {
                       Ngày Tạo
                     </label>
                     <input
+                      value={formik.values.ngayTao}
                       onChange={formik.handleChange}
                       name="ngayTao"
-                      required
                       className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                       placeholder="Ngày Tạo"
                     />
@@ -242,7 +248,7 @@ export default function AddCourseModal(props) {
                       type="submit"
                       className="rounded-md border border-gray-300 shadow-sm px-4 py-2 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      Thêm
+                      Sửa
                     </button>
                   </div>
                 </form>

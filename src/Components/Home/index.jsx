@@ -35,11 +35,11 @@ const REGISTER_CONTENT = {
  * Xài API danh sách user đã ghi danh theo course:
  * 
  * Vào getRegiterContent thay cái list input 
- * ở hàm renderRegistCourseUserList chỗ thẻ p Đã ghi danh
+ * ở hàm renderRegistUserByCourseList chỗ thẻ p Đã ghi danh
  * 
  * Xài API ghi danh/ hủy ghi danh:
  * 
- * 2 nút đó ở hàm renderRegistCourseUserList
+ * 2 nút đó ở hàm renderRegistUserByCourseList
  */
 
 export default function Home() {
@@ -54,155 +54,225 @@ export default function Home() {
   const [courseName, setCourseName] = useState("Kiểm Thử Phần Mềm ABCD");
 
 
+  // -----TESTING DATA-----
   const userTestList = [
     {
-      "taiKhoan": "123",
-      "hoTen": "123123",
-      "email": "123123@123",
-      "soDt": "123123",
-      "maLoaiNguoiDung": "GV"
+      taiKhoan: "123",
+      hoTen: "123123",
+      email: "123123@123",
+      soDt: "123123",
+      maLoaiNguoiDung: "GV"
     },
     {
-      "taiKhoan": "12chamlenluon",
-      "hoTen": "Một Hai Ba",
-      "email": "12chamlenluon@gmail.com",
-      "soDt": "0391209321",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "12chamlenluon",
+      hoTen: "Một Hai Ba",
+      email: "12chamlenluon@gmail.com",
+      soDt: "0391209321",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "admin_test",
-      "hoTen": "seaways",
-      "email": "teooo@gmail.com",
-      "soDt": "0772189121",
-      "maLoaiNguoiDung": "GV"
+      taiKhoan: "admin_test",
+      hoTen: "seaways",
+      email: "teooo@gmail.com",
+      soDt: "0772189121",
+      maLoaiNguoiDung: "GV"
     },
     {
-      "taiKhoan": "admin321312",
-      "hoTen": "dasdasd",
-      "email": "peo@gmail.com",
-      "soDt": "0111111111",
-      "maLoaiNguoiDung": "GV"
+      taiKhoan: "admin321312",
+      hoTen: "dasdasd",
+      email: "peo@gmail.com",
+      soDt: "0111111111",
+      maLoaiNguoiDung: "GV"
     },
     {
-      "taiKhoan": "adminhai",
-      "hoTen": "admin",
-      "email": "admin@email.com.vn",
-      "soDt": "0123456789",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "adminhai",
+      hoTen: "admin",
+      email: "admin@email.com.vn",
+      soDt: "0123456789",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "Aduyanhdeptrai1235",
-      "hoTen": "123",
-      "email": "duyanh33444333aitp@gmail.com",
-      "soDt": "123",
-      "maLoaiNguoiDung": "GV"
+      taiKhoan: "Aduyanhdeptrai1235",
+      hoTen: "123",
+      email: "duyanh33444333aitp@gmail.com",
+      soDt: "123",
+      maLoaiNguoiDung: "GV"
     },
     {
-      "taiKhoan": "anup",
-      "hoTen": "Anup Kumar",
-      "email": "anupkumar9344@gmail.com",
-      "soDt": "9973213962",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "anup",
+      hoTen: "Anup Kumar",
+      email: "anupkumar9344@gmail.com",
+      soDt: "9973213962",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "arale",
-      "hoTen": "Kien Pham update ",
-      "email": "kien@gmail.com",
-      "soDt": "123",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "arale",
+      hoTen: "Kien Pham update ",
+      email: "kien@gmail.com",
+      soDt: "123",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "asd",
-      "hoTen": "dasdasd",
-      "email": "asdasdasdasdas",
-      "soDt": "asdasdad",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "asd",
+      hoTen: "dasdasd",
+      email: "asdasdasdasdas",
+      soDt: "asdasdad",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "asuka1996",
-      "hoTen": "Bùi Minh Quốc",
-      "email": "test5@test.com",
-      "soDt": "12345678",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "asuka1996",
+      hoTen: "Bùi Minh Quốc",
+      email: "test5@test.com",
+      soDt: "12345678",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "asuka1997",
-      "hoTen": "123a212312312",
-      "email": "test23@gmail.com",
-      "soDt": "12345678",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "asuka1997",
+      hoTen: "123a212312312",
+      email: "test23@gmail.com",
+      soDt: "12345678",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "asura",
-      "hoTen": "asdfg",
-      "email": "queenofdracular@gmail.com",
-      "soDt": "0566545255",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "asura",
+      hoTen: "asdfg",
+      email: "queenofdracular@gmail.com",
+      soDt: "0566545255",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "Atulmanwar",
-      "hoTen": "Atulmanwar",
-      "email": "bmatul139@gmail.com",
-      "soDt": "+8412345698",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "Atulmanwar",
+      hoTen: "Atulmanwar",
+      email: "bmatul139@gmail.com",
+      soDt: "+8412345698",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "bangbang1",
-      "hoTen": "bang",
-      "email": "phibang7899@gmail.com",
-      "soDt": "01225255555",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "bangbang1",
+      hoTen: "bang",
+      email: "phibang7899@gmail.com",
+      soDt: "01225255555",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "banhbeo01",
-      "hoTen": "thaiminhhuy",
-      "email": "dsadase@gmail.com",
-      "soDt": "0543544421",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "banhbeo01",
+      hoTen: "thaiminhhuy",
+      email: "dsadase@gmail.com",
+      soDt: "0543544421",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "batman",
-      "hoTen": "batman",
-      "email": "xyz@gmail.com",
-      "soDt": "123456789",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "batman",
+      hoTen: "batman",
+      email: "xyz@gmail.com",
+      soDt: "123456789",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "bom",
-      "hoTen": "bommm",
-      "email": "bom@gmail.com",
-      "soDt": "",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "bom",
+      hoTen: "bommm",
+      email: "bom@gmail.com",
+      soDt: "",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "caochihieu",
-      "hoTen": "Abcxyz212345@@@",
-      "email": "hieucaochi25598a@gmail.com",
-      "soDt": "1234567890123123",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "caochihieu",
+      hoTen: "Abcxyz212345@@@",
+      email: "hieucaochi25598a@gmail.com",
+      soDt: "1234567890123123",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "chithanh_admin",
-      "hoTen": "Mentor Đặng Chí Thanh",
-      "email": "chithanh_admin@gmail,com",
-      "soDt": "0999999999",
-      "maLoaiNguoiDung": "GV"
+      taiKhoan: "chithanh_admin",
+      hoTen: "Mentor Đặng Chí Thanh",
+      email: "chithanh_admin@gmail,com",
+      soDt: "0999999999",
+      maLoaiNguoiDung: "GV"
     },
     {
-      "taiKhoan": "chithanh_admin2",
-      "hoTen": "13131231",
-      "email": "trungtd0304@gmail.com",
-      "soDt": "dasda",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "chithanh_admin2",
+      hoTen: "13131231",
+      email: "trungtd0304@gmail.com",
+      soDt: "dasda",
+      maLoaiNguoiDung: "HV"
     },
     {
-      "taiKhoan": "chithanh_admin222",
-      "hoTen": "c",
-      "email": "trungtd03043@gmail.com",
-      "soDt": "dasda",
-      "maLoaiNguoiDung": "HV"
+      taiKhoan: "chithanh_admin222",
+      hoTen: "c",
+      email: "trungtd03043@gmail.com",
+      soDt: "dasda",
+      maLoaiNguoiDung: "HV"
     },
   ];
+
+  const unRegisterCourseList = [
+    {
+      "maKhoaHoc": "0.14967431092137828",
+      "biDanh": "php",
+      "tenKhoaHoc": "PHP"
+    },
+    {
+      "maKhoaHoc": "0.6300311755302548",
+      "biDanh": "khoa-hoc-react-co-ban",
+      "tenKhoaHoc": "Khóa học React Cơ Bản"
+    },
+    {
+      "maKhoaHoc": "0.829307948998641",
+      "biDanh": "vuejsabc",
+      "tenKhoaHoc": "VueJSabc"
+    },
+    {
+      "maKhoaHoc": "0.8993108518316555",
+      "biDanh": "nestjs",
+      "tenKhoaHoc": "NestJS"
+    },
+    {
+      "maKhoaHoc": "1001",
+      "biDanh": "test-them-khoa-hoc-2",
+      "tenKhoaHoc": "Test them khoa hoc 2"
+    },
+    {
+      "maKhoaHoc": "111",
+      "biDanh": "test-them-khoc-hoc",
+      "tenKhoaHoc": "Test them khoc hoc"
+    },
+    {
+      "maKhoaHoc": "ITEC 2112",
+      "biDanh": "quan-tri-he-co-so-du-lieu",
+      "tenKhoaHoc": "Quản trị Hệ Cơ Sở Dữ Liệu"
+    },
+  ]
+
+  const regitedCourseList = [
+    {
+      "maKhoaHoc": "15DJ111",
+      "tenKhoaHoc": "Learn Object Oriented PHP By Building a Complete Website"
+    }
+  ]
+
+  const unApprovalCourseList = [
+    {
+      "maKhoaHoc": "REACT910308",
+      "biDanh": "react-hook-2022",
+      "tenKhoaHoc": "React Hook 2022",
+    },
+    {
+      "maKhoaHoc": "REACT9141053",
+      "biDanh": "khoa-hoc-react-nang-cao",
+      "tenKhoaHoc": "Khóa Học React Nâng Cao",
+    },
+    {
+      "maKhoaHoc": "React991028",
+      "biDanh": "the-complete-guide-incl-hooks-react-router-redux-",
+      "tenKhoaHoc": "The Complete Guide (incl Hooks, React Router, Redux)",
+    },
+    {
+      "maKhoaHoc": "sadasd",
+      "biDanh": "lap-trinh-tren-thiet-bi-di-dong",
+      "tenKhoaHoc": "Lập trình Trên Thiết Bị Di Động",
+    }
+  ]
+  // -----TESTING DATA-----
 
   useEffect(() => {
     dispatch(fetchUnRegistCourseUserList(courseCodeName))
@@ -235,8 +305,8 @@ export default function Home() {
   const userListSliderSettings = {
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     rows: 4,
     initialSlide: 0,
     arrows: false,
@@ -257,7 +327,7 @@ export default function Home() {
     })
   }
 
-  const renderRegistCourseUserList = (list, isRegisted) => {
+  const renderRegistUserByCourseList = (list, isRegisted) => {
     return list.map((item, index) => {
       const { taiKhoan, hoTen } = item;
       return (
@@ -299,6 +369,89 @@ export default function Home() {
       )
     })
   }
+
+  const renderRegistCourseByUserList = (list, isRegisted) => {
+    return list.map((item, index) => {
+      const { tenKhoaHoc, maKhoaHoc } = item;
+      return (
+        <tr key={index}>
+          <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div className="flex items-center">
+              <div className="ml-1">
+                <div className="text-sm leading-5 font-medium text-gray-500">
+                  <div> Tên khóa: </div>
+                  <div>{tenKhoaHoc.slice(0, 25)}{tenKhoaHoc.lengh > 25 ? (<span>...</span>) : (<></>)}</div>
+                </div>
+                <div className="text-sm leading-5 text-gray-500">
+                  Mã: {maKhoaHoc}
+                </div>
+              </div>
+            </div>
+          </td>
+          <td className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
+          leading-5 font-medium">
+            {isRegisted ? (
+              <>
+                <button
+                  className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+                >
+                  Ghi danh
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700"
+                >
+                  Hủy ghi danh
+                </button>
+              </>
+            )}
+
+          </td>
+        </tr>
+      )
+    })
+  }
+
+  const renderUnApprovalCourseList = () => {
+    const list = [...unApprovalCourseList]
+    return list.map((item, index) => {
+      const { tenKhoaHoc, maKhoaHoc } = item;
+      return (
+        <tr key={index}>
+          <td className="px-3 py-4 whitespace-no-wrap border-b border-gray-200">
+            <div className="flex items-center">
+              <div className="ml-1">
+                <div className="text-sm leading-5 font-medium text-gray-500">
+                  <div>Tên khóa: </div>
+                  <div>{tenKhoaHoc.slice(0, 25)}...</div>
+                  <div>Mã: {maKhoaHoc}</div>
+                </div>
+              </div>
+            </div>
+          </td>
+          {/* <td></td> */}
+        </tr>
+
+
+      )
+    })
+  }
+
+  const renderUserList = () => {
+    const list = [...userTestList];
+    return list.map((item, index) => {
+      const { hoTen } = item;
+      return (
+        <div key={index} onClick="" className="cursor-pointer">
+          {hoTen}
+        </div>
+      )
+    })
+  }
+
+
   //-----CÁC HÀM RENDER DỮ LIỆU-----
 
 
@@ -346,6 +499,8 @@ export default function Home() {
   //-----CÁC HÀM CHỨA NỘI DUNG ĐƯỢC HIỂN THỊ THEO PHẦN ĐƯỢC CLICK-----
   const getRegiterContent = () => {
     const _unRegistCourseUserList = [...unRegistCourseUserList];
+    const _unRegisterCourseList = [...unRegisterCourseList];
+    const _regitedCourseList = [...regitedCourseList];
     switch (regiterContent) {
       case REGISTER_CONTENT.USER_IN_TO_COURSE:
         return (
@@ -376,7 +531,7 @@ export default function Home() {
                           </tr>
                         </thead>
                         <tbody className="bg-white">
-                          {renderRegistCourseUserList(_unRegistCourseUserList, true)}
+                          {renderRegistUserByCourseList(_unRegistCourseUserList, true)}
                         </tbody>
                       </table>
                     </div>
@@ -399,7 +554,7 @@ export default function Home() {
                           </tr>
                         </thead>
                         <tbody className="bg-white">
-                          {renderRegistCourseUserList(_unRegistCourseUserList, false)}
+                          {renderRegistUserByCourseList(_unRegistCourseUserList, false)}
                         </tbody>
                       </table>
                     </div>
@@ -414,15 +569,84 @@ export default function Home() {
       case REGISTER_CONTENT.COURSE_BY_USER:
         return (
           <main>
+            {/* -----User list slider start----- */}
             <div>
-              <div>Khóa học theo danh sách user</div>
-              {/* -----User list slider start----- */}
-              <div className="max-w-3xl">
+              <p className="p-3 font-bold">Danh sách học viên</p>
+              <div className="max-w-3xl px-4 border-t-2 border-b-2 border-gray-500">
                 <Slider {...userListSliderSettings}>
-                  { }
+                  {renderUserList()}
                 </Slider>
               </div>
-              {/* -----User list slider end----- */}
+            </div>
+            {/* -----User list slider end----- */}
+
+            <div className="flex justify-evenly mt-5">
+
+              {/* -----Chưa ghi danh course container start----- */}
+              <div>
+                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Khóa học chưa danh
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        {renderRegistCourseByUserList(_unRegisterCourseList, true)}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {/* -----Chưa ghi danh course container end----- */}
+
+              {/* -----Đã ghi danh course container start----- */}
+              <div>
+                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Khóa học đã ghi danh
+                          </th>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        {renderRegistCourseByUserList(_regitedCourseList, false)}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {/* -----Đã ghi danh course container end----- */}
+
+              {/* -----Danh sách khóa chờ xét duyệt container start----- */}
+              <div>
+                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                    <table className="min-w-full">
+                      <thead>
+                        <tr>
+                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Khóa học chờ xét duyệt
+                          </th>
+                          {/* <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" /> */}
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        {renderUnApprovalCourseList()}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {/* -----Danh sách khóa chờ xét duyệt container end----- */}
             </div>
           </main>
         );

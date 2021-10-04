@@ -8,12 +8,14 @@ import Slider from "react-slick";
 import { fetchUnRegistCourseUserList } from "../../Redux/Actions/UserAction";
 import { fetchCourseList } from "../../Redux/Actions/CourseAction";
 import "./style.css";
+import Course from "../Course";
 
 const MENU_CONTENT = {
   HOME: "home",
   TABLES: "tables",
   FORMS: "forms",
   UI_ELEMENTS: "ui-elements",
+  COURSE: "course",
   REGISTER: "register",
 }
 
@@ -45,7 +47,9 @@ const REGISTER_CONTENT = {
 export default function Home() {
   const dispatch = useDispatch();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuContent, setMenuContent] = useState("");
   const [regiterContent, setRegisterContent] = useState("userToCourse");
   const [courseCodeName, setCourseCodeName] = useState("ITEC2104"); //test: "ITEC2104"
@@ -485,6 +489,10 @@ export default function Home() {
         setMenuContent(uid);
         return;
 
+        case MENU_CONTENT.COURSE:
+        setMenuContent(uid);
+        return;
+
       case MENU_CONTENT.REGISTER:
         setMenuContent(uid);
         return;
@@ -665,6 +673,9 @@ export default function Home() {
 
       case MENU_CONTENT.UI_ELEMENTS:
         return <main>Xoá người dùng</main>;
+
+        case MENU_CONTENT.COURSE:
+          return <Course />
 
       case MENU_CONTENT.REGISTER:
         return (
@@ -1448,6 +1459,28 @@ export default function Home() {
                 ></path>
               </svg>
               <span className="mx-3">Tìm kiếm người dùng</span>
+            </div>
+            <div
+              onClick={() => {
+                setActiveMenuItem("course");
+              }}
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+            >
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                ></path>
+              </svg>
+              <span className="mx-3">Khóa học</span>
             </div>
             <div
               onClick={() => {

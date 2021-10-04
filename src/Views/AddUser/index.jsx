@@ -1,13 +1,15 @@
 import React, { useCallback } from "react";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUserAction } from "../../Redux/Actions/UserAction";
+import { createAction } from "../../Redux/Actions";
+import { ADD_USER_MODAL } from "../../Redux/Actions/Types/UserType";
 
 export default function AddUser() {
   const dispatch = useDispatch();
-  //   const goToInfoUser =()=>{
 
-  //   }
+  const addModal = useSelector((state) => state.user.addModal);
+
   const formik = useFormik({
     initialValues: {
       taiKhoan: "",
@@ -18,11 +20,16 @@ export default function AddUser() {
       maNhom: "",
       email: "",
     },
+
     onSubmit: useCallback((values) => {
       const action = addUserAction(values);
       dispatch(action);
+      dispatch(createAction(ADD_USER_MODAL, false));
     }, []),
   });
+  const hideModal = () => {
+    dispatch(createAction(ADD_USER_MODAL, false));
+  };
   return (
     <>
       <div className="container mx-auto">
@@ -132,8 +139,20 @@ export default function AddUser() {
                   </div>
                 </div>
                 <div className="mb-6 text-center">
-                  <button className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline">
+                  <button
+                    type="submit"
+                    className="w-full px-3 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                  >
                     Thêm người dùng
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      hideModal();
+                    }}
+                    className="w-full px-3 py-2 font-bold text-white bg-yellow-500 rounded-full hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+                  >
+                    Hủy
                   </button>
                 </div>
                 <hr className="mb-6 border-t" />

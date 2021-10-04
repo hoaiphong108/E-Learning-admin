@@ -1,5 +1,5 @@
 import { baseService } from "./baseService";
-import {CODE_GROUP} from "./../util/settings/config"
+import { CODE_GROUP } from "./../util/settings/config";
 
 export class CourseService extends baseService {
   constructor() {

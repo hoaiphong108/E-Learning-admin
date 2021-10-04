@@ -2,10 +2,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+
 import { getInfoUserAction } from "../../Redux/Actions/UserAction";
 import AddUser from "../../Views/AddUser";
-import EditInfo from "../../Views/EditInfo";
+import { useHistory } from "react-router";
+
 import InfoUser from "../../Views/InfoUser";
 import "./style.css";
 
@@ -15,28 +16,32 @@ import "./style.css";
 
 // Redux store
 import { fetchCourseList } from "../../Redux/Actions/CourseAction";
+import EditUserModal from "../User/EditUserModal";
+import AddUserModal from "../User/AddUserModal";
+import { createAction } from "../../Redux/Actions";
+import { SIGN_OUT } from "../../Redux/Actions/Types/UserType";
+import { TOKEN } from "../../util/settings/config";
 
 const MENU_CONTENT = {
   HOME: "home",
   ADD_USER: "add-user",
   FORMS: "forms",
   UI_ELEMENTS: "ui-elements",
+  COURSE: "course",
 };
-//   COURSE: "course",
-// };
 
 /**
  * test commit
  */
 
 export default function Home() {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getInfoUserAction());
-  }, []);
+  });
   const listUser = useSelector((state) => state.user.listUser);
-
   const [dropdownOpen, setDropdownOpen] = useState(true);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -52,21 +57,10 @@ export default function Home() {
       case MENU_CONTENT.ADD_USER:
         setMenuContent(uid);
         break;
-
-      case MENU_CONTENT.FORMS:
-        setMenuContent(uid);
-        break;
-
-      case MENU_CONTENT.UI_ELEMENTS:
-        setMenuContent(uid);
-        break;
-
       case MENU_CONTENT.COURSE:
         setMenuContent(uid);
         dispatch(fetchCourseList());
-
         break;
-
       default:
         return;
     }
@@ -81,19 +75,16 @@ export default function Home() {
           </main>
         );
 
-      case MENU_CONTENT.FORMS:
-        return <main>forms</main>;
-
-      case MENU_CONTENT.UI_ELEMENTS:
-        return <main>ui-elements</main>;
-
       case MENU_CONTENT.COURSE:
         return <Course />;
 
       default:
         return (
-          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 relative">
+          <main className="overflow-y-auto">
             <InfoUser listUser={listUser} />
+
+            <EditUserModal />
+            <AddUserModal />
           </main>
         );
     }
@@ -106,11 +97,6 @@ export default function Home() {
       className="h-screen overflow-hidden flex justify-center"
       style={{ background: "#edf2f7" }}
     >
-      {/* <script
-        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-        defer
-      ></script> */}
-
       <div className="flex h-screen bg-gray-200">
         <div
           className={`${
@@ -178,74 +164,9 @@ export default function Home() {
                   d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
                 />
               </svg>
-              <span className="mx-3">Danh Sách Người Dùng</span>
+              <span className="mx-3">Người Dùng</span>
             </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("ui-elements");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
-                ></path>
-              </svg>
-              <span className="mx-3">Xóa Người Dùng</span>
-            </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("add-user");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                ></path>
-              </svg>
-              <span className="mx-3">Thêm người dùng</span>
-            </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("forms");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                ></path>
-              </svg>
-              <span className="mx-3">Tìm kiếm người dùng</span>
-            </div>
+
             <div
               onClick={() => {
                 setActiveMenuItem("course");
@@ -294,28 +215,6 @@ export default function Home() {
                   />
                 </svg>
               </button>
-              <div className="relative mx-4 lg:mx-0">
-                <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <svg
-                    className="h-5 w-5 text-gray-500"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </span>
-                <input
-                  className="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600 focus:outline-none focus:ring-2"
-                  type="text"
-                  placeholder="Search"
-                />
-              </div>
             </div>
             <div className="flex items-center">
               <div className="relative">
@@ -332,6 +231,8 @@ export default function Home() {
                   />
                 </button>
                 <div
+                  // x-show="dropdownOpen"
+                  // onClick="dropdownOpen = false"
                   onClick={() => {
                     setDropdownOpen(false);
                   }}
@@ -341,25 +242,72 @@ export default function Home() {
                 <div
                   className={` ${
                     dropdownOpen ? "hidden" : ""
-                  } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
+                  } absolute right-0 mt-2 w-auto bg-white rounded-md  shadow-xl z-10`}
                 >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Profile
+                  <a className="block px-4 py-2 ">
+                    <div className="max-w-md p-8 sm:flex sm:space-x-6 bg-coolGray-50 text-coolGray-800">
+                      <div className="flex-shrink-0  mb-6 h-44 sm:h-28 sm:w- sm:mb-0">
+                        <img
+                          src="https://source.unsplash.com/100x100/?portrait"
+                          alt=""
+                          className="object-cover object-center w-full h-full rounded bg-coolGray-500"
+                        />
+                      </div>
+                      <div className="flex flex-col space-y-4">
+                        <div>
+                          <h2 className="text-2xl font-semibold">
+                            Leroy Jenkins
+                          </h2>
+                          <span className="text-sm text-coolGray-600">
+                            General manager
+                          </span>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="flex items-center space-x-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                              aria-label="Email address"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M274.6,25.623a32.006,32.006,0,0,0-37.2,0L16,183.766V496H496V183.766ZM464,402.693,339.97,322.96,464,226.492ZM256,51.662,454.429,193.4,311.434,304.615,256,268.979l-55.434,35.636L57.571,193.4ZM48,226.492,172.03,322.96,48,402.693ZM464,464H48V440.735L256,307.021,464,440.735Z"
+                              ></path>
+                            </svg>
+                            <span className="text-coolGray-600">
+                              leroy.jenkins@company.com
+                            </span>
+                          </span>
+                          <span className="flex items-center space-x-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 512 512"
+                              aria-label="Phonenumber"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                fill="currentColor"
+                                d="M449.366,89.648l-.685-.428L362.088,46.559,268.625,171.176l43,57.337a88.529,88.529,0,0,1-83.115,83.114l-57.336-43L46.558,362.088l42.306,85.869.356.725.429.684a25.085,25.085,0,0,0,21.393,11.857h22.344A327.836,327.836,0,0,0,461.222,133.386V111.041A25.084,25.084,0,0,0,449.366,89.648Zm-20.144,43.738c0,163.125-132.712,295.837-295.836,295.837h-18.08L87,371.76l84.18-63.135,46.867,35.149h5.333a120.535,120.535,0,0,0,120.4-120.4v-5.333l-35.149-46.866L371.759,87l57.463,28.311Z"
+                              ></path>
+                            </svg>
+                            <span className="text-coolGray-600">
+                              +25 381 77 983
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </a>
+
                   <a
-                    href="#"
+                    onClick={() => {
+                      localStorage.removeItem(TOKEN);
+                      history.push("/signin");
+                    }}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
                   >
-                    Products
-                  </a>
-                  <a
-                    href="/login"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Logout
+                    Đăng xuất
                   </a>
                 </div>
               </div>

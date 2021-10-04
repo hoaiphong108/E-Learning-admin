@@ -1,5 +1,7 @@
-import { createAction } from ".";
 import { courseService } from "../../Services/CourseService";
+// import { GET_COURSE_LIST } from "./Types/CourseType";
+
+import { createAction } from ".";
 import { actionCourseTypes } from "./Types/CourseType";
 
 export const fetchCourseList = () => {
@@ -19,7 +21,9 @@ export const showCreateModal = (isOpen) => {
   return async (dispatch) => {
     try {
       console.log("showCreateModal isOpen", isOpen);
-      dispatch(createAction(actionCourseTypes.SHOW_CREATE_COURSE_MODAL, isOpen));
+      dispatch(
+        createAction(actionCourseTypes.SHOW_CREATE_COURSE_MODAL, isOpen)
+      );
     } catch (err) {
       console.log(err);
     }

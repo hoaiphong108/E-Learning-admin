@@ -3,7 +3,7 @@ import { actionCourseTypes } from "../Actions/Types/CourseType";
 const initialState = {
   courseList: [],
   showEditCourseModal: false,
-  showCreateCourseModal: false
+  showCreateCourseModal: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,5 +20,4 @@ const reducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-
 export default reducer;

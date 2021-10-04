@@ -54,19 +54,155 @@ export default function Home() {
   const [courseName, setCourseName] = useState("Kiểm Thử Phần Mềm ABCD");
 
 
-  const testtingList = [
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-    { img: "https://picsum.photos/300/200" },
-  ]
+  const userTestList = [
+    {
+      "taiKhoan": "123",
+      "hoTen": "123123",
+      "email": "123123@123",
+      "soDt": "123123",
+      "maLoaiNguoiDung": "GV"
+    },
+    {
+      "taiKhoan": "12chamlenluon",
+      "hoTen": "Một Hai Ba",
+      "email": "12chamlenluon@gmail.com",
+      "soDt": "0391209321",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "admin_test",
+      "hoTen": "seaways",
+      "email": "teooo@gmail.com",
+      "soDt": "0772189121",
+      "maLoaiNguoiDung": "GV"
+    },
+    {
+      "taiKhoan": "admin321312",
+      "hoTen": "dasdasd",
+      "email": "peo@gmail.com",
+      "soDt": "0111111111",
+      "maLoaiNguoiDung": "GV"
+    },
+    {
+      "taiKhoan": "adminhai",
+      "hoTen": "admin",
+      "email": "admin@email.com.vn",
+      "soDt": "0123456789",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "Aduyanhdeptrai1235",
+      "hoTen": "123",
+      "email": "duyanh33444333aitp@gmail.com",
+      "soDt": "123",
+      "maLoaiNguoiDung": "GV"
+    },
+    {
+      "taiKhoan": "anup",
+      "hoTen": "Anup Kumar",
+      "email": "anupkumar9344@gmail.com",
+      "soDt": "9973213962",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "arale",
+      "hoTen": "Kien Pham update ",
+      "email": "kien@gmail.com",
+      "soDt": "123",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "asd",
+      "hoTen": "dasdasd",
+      "email": "asdasdasdasdas",
+      "soDt": "asdasdad",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "asuka1996",
+      "hoTen": "Bùi Minh Quốc",
+      "email": "test5@test.com",
+      "soDt": "12345678",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "asuka1997",
+      "hoTen": "123a212312312",
+      "email": "test23@gmail.com",
+      "soDt": "12345678",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "asura",
+      "hoTen": "asdfg",
+      "email": "queenofdracular@gmail.com",
+      "soDt": "0566545255",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "Atulmanwar",
+      "hoTen": "Atulmanwar",
+      "email": "bmatul139@gmail.com",
+      "soDt": "+8412345698",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "bangbang1",
+      "hoTen": "bang",
+      "email": "phibang7899@gmail.com",
+      "soDt": "01225255555",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "banhbeo01",
+      "hoTen": "thaiminhhuy",
+      "email": "dsadase@gmail.com",
+      "soDt": "0543544421",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "batman",
+      "hoTen": "batman",
+      "email": "xyz@gmail.com",
+      "soDt": "123456789",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "bom",
+      "hoTen": "bommm",
+      "email": "bom@gmail.com",
+      "soDt": "",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "caochihieu",
+      "hoTen": "Abcxyz212345@@@",
+      "email": "hieucaochi25598a@gmail.com",
+      "soDt": "1234567890123123",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "chithanh_admin",
+      "hoTen": "Mentor Đặng Chí Thanh",
+      "email": "chithanh_admin@gmail,com",
+      "soDt": "0999999999",
+      "maLoaiNguoiDung": "GV"
+    },
+    {
+      "taiKhoan": "chithanh_admin2",
+      "hoTen": "13131231",
+      "email": "trungtd0304@gmail.com",
+      "soDt": "dasda",
+      "maLoaiNguoiDung": "HV"
+    },
+    {
+      "taiKhoan": "chithanh_admin222",
+      "hoTen": "c",
+      "email": "trungtd03043@gmail.com",
+      "soDt": "dasda",
+      "maLoaiNguoiDung": "HV"
+    },
+  ];
 
   useEffect(() => {
     dispatch(fetchUnRegistCourseUserList(courseCodeName))
@@ -85,6 +221,7 @@ export default function Home() {
   });
   // console.log("courseList", courseList);
 
+  // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
   const subjectListSliderSettings = {
     infinite: true,
     speed: 500,
@@ -105,7 +242,9 @@ export default function Home() {
     arrows: false,
     variableWidth: true,
   };
+  // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
 
+  //-----CÁC HÀM RENDER DỮ LIỆU-----
   const renderSubjectListItemSlider = () => {
     const _courseList = [...courseList];
     return _courseList.map((item, index) => {
@@ -160,8 +299,10 @@ export default function Home() {
       )
     })
   }
+  //-----CÁC HÀM RENDER DỮ LIỆU-----
 
 
+  //-----CÁC HÀM CHUYỂN ĐỔI NỘI DUNG ĐƯỢC HIỂN THỊ KHI CLICK-----
   const setActiveRegisterItem = (uid) => {
     switch (uid) {
       case REGISTER_CONTENT.USER_IN_TO_COURSE:
@@ -200,7 +341,9 @@ export default function Home() {
         return;
     }
   };
+  //-----CÁC HÀM CHUYỂN ĐỔI NỘI DUNG ĐƯỢC HIỂN THỊ KHI CLICK-----
 
+  //-----CÁC HÀM CHỨA NỘI DUNG ĐƯỢC HIỂN THỊ THEO PHẦN ĐƯỢC CLICK-----
   const getRegiterContent = () => {
     const _unRegistCourseUserList = [...unRegistCourseUserList];
     switch (regiterContent) {
@@ -276,7 +419,7 @@ export default function Home() {
               {/* -----User list slider start----- */}
               <div className="max-w-3xl">
                 <Slider {...userListSliderSettings}>
-                  {renderSubjectListItemSlider()}
+                  { }
                 </Slider>
               </div>
               {/* -----User list slider end----- */}
@@ -931,6 +1074,7 @@ export default function Home() {
         );
     }
   };
+  //-----CÁC HÀM CHỨA NỘI DUNG ĐƯỢC HIỂN THỊ THEO PHẦN ĐƯỢC CLICK-----
 
   setActiveMenuItem();
 

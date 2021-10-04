@@ -1,12 +1,10 @@
-import { Fragment, useRef, useState, useCallback } from "react";
+import { Fragment, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
-
 import { useFormik } from "formik";
 
 // Redux
-import { showCreateModal } from "../../Redux/Actions/CourseAction";
+import { addCourseToList, showCreateModal } from "../../Redux/Actions/CourseAction";
 
 export default function AddCourseModal(props) {
   const dispatch = useDispatch();
@@ -21,17 +19,24 @@ export default function AddCourseModal(props) {
 
   const formik = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
-      hoTen: "",
-      soDT: "",
-      maLoaiNguoiDung: "",
+      maKhoaHoc: "",
+      biDanh: "",
+      tenKhoaHoc: "",
+      moTa: "",
+      luotXem: parseInt(0),
+      danhGia: parseInt(0),
+      hinhAnh: "",
       maNhom: "",
-      email: "",
+      ngayTao: "",
+      maDanhMucKhoaHoc: "",
+      taiKhoanNguoiTao: ""
     },
     onSubmit: useCallback((values) => {
-      // const action = addUserAction(values);
-      // dispatch(action);
+      console.log("values", values);
+
+      dispatch(addCourseToList(values));
+
+      handleHideModal();
     }, []),
   });
 
@@ -160,7 +165,7 @@ export default function AddCourseModal(props) {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                  <div className="mt-4">
+                    <div className="mt-4">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
                         Mã Danh Mục Khóa Học
                       </label>
@@ -185,7 +190,6 @@ export default function AddCourseModal(props) {
                       />
                     </div>
                   </div>
-
                   <div className="grid grid-cols-2 gap-4">
                     <div className="mt-4">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -201,16 +205,28 @@ export default function AddCourseModal(props) {
                     </div>
                     <div className="mt-4">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
-                        Ngày Tạo
+                        Bí Danh
                       </label>
                       <input
                         onChange={formik.handleChange}
-                        name="ngayTao"
+                        name="biDanh"
                         required
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                        placeholder="Ngày Tạo"
+                        placeholder="Bí Danh"
                       />
                     </div>
+                  </div>
+                  <div className="mt-4">
+                    <label className="block mb-2 text-sm font-bold text-gray-700">
+                      Ngày Tạo
+                    </label>
+                    <input
+                      onChange={formik.handleChange}
+                      name="ngayTao"
+                      required
+                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                      placeholder="Ngày Tạo"
+                    />
                   </div>
                   <div className="text-right mt-4">
                     <button
@@ -223,11 +239,8 @@ export default function AddCourseModal(props) {
                       Hủy
                     </button>
                     <button
-                      type="button"
+                      type="submit"
                       className="rounded-md border border-gray-300 shadow-sm px-4 py-2 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={() => {
-                        handleHideModal();
-                      }}
                     >
                       Thêm
                     </button>

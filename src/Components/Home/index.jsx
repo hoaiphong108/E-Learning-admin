@@ -45,9 +45,7 @@ const REGISTER_CONTENT = {
 export default function Home() {
   const dispatch = useDispatch();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuContent, setMenuContent] = useState("");
   const [regiterContent, setRegisterContent] = useState("userToCourse");
   const [courseCodeName, setCourseCodeName] = useState("ITEC2104"); //test: "ITEC2104"

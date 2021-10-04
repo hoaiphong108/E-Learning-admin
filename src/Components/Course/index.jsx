@@ -7,9 +7,10 @@ import "react-tailwind-table/dist/index.css";
 
 // Components
 import AddCourseModal from "./AddCourseModal";
+import EditCourseModal from "./EditCourseModal";
 
 // Redux
-import { showCreateModal } from "../../Redux/Actions/CourseAction";
+import { deleteCourse, showCreateModal, showEditModal } from "../../Redux/Actions/CourseAction";
 
 const Course = () => {
   const dispatch = useDispatch();
@@ -18,9 +19,13 @@ const Course = () => {
     return state.course.courseList;
   });
 
-  const handleShowModal = () => {
-    dispatch(showCreateModal(true));
+  const handleShowModal = (action) => {
+    dispatch(action);
   };
+
+  const handleDeleteCourse = (dataRequest) => {
+    dispatch(deleteCourse(dataRequest));
+  }
 
   const rowRender = (row, column) => {
     if (column.field === "action") {
@@ -29,12 +34,14 @@ const Course = () => {
           <button
             className="py-3 text-xl text-white bg-green-600 rounded-lg"
             onClick={() => {
-              handleShowModal();
+              handleShowModal(showEditModal(true));
             }}
           >
             Sửa
           </button>
-          <button className="py-3 text-white bg-red-600 rounded-lg">Xóa</button>
+          <button className="py-3 text-white bg-red-600 rounded-lg" onClick={() => {
+            handleDeleteCourse(courseList.maKhoaHoc)
+          }}>Xóa</button>
         </div>
       );
     }
@@ -75,8 +82,16 @@ const Course = () => {
 
   return (
     <div className="overflow-y-auto">
+      <div className="text-right">
+        <button className="py-2 px-4 text-xl text-purple-600 hover:bg-purple-600 hover:text-white" onClick={() => {
+          handleShowModal(showCreateModal(true))
+        }}>
+          Thêm Khóa Học
+        </button>
+      </div>
       <Table columns={columns} rows={rows} row_render={rowRender} />
       <AddCourseModal />
+      <EditCourseModal />
     </div>
   );
 };

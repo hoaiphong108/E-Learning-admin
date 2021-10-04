@@ -15,6 +15,7 @@ import {
 import AddUserModal from "./AddUserModal";
 import EditUserModal from "./EditUserModal";
 import { deleteUserAction } from "../../Redux/Actions/UserAction";
+import { list } from "postcss";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -45,8 +46,7 @@ const User = () => {
           <button
             className="py-3 text-white bg-red-600 rounded-lg"
             onClick={() => {
-              const action = deleteUserAction(listUser.taiKhoan);
-              dispatch(action);
+              dispatch(deleteUserAction(listUser.map((user) => user.taiKhoan)));
             }}
           >
             Xóa

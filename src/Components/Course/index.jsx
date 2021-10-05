@@ -47,13 +47,14 @@ const Course = () => {
     {
       Header: "Tên Khóa Học",
       accessor: "tenKhoaHoc",
-      width: 300,
+      width: 170,
+      minWidth: 170,
     },
     {
       Header: "Hình Ảnh",
       accessor: "hinhAnh",
-      maxWidth: 500,
-      minWidth: 500,
+      width: 220,
+      minWidth: 220,
       Cell: ({ cell: { value } }) => (
         <img
           src={value}
@@ -70,26 +71,29 @@ const Course = () => {
     {
       Header: "Lượt Xem",
       accessor: "luotXem",
-      width: 300,
+      width: 90,
+      minWidth: 90,
     },
     {
       Header: "Người Tạo",
       accessor: "nguoiTao.hoTen",
-      width: 300,
+      width: 150,
+      minWidth: 150,
     },
     {
       Header: "Ngày Tạo",
       accessor: "ngayTao",
-      width: 300,
+      width: 100,
+      minWidth: 100,
     },
     {
       Header: "Action",
       accessor: "action",
       className: "text-center",
-      maxWidth: 300,
-      minWidth: 300,
+      width: 110,
+      minWidth: 110,
       Cell: ({ cell: { value } }) => (
-        <div style={{ minWidth: 100 }} className="text-center">
+        <div className="text-center">
           <button
             className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
             onClick={() => {

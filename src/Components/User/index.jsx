@@ -18,6 +18,7 @@ import { deleteUserAction } from "../../Redux/Actions/UserAction";
 import { list } from "postcss";
 import CourseList from "../Course/CourseList";
 import UserList from "./UserList";
+import SearchBox from "./SearchBox";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -55,10 +56,14 @@ const User = () => {
     {
       Header: "Mã Loại Người Dùng",
       accessor: "maLoaiNguoiDung",
+      width: 170,
+      minWidth: 170,
     },
     {
       Header: "Action",
       accessor: "action",
+      width: 110,
+      minWidth: 110,
       Cell: ({ cell: { value } }) => (
         <div style={{ minWidth: 100 }} className="text-center">
           <button
@@ -85,18 +90,18 @@ const User = () => {
   return (
     <>
       <>
-        <h4 class="text-gray-700 text-2xl font-medium mb-4">
+        <h4 class="text-gray-700 text-2xl font-medium mb-8">
           Danh Sách Người Dùng
         </h4>
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between items-center mb-4">
+          <SearchBox />
           <button
-            style={{ minWidth: 160 }}
-            className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-2 w-40 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
             onClick={() => {
               showAddModal();
             }}
           >
-            Thêm Người Dùng
+            Thêm
           </button>
         </div>
       </>

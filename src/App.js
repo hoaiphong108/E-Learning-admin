@@ -11,8 +11,6 @@ function App() {
       <Switch>
         <PrivateRoute Component={Home} exact path="/" redirectPath="/signin" />
         <AuthRoute Component={SignIn} exact path="/signin" redirectPath="/" />
-        {/* <Route component={Home} exact path="/"></Route>
-        <Route component={SignIn} exacr path="/signin" /> */}
       </Switch>
     </BrowserRouter>
   );

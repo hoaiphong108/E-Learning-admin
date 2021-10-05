@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
+import { useHistory } from "react-router";
 
 import {
   fetchRegistCourseUserList,
@@ -18,7 +19,7 @@ import {
 import "./style.css";
 import Course from "../Course";
 import User from "../User";
-import { CODE_GROUP } from "../../util/settings/config";
+import { CODE_GROUP, TOKEN } from "../../util/settings/config";
 
 const MENU_CONTENT = {
   HOME: "home",
@@ -54,7 +55,7 @@ const REGISTER_CONTENT = {
 
 export default function Home() {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -1004,8 +1005,11 @@ export default function Home() {
                   Products
                 </a>
                 <a
-                  href="/login"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                  onClick={() => {
+                    localStorage.removeItem(TOKEN);
+                    history.push("/signin");
+                  }}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white cursor-pointer"
                 >
                   Logout
                 </a>

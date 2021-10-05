@@ -15,9 +15,15 @@ export class UserService extends baseService {
     };
     unRegistCourseUserList = (courseCodeName) =>
         this.post(
-      `api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
-      courseCodeName
-    );
+            `api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+            courseCodeName
+        );
+    registCourseUserList = (maKhoaHoc) => {
+        return this.post(
+            `api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+            maKhoaHoc
+        );
+    };
     addUser = (thongTinNguoiDung) => {
         return this.post(`api/QuanLyNguoiDung/ThemNguoiDung`, thongTinNguoiDung);
     };

@@ -1,0 +1,20 @@
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+table th,
+td {
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+table th,
+td:last-child {
+  border-right: 0;
+}
+
+table .pagination {
+  padding: 0.5rem;
+}

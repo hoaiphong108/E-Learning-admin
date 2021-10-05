@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import Table from "react-tailwind-table";
+import { useTable, usePagination } from "react-table";
 import { useSelector, useDispatch } from "react-redux";
 
 // Style
 import "react-tailwind-table/dist/index.css";
 
 // Components
+import CourseList from "./CourseList";
 import AddCourseModal from "./AddCourseModal";
 import EditCourseModal from "./EditCourseModal";
 
@@ -31,80 +32,66 @@ const Course = () => {
     dispatch(deleteCourse(dataRequest));
   };
 
-  const rowRender = (row, column) => {
-    if (column.field === "action") {
-      return (
-        <div className="text-center">
-          <button
-            className="py-3 text-xl text-white bg-green-600 rounded-lg"
-            onClick={() => {
-              handleShowModal(showEditModal(true));
-            }}
-          >
-            Sửa
-          </button>
-          <button
-            className="py-3 text-white bg-red-600 rounded-lg"
-            onClick={() => {
-              handleDeleteCourse(courseList.maKhoaHoc);
-            }}
-          >
-            Xóa
-          </button>
-        </div>
-      );
-    }
-  };
+  const data = React.useMemo(() => courseList);
 
-  const rows = courseList;
-
-  const columns = [
+  const columns = React.useMemo(() => [
     {
-      field: "tenKhoaHoc",
-      use: "Tên Khóa Học",
+      Header: "Tên Khóa Học",
+      accessor: "tenKhoaHoc",
+      width: 300,
     },
     {
-      field: "hinhAnh",
-      use: "Hình Ảnh",
+      Header: "Hình Ảnh",
+      accessor: "hinhAnh",
+      width: 300,
+      Cell: (cell) => {
+        console.log("cell.values", cell);
+        return (
+          <img
+            src={cell.values}
+            alt="Hình ảnh"
+            style={{ minWidth: 220, maxWidth: 220 }}
+          />
+        );
+      },
     },
     {
-      field: "moTa",
-      use: "Mô Tả",
+      Header: "Mô Tả",
+      accessor: "moTa",
     },
     {
-      field: "luotXem",
-      use: "Lượt Xem",
+      Header: "Lượt Xem",
+      accessor: "luotXem",
+      width: 300,
     },
     {
-      field: "nguoiTao.hoTen",
-      use: "Người Tạo",
+      Header: "Người Tạo",
+      accessor: "nguoiTao.hoTen",
+      width: 300,
     },
     {
-      field: "ngayTao",
-      use: "Ngày Tạo",
+      Header: "Ngày Tạo",
+      accessor: "ngayTao",
+      width: 300,
     },
     {
-      field: "action",
-      use: "Action",
+      Header: "Action",
+      accessor: "action",
+      width: 300,
     },
-  ];
+  ]);
 
   return (
-    <div className="overflow-y-auto">
-      <div className="text-right">
-        <button
-          className="py-2 px-4 text-xl text-purple-600 hover:bg-purple-600 hover:text-white"
-          onClick={() => {
-            handleShowModal(showCreateModal(true));
-          }}
-        >
-          Thêm Khóa Học
-        </button>
-      </div>
-      <Table columns={columns} rows={rows} row_render={rowRender} />
+    <>
+      <>
+        <h4 class="text-gray-700 text-2xl font-medium mb-4">
+          Danh Sách Khóa Học
+        </h4>
+        <CourseList columns={columns} data={data} />
+      </>
       <AddCourseModal />
       <EditCourseModal />
-    </div>
+    </>
   );
 };
 

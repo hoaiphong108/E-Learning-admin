@@ -2,6 +2,7 @@ import { createAction } from ".";
 import { userService } from "../../Services/UserService";
 
 import {
+    SEARCH_USER,
     SIGN_IN_ACTION,
     SET_UNREGIST_COURSE_USERLIST,
     ADD_USER_ACTION,
@@ -91,6 +92,7 @@ export const findUserByNameAction = (tuKhoa) => {
     return async(dispatch) => {
         try {
             const result = await userService.findUserByName(tuKhoa);
+            dispatch(createAction(SEARCH_USER, result.data));
         } catch (err) {
             console.log(err.response.data);
         }

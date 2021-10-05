@@ -7,6 +7,7 @@ import {
     ADD_USER_MODAL,
     EDIT_USER_MODAL,
     SET_REGIST_COURSE_USERLIST,
+    SEARCH_USER,
 } from "../Actions/Types/UserType";
 
 const initialState = {
@@ -26,6 +27,10 @@ const reducer = (state = initialState, action) => {
             return {...state };
 
         case GET_INFO_USER_ACTION:
+            state.listUser = action.payload;
+            return {...state };
+
+        case SEARCH_USER:
             state.listUser = action.payload;
             return {...state };
 

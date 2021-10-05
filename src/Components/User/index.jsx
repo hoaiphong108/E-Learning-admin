@@ -1,24 +1,19 @@
-import React, { useState } from "react";
-import Table from "react-tailwind-table";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// Style
-import "react-tailwind-table/dist/index.css";
+// Components
+import UserList from "./UserList";
+import SearchBox from "./SearchBox";
+import AddUserModal from "./AddUserModal";
+import EditUserModal from "./EditUserModal";
 
 // Redux
-import { deleteCourse, showEditModal } from "../../Redux/Actions/CourseAction";
 import { createAction } from "../../Redux/Actions";
 import {
   ADD_USER_MODAL,
   EDIT_USER_MODAL,
 } from "../../Redux/Actions/Types/UserType";
-import AddUserModal from "./AddUserModal";
-import EditUserModal from "./EditUserModal";
 import { deleteUserAction } from "../../Redux/Actions/UserAction";
-import { list } from "postcss";
-import CourseList from "../Course/CourseList";
-import UserList from "./UserList";
-import SearchBox from "./SearchBox";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -26,6 +21,7 @@ const User = () => {
   const listUser = useSelector((state) => {
     return state.user.listUser;
   });
+
   const showAddModal = () => {
     dispatch(createAction(ADD_USER_MODAL, true));
   };

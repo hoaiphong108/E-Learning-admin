@@ -1,11 +1,17 @@
 import { useFormik } from "formik";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../../Redux/Actions";
+import { EDIT_USER_MODAL } from "../../Redux/Actions/Types/UserType";
 import { updateUserAction } from "../../Redux/Actions/UserAction";
 
 export default function EditInfo(props) {
   const dispatch = useDispatch();
   const userEdit = useSelector((state) => state.user.userEdit);
+
+  const handleHideEditModal = () => {
+    dispatch(createAction(EDIT_USER_MODAL, false));
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -20,6 +26,7 @@ export default function EditInfo(props) {
     onSubmit: useCallback((values) => {
       const action = updateUserAction(values);
       dispatch(action);
+      dispatch(createAction(EDIT_USER_MODAL, false));
     }, []),
   });
 
@@ -31,7 +38,7 @@ export default function EditInfo(props) {
             {/* Col */}
             <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
               <form
-                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                className=" pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}
               >
                 <div className="mb-4 md:flex md:justify-between">
@@ -139,7 +146,7 @@ export default function EditInfo(props) {
                     type="button"
                     className=" px-4 py-2 mr-3 font-bold text-black bg-gray-100 rounded-full hover:bg-gray-300 focus:outline-none focus:shadow-outline"
                     onClick={() => {
-                      props.handleShowEdit();
+                      handleHideEditModal();
                     }}
                   >
                     Hủy

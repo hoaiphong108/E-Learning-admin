@@ -30,9 +30,7 @@ export default function InfoUser(props) {
 
   return (
     <>
-      <div
-        className={`container mx-auto px-6 py-8 ${showEdit ? "hidden" : ""} `}
-      >
+      <div className={`container mx-auto  py-8 ${showEdit ? "hidden" : ""} `}>
         <h3 className="text-gray-700 text-3xl font-medium">Dashboard</h3>
         <div className="mt-4">
           <div className="flex flex-wrap -mx-6">

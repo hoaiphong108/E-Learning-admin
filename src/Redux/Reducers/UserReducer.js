@@ -1,37 +1,48 @@
 import { TOKEN } from "../../util/settings/config";
 import {
-  SIGN_IN_ACTION,
-  SET_UNREGIST_COURSE_USERLIST,
-  GET_INFO_USER_ACTION,
-  USER_EDIT,
+    SIGN_IN_ACTION,
+    SET_UNREGIST_COURSE_USERLIST,
+    GET_INFO_USER_ACTION,
+    USER_EDIT,
+    ADD_USER_MODAL,
+    EDIT_USER_MODAL,
 } from "../Actions/Types/UserType";
 
 const initialState = {
-  userEdit: {},
-  userLogin: {},
-  listUser: [],
-  unRegistCourseUserList: [],
+    userEdit: {},
+    userLogin: {},
+    listUser: [],
+    addModal: false,
+    editModal: false,
+    unRegistCourseUserList: [],
 };
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SIGN_IN_ACTION:
-      state.userLogin = action.payload;
-      localStorage.setItem(TOKEN, action.payload.accessToken);
-      return { ...state };
+    switch (action.type) {
+        case SIGN_IN_ACTION:
+            state.userLogin = action.payload;
+            localStorage.setItem(TOKEN, action.payload.accessToken);
+            return {...state };
 
-    case GET_INFO_USER_ACTION:
-      state.listUser = action.payload;
-      return { ...state };
+        case GET_INFO_USER_ACTION:
+            state.listUser = action.payload;
+            return {...state };
 
-    case USER_EDIT:
-      state.userEdit = action.payload;
-      console.log(state.userEdit);
-      return { ...state };
-    case SET_UNREGIST_COURSE_USERLIST:
-      state.unRegistCourseUserList = action.payload;
-      return { ...state };
-    default:
-      return { ...state };
-  }
+        case USER_EDIT:
+            state.userEdit = action.payload;
+            console.log(state.userEdit);
+            return {...state };
+        case SET_UNREGIST_COURSE_USERLIST:
+            state.unRegistCourseUserList = action.payload;
+            return {...state };
+        case ADD_USER_MODAL:
+            state.addModal = action.payload;
+            return {...state };
+        case EDIT_USER_MODAL:
+            state.editModal = action.payload;
+            return {...state };
+
+        default:
+            return {...state };
+    }
 };
 export default reducer;

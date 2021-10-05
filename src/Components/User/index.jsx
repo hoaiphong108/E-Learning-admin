@@ -5,30 +5,30 @@ import { useSelector, useDispatch } from "react-redux";
 // Style
 import "react-tailwind-table/dist/index.css";
 
-// Components
-import AddCourseModal from "./AddCourseModal";
-import EditCourseModal from "./EditCourseModal";
-
 // Redux
+import { deleteCourse, showEditModal } from "../../Redux/Actions/CourseAction";
+import { createAction } from "../../Redux/Actions";
 import {
-  deleteCourse,
-  showCreateModal,
-  showEditModal,
-} from "../../Redux/Actions/CourseAction";
+  ADD_USER_MODAL,
+  EDIT_USER_MODAL,
+} from "../../Redux/Actions/Types/UserType";
+import AddUserModal from "./AddUserModal";
+import EditUserModal from "./EditUserModal";
+import { deleteUserAction } from "../../Redux/Actions/UserAction";
+import { list } from "postcss";
 
-const Course = () => {
+const User = () => {
   const dispatch = useDispatch();
 
-  const courseList = useSelector((state) => {
-    return state.course.courseList;
+  const listUser = useSelector((state) => {
+    return state.user.listUser;
   });
-
-  const handleShowModal = (action) => {
-    dispatch(action);
+  const showAddModal = () => {
+    dispatch(createAction(ADD_USER_MODAL, true));
   };
 
-  const handleDeleteCourse = (dataRequest) => {
-    dispatch(deleteCourse(dataRequest));
+  const showEditModal = () => {
+    dispatch(createAction(EDIT_USER_MODAL, true));
   };
 
   const rowRender = (row, column) => {
@@ -38,7 +38,7 @@ const Course = () => {
           <button
             className="py-3 text-xl text-white bg-green-600 rounded-lg"
             onClick={() => {
-              handleShowModal(showEditModal(true));
+              showEditModal();
             }}
           >
             Sửa
@@ -46,7 +46,7 @@ const Course = () => {
           <button
             className="py-3 text-white bg-red-600 rounded-lg"
             onClick={() => {
-              handleDeleteCourse(courseList.maKhoaHoc);
+              dispatch(deleteUserAction(listUser.map((user) => user.taiKhoan)));
             }}
           >
             Xóa
@@ -56,33 +56,30 @@ const Course = () => {
     }
   };
 
-  const rows = courseList;
+  const rows = listUser;
 
   const columns = [
     {
-      field: "tenKhoaHoc",
-      use: "Tên Khóa Học",
+      field: "taiKhoan",
+      use: "Tài Khoản",
     },
     {
-      field: "hinhAnh",
-      use: "Hình Ảnh",
+      field: "hoTen",
+      use: "Họ tên",
     },
     {
-      field: "moTa",
-      use: "Mô Tả",
+      field: "email",
+      use: "email",
     },
     {
-      field: "luotXem",
-      use: "Lượt Xem",
+      field: "soDt",
+      use: "số DT",
     },
     {
-      field: "nguoiTao.hoTen",
-      use: "Người Tạo",
+      field: "maLoaiNguoiDung",
+      use: "Mã Loại Người Dùng",
     },
-    {
-      field: "ngayTao",
-      use: "Ngày Tạo",
-    },
+
     {
       field: "action",
       use: "Action",
@@ -95,17 +92,17 @@ const Course = () => {
         <button
           className="py-2 px-4 text-xl text-purple-600 hover:bg-purple-600 hover:text-white"
           onClick={() => {
-            handleShowModal(showCreateModal(true));
+            showAddModal();
           }}
         >
-          Thêm Khóa Học
+          Thêm Người dùng
         </button>
       </div>
       <Table columns={columns} rows={rows} row_render={rowRender} />
-      <AddCourseModal />
-      <EditCourseModal />
+      <AddUserModal />
+      <EditUserModal />
     </div>
   );
 };
 
-export default Course;
+export default User;

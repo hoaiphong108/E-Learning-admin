@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTable, usePagination } from "react-table";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "react-tailwind-table/dist/index.css";
 
 // Components
+import SearchBox from "./SearchBox";
 import CourseList from "./CourseList";
 import AddCourseModal from "./AddCourseModal";
 import EditCourseModal from "./EditCourseModal";
@@ -24,6 +25,12 @@ const Course = () => {
     return state.course.courseList;
   });
 
+  const [dataDemo, setDataDemo] = useState([]);
+
+  useEffect(() => {
+    setDataDemo(courseList);
+  }, [courseList]);
+
   const handleShowModal = (action) => {
     console.log("action", action);
     dispatch(action);
@@ -33,7 +40,8 @@ const Course = () => {
     dispatch(deleteCourse(dataRequest));
   };
 
-  const data = React.useMemo(() => courseList);
+  console.log("courseList", courseList);
+  const data = React.useMemo(() => courseList, [courseList]);
 
   const columns = React.useMemo(() => [
     {
@@ -77,6 +85,7 @@ const Course = () => {
     {
       Header: "Action",
       accessor: "action",
+      className: "text-center",
       maxWidth: 300,
       minWidth: 300,
       Cell: ({ cell: { value } }) => (
@@ -103,13 +112,13 @@ const Course = () => {
   return (
     <>
       <>
-        <h4 class="text-gray-700 text-2xl font-medium mb-4">
+        <h4 class="text-gray-700 text-2xl font-medium mb-8">
           Danh Sách Khóa Học
         </h4>
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between items-center mb-4">
+          <SearchBox />
           <button
-            style={{ minWidth: 160 }}
-            className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-2 w-40 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
             onClick={() => {
               handleShowModal(showCreateModal(true));
             }}

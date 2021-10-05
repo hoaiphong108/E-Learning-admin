@@ -43,6 +43,21 @@ export const showEditModal = (isOpen) => {
     };
 };
 
+export const searchCourse = (dataRequest) => {
+    return async (dispatch) => {
+      try {
+        const result = await courseService.getCourseList(dataRequest);
+  
+        dispatch(
+          createAction(actionCourseTypes.SEARCH_COURSE, result.data)
+        );  
+      } catch (err) {
+          console.log("error", err);
+      }
+    };
+  };
+  
+
 export const addCourseToList = (dataRequest) => {
     return async(dispatch) => {
         try {

@@ -3,9 +3,10 @@ import { useTable, usePagination } from "react-table";
 
 // Style.css
 import "./style.css";
-
+//
 const CourseList = ({ columns, data }) => {
   // Use the state and functions returned from useTable to build your UI
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -43,7 +44,7 @@ const CourseList = ({ columns, data }) => {
               {headerGroup.headers.map((column) => (
                 <th
                   {...column.getHeaderProps()}
-                  className="px-3 py-2 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                  className="p-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                 >
                   {column.render("Header")}
                 </th>
@@ -71,12 +72,16 @@ const CourseList = ({ columns, data }) => {
           })}
         </tbody>
       </table>
-      {/* 
-        Pagination can be built however you'd like. 
+      {/*
+        Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
       <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        <button
+          className="border-1 rounded p-1 bg-white border-white hover:bg-gray-500"
+          onClick={() => gotoPage(0)}
+          disabled={!canPreviousPage}
+        >
           {"<<"}
         </button>{" "}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>

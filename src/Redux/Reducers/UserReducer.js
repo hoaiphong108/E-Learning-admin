@@ -6,6 +6,7 @@ import {
     USER_EDIT,
     ADD_USER_MODAL,
     EDIT_USER_MODAL,
+    SET_REGIST_COURSE_USERLIST,
 } from "../Actions/Types/UserType";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
     addModal: false,
     editModal: false,
     unRegistCourseUserList: [],
+    registCourseUserList: [],
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -33,6 +35,9 @@ const reducer = (state = initialState, action) => {
             return {...state };
         case SET_UNREGIST_COURSE_USERLIST:
             state.unRegistCourseUserList = action.payload;
+            return {...state };
+        case SET_REGIST_COURSE_USERLIST:
+            state.registCourseUserList = action.payload;
             return {...state };
         case ADD_USER_MODAL:
             state.addModal = action.payload;

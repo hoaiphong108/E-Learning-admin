@@ -6,13 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
 import {
+  fetchRegistCourseUserList,
   fetchUnRegistCourseUserList,
   getInfoUserAction,
 } from "../../Redux/Actions/UserAction";
-import { fetchCourseList } from "../../Redux/Actions/CourseAction";
+import {
+  fetchCourseList,
+  registCourseAction,
+  unRegistCourseAction,
+} from "../../Redux/Actions/CourseAction";
 import "./style.css";
 import Course from "../Course";
 import User from "../User";
+import { CODE_GROUP } from "../../util/settings/config";
 
 const MENU_CONTENT = {
   HOME: "home",
@@ -279,6 +285,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchUnRegistCourseUserList(courseCodeName));
+    dispatch(fetchRegistCourseUserList(courseCodeName));
     dispatch(fetchCourseList());
     dispatch(getInfoUserAction());
   }, [dispatch, courseCodeName]);
@@ -287,13 +294,22 @@ export default function Home() {
     // console.log("Home unRegistCourseUserList gotten");
     return state.user.unRegistCourseUserList;
   });
-  // console.log("unRegistCourseUserList", unRegistCourseUserList);
+  const registCourseUserList = useSelector(
+    (state) => state.user.registCourseUserList
+  );
 
   const courseList = useSelector((state) => {
     // console.log("Home courseList gotten");
     return state.course.courseList;
   });
   // console.log("courseList", courseList);
+
+  const registCousre = (taiKhoan, maKhoaHoc) => {
+    dispatch(registCourseAction(taiKhoan, maKhoaHoc));
+  };
+  const unRegistCourse = (taiKhoan, maKhoaHoc) => {
+    dispatch(unRegistCourseAction(taiKhoan, maKhoaHoc));
+  };
 
   // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
   const subjectListSliderSettings = {
@@ -361,13 +377,23 @@ export default function Home() {
           >
             {isRegisted ? (
               <>
-                <button className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700">
+                <button
+                  className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+                  onClick={() => {
+                    registCousre(taiKhoan, courseCodeName);
+                  }}
+                >
                   Ghi danh
                 </button>
               </>
             ) : (
               <>
-                <button className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700">
+                <button
+                  className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700"
+                  onClick={() => {
+                    unRegistCourse(taiKhoan, courseCodeName);
+                  }}
+                >
                   Hủy ghi danh
                 </button>
               </>
@@ -557,7 +583,7 @@ export default function Home() {
                         </thead>
                         <tbody className="bg-white">
                           {renderRegistUserByCourseList(
-                            _unRegistCourseUserList,
+                            registCourseUserList,
                             false
                           )}
                         </tbody>

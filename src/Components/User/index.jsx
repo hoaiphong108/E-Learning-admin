@@ -87,7 +87,7 @@ const User = () => {
   ];
 
   return (
-    <div className="overflow-y-auto">
+    <>
       <div className="text-right">
         <button
           className="py-2 px-4 text-xl text-purple-600 hover:bg-purple-600 hover:text-white"
@@ -101,7 +101,7 @@ const User = () => {
       <Table columns={columns} rows={rows} row_render={rowRender} />
       <AddUserModal />
       <EditUserModal />
-    </div>
+    </>
   );
 };
 

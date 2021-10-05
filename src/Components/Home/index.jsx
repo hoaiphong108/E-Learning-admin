@@ -16,8 +16,6 @@ import User from "../User";
 
 const MENU_CONTENT = {
   HOME: "home",
-  TABLES: "tables",
-  FORMS: "forms",
   USER: "user",
   COURSE: "course",
   REGISTER: "register",
@@ -481,14 +479,6 @@ export default function Home() {
         setMenuContent(uid);
         return;
 
-      case MENU_CONTENT.TABLES:
-        setMenuContent(uid);
-        return;
-
-      case MENU_CONTENT.FORMS:
-        setMenuContent(uid);
-        return;
-
       case MENU_CONTENT.USER:
         setMenuContent(uid);
         return;
@@ -676,12 +666,6 @@ export default function Home() {
 
   const getMenuContent = () => {
     switch (menuContent) {
-      case MENU_CONTENT.TABLES:
-        return <main>Thêm, sửa người dùng</main>;
-
-      case MENU_CONTENT.FORMS:
-        return <main>Tìm kiếm người dùng</main>;
-
       case MENU_CONTENT.User:
         return (
           <main>
@@ -694,123 +678,121 @@ export default function Home() {
 
       case MENU_CONTENT.REGISTER:
         return (
-          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-            <div className="container mx-auto px-6 py-8">
-              <h3 className="text-gray-700 text-3xl font-medium">Ghi danh</h3>
+          <>
+            <h3 className="text-gray-700 text-3xl font-medium">Ghi danh</h3>
 
-              {/* -----Switch người dùng/ khóa học start----- */}
-              <div className="mt-3">
-                <div className="flex flex-wrap -mx-6 justify-evenly">
-                  {/* -----Người dùng button start----- */}
-                  <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
-                    <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
-                      <div className="mx-5">
-                        <button
-                          onClick={() => setActiveRegisterItem("userToCourse")}
-                          className="text-gray-500"
-                        >
-                          Người dùng vào khóa học
-                        </button>
-                      </div>
+            {/* -----Switch người dùng/ khóa học start----- */}
+            <div className="mt-3">
+              <div className="flex flex-wrap -mx-6 justify-evenly">
+                {/* -----Người dùng button start----- */}
+                <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
+                  <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
+                    <div className="mx-5">
+                      <button
+                        onClick={() => setActiveRegisterItem("userToCourse")}
+                        className="text-gray-500"
+                      >
+                        Người dùng vào khóa học
+                      </button>
                     </div>
                   </div>
-                  {/* -----Người dùng button end----- */}
+                </div>
+                {/* -----Người dùng button end----- */}
 
-                  {/* -----Khóa học button start----- */}
-                  <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                    <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
-                      <div className="mx-5">
-                        <button
-                          onClick={() => setActiveRegisterItem("courseByUser")}
-                          className="text-gray-500"
-                        >
-                          Khóa học cho người dùng
-                        </button>
-                      </div>
+                {/* -----Khóa học button start----- */}
+                <div className="w-full mt-6 px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
+                  <div className="flex items-center px-6 py-3 shadow-sm rounded-md bg-white">
+                    <div className="mx-5">
+                      <button
+                        onClick={() => setActiveRegisterItem("courseByUser")}
+                        className="text-gray-500"
+                      >
+                        Khóa học cho người dùng
+                      </button>
                     </div>
                   </div>
-                  {/* -----Khóa học button end----- */}
                 </div>
+                {/* -----Khóa học button end----- */}
               </div>
-              {/* -----Switch người dùng/ khóa học end----- */}
-
-              {/* -----List container start----- */}
-              <div className="mt-8">{getRegiterContent()}</div>
-              <div className="flex flex-col mt-8">
-                <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table className="min-w-full">
-                      <thead>
-                        <tr>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Name
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Title
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Status
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Role
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              <div className="flex-shrink-0 h-10 w-10">
-                                <img
-                                  className="h-10 w-10 rounded-full"
-                                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                  alt
-                                />
-                              </div>
-                              <div className="ml-4">
-                                <div className="text-sm leading-5 font-medium text-gray-900">
-                                  John Doe
-                                </div>
-                                <div className="text-sm leading-5 text-gray-500">
-                                  john@example.com
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="text-sm leading-5 text-gray-900">
-                              Software Engineer
-                            </div>
-                            <div className="text-sm leading-5 text-gray-500">
-                              Web dev
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                              Active
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            Owner
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <a
-                              href="#"
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              Edit
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              {/* -----List container end----- */}
             </div>
-          </main>
+            {/* -----Switch người dùng/ khóa học end----- */}
+
+            {/* -----List container start----- */}
+            <div className="mt-8">{getRegiterContent()}</div>
+            <div className="flex flex-col mt-8">
+              <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                  <table className="min-w-full">
+                    <thead>
+                      <tr>
+                        <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                          Name
+                        </th>
+                        <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                          Title
+                        </th>
+                        <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                          Role
+                        </th>
+                        <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white">
+                      <tr>
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-10 w-10">
+                              <img
+                                className="h-10 w-10 rounded-full"
+                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt
+                              />
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm leading-5 font-medium text-gray-900">
+                                John Doe
+                              </div>
+                              <div className="text-sm leading-5 text-gray-500">
+                                john@example.com
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <div className="text-sm leading-5 text-gray-900">
+                            Software Engineer
+                          </div>
+                          <div className="text-sm leading-5 text-gray-500">
+                            Web dev
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            Active
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                          Owner
+                        </td>
+                        <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                          <a
+                            href="#"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            Edit
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            {/* -----List container end----- */}
+          </>
         );
 
       default:
@@ -822,10 +804,7 @@ export default function Home() {
   setActiveMenuItem();
 
   return (
-    <div
-      className="h-screen overflow-hidden flex items-center justify-center"
-      style={{ background: "#edf2f7" }}
-    >
+    <div className="h-screen overflow-hidden" style={{ background: "#edf2f7" }}>
       <script
         src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
         defer
@@ -848,7 +827,7 @@ export default function Home() {
           } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
         >
           {/* -----Dashboard icon start----- */}
-          <div className="flex items-center justify-center mt-8">
+          <div className="flex items-center m-4">
             <div className="flex items-center">
               <svg
                 className="h-12 w-12"
@@ -877,7 +856,7 @@ export default function Home() {
           {/* -----Dashboard icon end----- */}
 
           {/* -----Side bar buttons start----- */}
-          <nav className="mt-10">
+          <nav>
             <div
               onClick={() => {
                 setActiveMenuItem("home");
@@ -904,73 +883,7 @@ export default function Home() {
                   d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
                 />
               </svg>
-              <span className="mx-3">Danh Sách Người Dùng</span>
-            </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("ui-elements");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
-                ></path>
-              </svg>
-              <span className="mx-3">Xóa Người Dùng</span>
-            </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("tables");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                ></path>
-              </svg>
-              <span className="mx-3">Thêm/Sửa người dùng</span>
-            </div>
-            <div
-              onClick={() => {
-                setActiveMenuItem("forms");
-              }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                ></path>
-              </svg>
-              <span className="mx-3">Tìm kiếm người dùng</span>
+              <span className="mx-3">Người Dùng</span>
             </div>
             <div
               onClick={() => {
@@ -1023,221 +936,58 @@ export default function Home() {
 
         {/* -----Content start----- */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
-            {/* -----Search container start----- */}
-            <div className="flex items-center">
+          <header className="flex justify-end items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
+            {/* -----User avatar container start----- */}
+            <div className="relative">
               <button
                 onClick={() => {
-                  setSidebarOpen(true);
+                  return setDropdownOpen(!dropdownOpen);
                 }}
-                className="text-gray-500 focus:outline-none lg:hidden"
+                className="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none"
               >
-                <svg
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 6H20M4 12H20M4 18H11"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <img
+                  className="h-full w-full object-cover"
+                  src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+                  alt="Your avatar"
+                />
               </button>
-
-              <div className="relative mx-4 lg:mx-0">
-                <span className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <svg
-                    className="h-5 w-5 text-gray-500"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </span>
-                <input
-                  className="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-indigo-600 focus:outline-none focus:ring-2"
-                  type="text"
-                  placeholder="Search"
-                />
+              <div
+                // x-show="dropdownOpen"
+                // onClick="dropdownOpen = false"
+                onClick={() => {
+                  setDropdownOpen(false);
+                }}
+                className="fixed inset-0 h-full w-full z-10"
+                style={{ display: "none" }}
+              />
+              <div
+                className={` ${
+                  !dropdownOpen ? "hidden" : ""
+                } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
+              >
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >
+                  Profile
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >
+                  Products
+                </a>
+                <a
+                  href="/login"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >
+                  Logout
+                </a>
               </div>
             </div>
-            {/* -----Search container end----- */}
-
-            <div className="flex items-center">
-              {/* -----Notification bell container start----- */}
-              <div className="relative">
-                <button
-                  // onClick="notificationOpen = ! notificationOpen"
-                  onClick={() => {
-                    setNotificationOpen(!notificationOpen);
-                  }}
-                  className="flex mx-4 text-gray-600 focus:outline-none"
-                >
-                  <svg
-                    className="h-6 w-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15 17H20L18.5951 15.5951C18.2141 15.2141 18 14.6973 18 14.1585V11C18 8.38757 16.3304 6.16509 14 5.34142V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V5.34142C7.66962 6.16509 6 8.38757 6 11V14.1585C6 14.6973 5.78595 15.2141 5.40493 15.5951L4 17H9M15 17V18C15 19.6569 13.6569 21 12 21C10.3431 21 9 19.6569 9 18V17M15 17H9"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </button>
-                <div
-                  onClick={() => {
-                    setNotificationOpen(false);
-                  }}
-                  className="fixed inset-0 h-full w-full z-10"
-                  style={{ display: "none" }}
-                />
-                <div
-                  className={` ${
-                    notificationOpen ? "w-80 hidden" : ""
-                  }    absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10`}
-                >
-                  <a
-                    href="#"
-                    className="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-                  >
-                    <img
-                      className="h-8 w-8 rounded-full object-cover mx-1"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                      alt="avatar"
-                    />
-                    <p className="text-sm mx-2">
-                      <span className="font-bold" href="#">
-                        Sara Salah
-                      </span>{" "}
-                      replied on the{" "}
-                      <span className="font-bold text-indigo-400" href="#">
-                        Upload Image
-                      </span>{" "}
-                      artical . 2m
-                    </p>
-                  </a>
-                  <a
-                    href="#"
-                    className="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-                  >
-                    <img
-                      className="h-8 w-8 rounded-full object-cover mx-1"
-                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                      alt="avatar"
-                    />
-                    <p className="text-sm mx-2">
-                      <span className="font-bold" href="#">
-                        Slick Net
-                      </span>{" "}
-                      start following you . 45m
-                    </p>
-                  </a>
-                  <a
-                    href="#"
-                    className="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-                  >
-                    <img
-                      className="h-8 w-8 rounded-full object-cover mx-1"
-                      src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                      alt="avatar"
-                    />
-                    <p className="text-sm mx-2">
-                      <span className="font-bold" href="#">
-                        Jane Doe
-                      </span>{" "}
-                      Like Your reply on{" "}
-                      <span className="font-bold text-indigo-400" href="#">
-                        Test with TDD
-                      </span>{" "}
-                      artical . 1h
-                    </p>
-                  </a>
-                  <a
-                    href="#"
-                    className="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-indigo-600 -mx-2"
-                  >
-                    <img
-                      className="h-8 w-8 rounded-full object-cover mx-1"
-                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80"
-                      alt="avatar"
-                    />
-                    <p className="text-sm mx-2">
-                      <span className="font-bold" href="#">
-                        Abigail Bennett
-                      </span>{" "}
-                      start following you . 3h
-                    </p>
-                  </a>
-                </div>
-              </div>
-              {/* -----Notification bell container end----- */}
-
-              {/* -----User avatar container start----- */}
-              <div className="relative">
-                <button
-                  onClick={() => {
-                    return setDropdownOpen(!dropdownOpen);
-                  }}
-                  className="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none"
-                >
-                  <img
-                    className="h-full w-full object-cover"
-                    src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
-                    alt="Your avatar"
-                  />
-                </button>
-                <div
-                  // x-show="dropdownOpen"
-                  // onClick="dropdownOpen = false"
-                  onClick={() => {
-                    setDropdownOpen(false);
-                  }}
-                  className="fixed inset-0 h-full w-full z-10"
-                  style={{ display: "none" }}
-                />
-                <div
-                  className={` ${
-                    dropdownOpen ? "hidden" : ""
-                  } absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10`}
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Profile
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Products
-                  </a>
-                  <a
-                    href="/login"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >
-                    Logout
-                  </a>
-                </div>
-              </div>
-              {/* -----User avatar container end----- */}
-            </div>
+            {/* -----User avatar container end----- */}
           </header>
-          {getMenuContent()}
+          <main className="overflow-y-auto p-6">{getMenuContent()}</main>
         </div>
         {/* -----Content end----- */}
       </div>

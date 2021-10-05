@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-
-// Helper
-import { isEmpty } from "lodash";
 
 // Redux store
 import { searchCourse } from "../../Redux/Actions/CourseAction";
@@ -56,7 +52,7 @@ const SearchBox = () => {
       <input
         className="form-input w-96 pl-10 pr-4 focus:border-indigo-600 focus:outline-none focus:ring-2"
         type="text"
-        placeholder="Tìm kiếm khóa học"
+        placeholder="Tìm kiếm khóa học theo tên"
         name="searchInput"
         value={searchValue}
         onChange={handleChange}

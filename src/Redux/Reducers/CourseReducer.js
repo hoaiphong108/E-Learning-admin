@@ -14,14 +14,11 @@ const reducer = (state = initialState, action) => {
       actionCourseTypes.DELETE_COURSE ||
       actionCourseTypes.UPDATE_COURSE:
       state.courseList = action.payload;
-
-      console.log("state.courseList", state.courseList);
       return { ...state };
 
-    case actionCourseTypes.SEARCH_COURSE:
+      case actionCourseTypes.SEARCH_COURSE:
       state.courseList = action.payload;
 
-      console.log("action.payload", action.payload);
       return { ...state };
 
     case actionCourseTypes.UPDATE_COURSE:

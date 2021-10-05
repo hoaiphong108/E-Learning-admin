@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-
-// Helper
-import { isEmpty } from "lodash";
 
 // Redux store
-import { searchCourse } from "../../Redux/Actions/CourseAction";
+import { findUserByNameAction } from "../../Redux/Actions/UserAction";
 
 const SearchBox = () => {
   const dispatch = useDispatch();
@@ -17,12 +13,12 @@ const SearchBox = () => {
     setSearchValue(evt.target.value);
   };
 
-  const handleSearchCourse = () => {
+  const handleSearchUser = () => {
     const dataRequest = {
-      tenKhoaHoc: searchValue,
+      tuKhoa: searchValue,
     };
 
-    dispatch(searchCourse(dataRequest.tenKhoaHoc));
+    dispatch(findUserByNameAction(dataRequest.tuKhoa));
   };
 
   return (
@@ -30,7 +26,7 @@ const SearchBox = () => {
       action="/"
       onSubmit={(event) => {
         event.preventDefault();
-        handleSearchCourse();
+        handleSearchUser();
       }}
       className="relative"
     >
@@ -56,7 +52,7 @@ const SearchBox = () => {
       <input
         className="form-input w-96 pl-10 pr-4 focus:border-indigo-600 focus:outline-none focus:ring-2"
         type="text"
-        placeholder="Tìm kiếm khóa học"
+        placeholder="Tìm kiếm người dùng theo tên"
         name="searchInput"
         value={searchValue}
         onChange={handleChange}

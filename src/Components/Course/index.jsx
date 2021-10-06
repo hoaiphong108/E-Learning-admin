@@ -53,13 +53,13 @@ const Course = () => {
     {
       Header: "Hình Ảnh",
       accessor: "hinhAnh",
-      width: 220,
-      minWidth: 220,
+      width: 180,
+      minWidth: 180,
       Cell: ({ cell: { value } }) => (
         <img
           src={value}
           alt="Hình ảnh"
-          style={{ minWidth: 220, maxWidth: 220 }}
+          style={{ minWidth: 180, maxWidth: 180 }}
         />
       ),
     },
@@ -77,8 +77,8 @@ const Course = () => {
     {
       Header: "Người Tạo",
       accessor: "nguoiTao.hoTen",
-      width: 150,
-      minWidth: 150,
+      width: 140,
+      minWidth: 140,
     },
     {
       Header: "Ngày Tạo",
@@ -95,7 +95,7 @@ const Course = () => {
       Cell: ({ cell: { value } }) => (
         <div className="text-center">
           <button
-            className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
             onClick={() => {
               handleShowModal(showEditModal(true));
             }}
@@ -103,11 +103,8 @@ const Course = () => {
             Sửa
           </button>
           <button
-            className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700 ml-2"
-            onClick={() => {
-              handleDeleteCourse(courseList.maKhoaHoc);
-              // console.log("courseList.maKhoaHoc",);
-            }}
+            className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
+            onClick={handleDeleteCourse(courseList.maKhoaHoc)}
           >
             Xóa
           </button>
@@ -125,7 +122,7 @@ const Course = () => {
         <div className="flex justify-between items-center mb-4">
           <SearchBox />
           <button
-            className="border-2 w-40 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-1 w-40 rounded p-1.5 text-white bg-green-500 hover:bg-green-700"
             onClick={() => {
               handleShowModal(showCreateModal(true));
             }}

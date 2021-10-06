@@ -38,17 +38,6 @@ export const fetchUnRegistCourseUserList = (courseCodeName) => {
         }
     };
 };
-export const fetchRegistCourseUserList = (code) => {
-    const requestData = { maKhoaHoc: code };
-    return async(dispatch) => {
-        try {
-            const result = await userService.registCourseUserList(requestData);
-            dispatch(createAction(SET_REGISTED_COURSE_USERLIST, result.data));
-        } catch (err) {
-            console.log(err);
-        }
-    };
-};
 
 export const fetchRegistedCourseUserList = (courseCodeName) => {
     const requestData = { maKhoaHoc: courseCodeName };

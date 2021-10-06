@@ -97,7 +97,6 @@ const Course = () => {
       minWidth: 110,
 
       Cell: (props) => {
-        // console.log(props.row.original);
         return (
           <div style={{ minWidth: 100 }} className="text-center">
             <button

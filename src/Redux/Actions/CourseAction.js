@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import { createAction } from ".";
 import { actionCourseTypes } from "./Types/CourseType";
 import {
-    fetchRegistCourseUserList,
+    fetchRegistedCourseUserList,
     fetchUnRegistCourseUserList,
 } from "./UserAction";
 
@@ -67,10 +67,11 @@ export const addCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.addCourse(dataRequest);
-            dispatch(actionCourseTypes.ADD_COURSE, result.data);
+            //không cần dispatch lên
             alert("Tạo khóa học thành công");
+            dispatch(fetchCourseList());
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     };
 };
@@ -93,8 +94,8 @@ export const updateCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.updateCourse(dataRequest);
-            // dispatch(actionCourseTypes.UPDATE_COURSE, result.data);
             alert("Chỉnh sửa khóa học thành công");
+            dispatch(fetchCourseList());
         } catch (err) {
             console.log(err);
         }
@@ -103,12 +104,14 @@ export const updateCourseToListAction = (dataRequest) => {
 
 export const registCourseAction = (user, codeCourse) => {
     const dataRequest = { taiKhoan: user, maKhoaHoc: codeCourse };
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
         try {
             const result = await courseService.registCourse(dataRequest);
             alert("Ghi danh thành công");
-            dispatch(fetchUnRegistCourseUserList("ITEC2104"));
-            dispatch(fetchRegistCourseUserList("ITEC2104"));
+            const codeCourseName = getState().user.registedCourseCodeName;
+
+            dispatch(fetchUnRegistCourseUserList(codeCourseName));
+            dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {
             console.log(err);
         }
@@ -116,12 +119,13 @@ export const registCourseAction = (user, codeCourse) => {
 };
 export const unRegistCourseAction = (user, codeCourse) => {
     const dataRequest = { taiKhoan: user, maKhoaHoc: codeCourse };
-    return async(dispatch) => {
+    return async(dispatch, getState) => {
         try {
             const result = await courseService.unRegistCourse(dataRequest);
             alert("Hủy ghi danh thành công");
-            dispatch(fetchUnRegistCourseUserList("ITEC2104"));
-            dispatch(fetchRegistCourseUserList("ITEC2104"));
+            const codeCourseName = getState().user.registedCourseCodeName;
+            dispatch(fetchUnRegistCourseUserList(codeCourseName));
+            dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {
             console.log(err);
         }

@@ -32,14 +32,14 @@ export default function AddUser() {
   };
   return (
     <>
-      <div className="container mx-auto">
-        <div className="flex justify-center  my-12">
+      <div className="px-8 mx-auto">
+        <div className="flex justify-center  ">
           <div className="w-full  flex">
             {/* Col */}
             <div className="w-full bg-white rounded-lg lg:rounded-l-none">
               <h3 className="pt-4 text-2xl text-center">Tạo Tài Khỏan!</h3>
               <form
-                className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
+                className=" pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}
               >
                 <div className="mb-4 md:flex md:justify-between">
@@ -138,10 +138,10 @@ export default function AddUser() {
                     />
                   </div>
                 </div>
-                <div className="mb-6 text-center">
+                <div className=" text-right  ">
                   <button
                     type="submit"
-                    className="w-full px-3 py-2 mb-5 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                    className="rounded-md border border-gray-300 shadow-sm px-4 py-2  bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Thêm người dùng
                   </button>
@@ -150,7 +150,7 @@ export default function AddUser() {
                     onClick={() => {
                       hideModal();
                     }}
-                    className="w-full px-3 py-2 font-bold text-white bg-yellow-500 rounded-full hover:bg-yellow-700 focus:outline-none focus:shadow-outline"
+                    className="rounded-md border border-transparent shadow-sm px-4 py-2 ml-4 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
                     Hủy
                   </button>

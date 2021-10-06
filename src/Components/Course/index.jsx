@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTable, usePagination } from "react-table";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "react-tailwind-table/dist/index.css";
 
 // Components
+import SearchBox from "./SearchBox";
 import CourseList from "./CourseList";
 import AddCourseModal from "./AddCourseModal";
 import EditCourseModal from "./EditCourseModal";
@@ -24,6 +25,12 @@ const Course = () => {
     return state.course.courseList;
   });
 
+  const [dataDemo, setDataDemo] = useState([]);
+
+  useEffect(() => {
+    setDataDemo(courseList);
+  }, [courseList]);
+
   const handleShowModal = (action) => {
     console.log("action", action);
     dispatch(action);
@@ -33,24 +40,26 @@ const Course = () => {
     dispatch(deleteCourse(dataRequest));
   };
 
-  const data = React.useMemo(() => courseList);
+  console.log("courseList", courseList);
+  const data = React.useMemo(() => courseList, [courseList]);
 
   const columns = React.useMemo(() => [
     {
       Header: "Tên Khóa Học",
       accessor: "tenKhoaHoc",
-      width: 300,
+      width: 170,
+      minWidth: 170,
     },
     {
       Header: "Hình Ảnh",
       accessor: "hinhAnh",
-      maxWidth: 500,
-      minWidth: 500,
+      width: 180,
+      minWidth: 180,
       Cell: ({ cell: { value } }) => (
         <img
           src={value}
           alt="Hình ảnh"
-          style={{ minWidth: 220, maxWidth: 220 }}
+          style={{ minWidth: 180, maxWidth: 180 }}
         />
       ),
     },
@@ -62,27 +71,31 @@ const Course = () => {
     {
       Header: "Lượt Xem",
       accessor: "luotXem",
-      width: 300,
+      width: 90,
+      minWidth: 90,
     },
     {
       Header: "Người Tạo",
       accessor: "nguoiTao.hoTen",
-      width: 300,
+      width: 140,
+      minWidth: 140,
     },
     {
       Header: "Ngày Tạo",
       accessor: "ngayTao",
-      width: 300,
+      width: 100,
+      minWidth: 100,
     },
     {
       Header: "Action",
       accessor: "action",
-      maxWidth: 300,
-      minWidth: 300,
+      className: "text-center",
+      width: 110,
+      minWidth: 110,
       Cell: ({ cell: { value } }) => (
-        <div style={{ minWidth: 100 }} className="text-center">
+        <div className="text-center">
           <button
-            className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
             onClick={() => {
               handleShowModal(showEditModal(true));
             }}
@@ -90,7 +103,7 @@ const Course = () => {
             Sửa
           </button>
           <button
-            className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700 ml-2"
+            className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
             onClick={handleDeleteCourse(courseList.maKhoaHoc)}
           >
             Xóa
@@ -103,13 +116,13 @@ const Course = () => {
   return (
     <>
       <>
-        <h4 class="text-gray-700 text-2xl font-medium mb-4">
+        <h4 class="text-gray-700 text-2xl font-medium mb-8">
           Danh Sách Khóa Học
         </h4>
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between items-center mb-4">
+          <SearchBox />
           <button
-            style={{ minWidth: 160 }}
-            className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+            className="border-1 w-40 rounded p-1.5 text-white bg-green-500 hover:bg-green-700"
             onClick={() => {
               handleShowModal(showCreateModal(true));
             }}

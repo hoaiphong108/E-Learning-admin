@@ -1,5 +1,6 @@
 import { courseService } from "../../Services/CourseService";
 // import { GET_COURSE_LIST } from "./Types/CourseType";
+import { isEmpty } from "lodash";
 
 import { createAction } from ".";
 import { actionCourseTypes } from "./Types/CourseType";
@@ -42,6 +43,28 @@ export const showEditModal = (isOpen) => {
         }
     };
 };
+
+export const searchCourse = (dataRequest) => {
+    return async (dispatch) => {
+      try {
+        const result = await courseService.getCourseList(dataRequest);
+
+        if (isEmpty(dataRequest)) {
+            dispatch(createAction(actionCourseTypes.SEARCH_COURSE_NO_RESULT, []));
+
+            return;
+        }
+  
+        dispatch(
+          createAction(actionCourseTypes.SEARCH_COURSE, result.data)
+        );  
+      } catch (err) {
+          console.log("error", err);
+        dispatch(createAction(actionCourseTypes.SEARCH_COURSE_NO_RESULT, []));
+      }
+    };
+  };
+  
 
 export const addCourseToList = (dataRequest) => {
     return async(dispatch) => {

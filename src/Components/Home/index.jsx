@@ -67,7 +67,7 @@ export default function Home() {
   const [courseCodeName, setCourseCodeName] = useState("ITEC2104"); //test: "ITEC2104"
   const [accountName, setAccountName] = useState("khai"); //text:"khai"
   const [courseName, setCourseName] = useState("Kiểm Thử Phần Mềm ABCD");
-  const userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  const userLogin = useSelector((state) => state.user.userLogin);
 
   // -----TESTING DATA-----
   const userTestList = [
@@ -245,25 +245,26 @@ export default function Home() {
   // -----TESTING DATA-----
 
   useEffect(() => {
-
     dispatch(fetchUnRegistCourseUserList(courseCodeName));
     dispatch(fetchRegistedCourseUserList(courseCodeName));
+    dispatch(fetchRegistCourseUserList(courseCodeName));
     dispatch(fecthUnRegistCourseList(accountName));
     dispatch(fecthRegistedCourseList(accountName));
     dispatch(fecthUnApprovalCourseList(accountName));
     dispatch(fetchCourseList());
     dispatch(getInfoUserAction());
   }, [dispatch, courseCodeName, accountName]);
-  }, [dispatch, courseCodeName]);
-
 
   const unRegistCourseUserList = useSelector((state) => {
+    // console.log("Home unRegistCourseUserList gotten");
     return state.user.unRegistCourseUserList;
   });
-
+  const registCourseUserList = useSelector(
+    (state) => state.user.registCourseUserList
+  );
   const registedCourseUserList = useSelector((state) => {
     return state.user.registedCourseUserList;
-  })
+  });
 
   const unRegistCourseList = useSelector((state) => {
     return state.user.unRegistCourseList;
@@ -275,7 +276,7 @@ export default function Home() {
 
   const unApprovalCourseList = useSelector((state) => {
     return state.user.unApprovalCourseList;
-  })
+  });
 
   const courseList = useSelector((state) => {
     return state.course.courseList;
@@ -283,7 +284,7 @@ export default function Home() {
 
   const userList = useSelector((state) => {
     return state.user.listUser;
-  })
+  });
 
   const registCousre = (taiKhoan, maKhoaHoc) => {
     dispatch(registCourseAction(taiKhoan, maKhoaHoc));
@@ -349,8 +350,8 @@ export default function Home() {
         </td>
         {/* <td></td> */}
       </tr>
-    )
-  }
+    );
+  };
 
   const renderRegistUserByCourseList = (list, isRegisted) => {
     if (list.length > 0) {
@@ -372,17 +373,27 @@ export default function Home() {
             </td>
             <td
               className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
-            leading-5 font-medium"
+          leading-5 font-medium"
             >
               {isRegisted ? (
                 <>
-                  <button className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700">
+                  <button
+                    className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+                    onClick={() => {
+                      registCousre(taiKhoan, courseCodeName);
+                    }}
+                  >
                     Ghi danh
                   </button>
                 </>
               ) : (
                 <>
-                  <button className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700">
+                  <button
+                    className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700"
+                    onClick={() => {
+                      unRegistCourse(taiKhoan, courseCodeName);
+                    }}
+                  >
                     Hủy ghi danh
                   </button>
                 </>
@@ -420,7 +431,7 @@ export default function Home() {
             </td>
             <td
               className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
-            leading-5 font-medium"
+          leading-5 font-medium"
             >
               {isRegisted ? (
                 <>
@@ -466,11 +477,9 @@ export default function Home() {
           </tr>
         );
       });
-    }
-    else {
+    } else {
       return renderEmptyList();
     }
-
   };
 
   const renderUserList = () => {
@@ -479,9 +488,13 @@ export default function Home() {
     return list.map((item, index) => {
       const { hoTen, taiKhoan } = item;
       return (
-        <div onClick={() => {
-          setAccountName(taiKhoan);
-        }} key={index} className="cursor-pointer">
+        <div
+          onClick={() => {
+            setAccountName(taiKhoan);
+          }}
+          key={index}
+          className="cursor-pointer"
+        >
           {hoTen}
         </div>
       );
@@ -587,7 +600,7 @@ export default function Home() {
                         </thead>
                         <tbody className="bg-white">
                           {renderRegistUserByCourseList(
-                            _registedCourseUserList,
+                            registCourseUserList,
                             false
                           )}
                         </tbody>
@@ -755,15 +768,11 @@ export default function Home() {
 
   return (
     <div className="h-screen overflow-hidden" style={{ background: "#edf2f7" }}>
-      <script
-        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-        defer
-      ></script>
-
       <div className="flex h-screen bg-gray-200">
         <div
-          className={`${sidebarOpen ? "block" : "hidden"
-            } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
+          className={`${
+            sidebarOpen ? "block" : "hidden"
+          } fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden `}
           onClick={() => {
             setSidebarOpen(false);
           }}
@@ -771,8 +780,9 @@ export default function Home() {
 
         {/* -----Side bar start----- */}
         <div
-          className={`${sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
-            } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
+          className={`${
+            sidebarOpen ? "translate-x-0 ease-out" : "-translate-x-full ease-in"
+          } fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 `}
         >
           {/* -----Dashboard icon start----- */}
           <div className="flex items-center m-4">
@@ -822,6 +832,7 @@ export default function Home() {
                 aria-hidden="true"
               >
                 <path d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"></path>
+                />
               </svg>
               <span className="mx-3">Người Dùng</span>
             </div>
@@ -890,8 +901,6 @@ export default function Home() {
                 />
               </button>
               <div
-                // x-show="dropdownOpen"
-                // onClick="dropdownOpen = false"
                 onClick={() => {
                   setDropdownOpen(false);
                 }}
@@ -899,11 +908,9 @@ export default function Home() {
                 style={{ display: "none" }}
               />
               <div
-
                 className={` ${
                   !dropdownOpen ? "hidden" : ""
                 } absolute right-0 mt-2 max-w-96  bg-white rounded-md  shadow-xl z-10`}
-
               >
                 <div className="max-w-md p-5 sm:flex sm:space-x-6 bg-coolGray-50 text-coolGray-800">
                   <div className="flex-shrink-0 w-auto  mb-6 h-44 sm:h-28 sm:w-28 sm:mb-0">

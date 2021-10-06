@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import { createAction } from ".";
 import { actionCourseTypes } from "./Types/CourseType";
 import {
-    fetchRegistCourseUserList,
+    fetchRegistedCourseUserList,
     fetchUnRegistCourseUserList,
 } from "./UserAction";
 
@@ -111,7 +111,7 @@ export const registCourseAction = (user, codeCourse) => {
             const codeCourseName = getState().user.registedCourseCodeName;
 
             dispatch(fetchUnRegistCourseUserList(codeCourseName));
-            dispatch(fetchRegistCourseUserList(codeCourseName));
+            dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {
             console.log(err);
         }
@@ -125,7 +125,7 @@ export const unRegistCourseAction = (user, codeCourse) => {
             alert("Hủy ghi danh thành công");
             const codeCourseName = getState().user.registedCourseCodeName;
             dispatch(fetchUnRegistCourseUserList(codeCourseName));
-            dispatch(fetchRegistCourseUserList(codeCourseName));
+            dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {
             console.log(err);
         }

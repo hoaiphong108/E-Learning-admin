@@ -82,7 +82,6 @@ export default function Register() {
   const [courseName, setCourseName] = useState(registedCourseName); //test:"Kiểm Thử Phần Mềm ABCD"
 
   useEffect(() => {
-    dispatch(fetchUnRegistCourseUserList(courseCodeName));
     dispatch(fetchRegistedCourseUserList(courseCodeName));
     dispatch(fecthUnRegistCourseList(accountName));
     dispatch(fecthRegistedCourseList(accountName));

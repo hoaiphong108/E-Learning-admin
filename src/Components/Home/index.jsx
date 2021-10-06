@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
 import {
-  fetchRegistCourseUserList,
   fetchUnRegistCourseUserList,
   fetchRegistedCourseUserList,
   fecthUnRegistCourseList,
@@ -22,6 +21,7 @@ import {
 import "./style.css";
 import Course from "../Course";
 import User from "../User";
+import Register from "../Register";
 import { CODE_GROUP } from "../../util/settings/config";
 
 const MENU_CONTENT = {
@@ -36,243 +36,19 @@ const REGISTER_CONTENT = {
   TEST_UI: "test-ui",
 };
 
-/**
- * Thiếu các API:
- *
- * GhiDanhKhoaHoc
- * HuyGhiDanh
- * LayDanhSachHocVienKhoaHoc ( Lấy danh sách người dùng đã ghi danh vào khóa học đó )
- */
-
-/**
- * Xài API danh sách user đã ghi danh theo course:
- *
- * Vào getRegiterContent thay cái list input
- * ở hàm renderRegistUserByCourseList chỗ thẻ p Đã ghi danh
- *
- * Xài API ghi danh/ hủy ghi danh:
- *
- * 2 nút đó ở hàm renderRegistUserByCourseList
- */
 
 export default function Home() {
-  const dispatch = useDispatch();
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [menuContent, setMenuContent] = useState("");
-  const [regiterContent, setRegisterContent] = useState("userToCourse");
-  const [courseCodeName, setCourseCodeName] = useState("ITEC2104"); //test: "ITEC2104"
-  const [accountName, setAccountName] = useState("khai"); //text:"khai"
-  const [courseName, setCourseName] = useState("Kiểm Thử Phần Mềm ABCD");
-
-  // -----TESTING DATA-----
-  const userTestList = [
-    {
-      taiKhoan: "123",
-      hoTen: "123123",
-      email: "123123@123",
-      soDt: "123123",
-      maLoaiNguoiDung: "GV",
-    },
-    {
-      taiKhoan: "12chamlenluon",
-      hoTen: "Một Hai Ba",
-      email: "12chamlenluon@gmail.com",
-      soDt: "0391209321",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "admin_test",
-      hoTen: "seaways",
-      email: "teooo@gmail.com",
-      soDt: "0772189121",
-      maLoaiNguoiDung: "GV",
-    },
-    {
-      taiKhoan: "admin321312",
-      hoTen: "dasdasd",
-      email: "peo@gmail.com",
-      soDt: "0111111111",
-      maLoaiNguoiDung: "GV",
-    },
-    {
-      taiKhoan: "adminhai",
-      hoTen: "admin",
-      email: "admin@email.com.vn",
-      soDt: "0123456789",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "Aduyanhdeptrai1235",
-      hoTen: "123",
-      email: "duyanh33444333aitp@gmail.com",
-      soDt: "123",
-      maLoaiNguoiDung: "GV",
-    },
-    {
-      taiKhoan: "anup",
-      hoTen: "Anup Kumar",
-      email: "anupkumar9344@gmail.com",
-      soDt: "9973213962",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "arale",
-      hoTen: "Kien Pham update ",
-      email: "kien@gmail.com",
-      soDt: "123",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "asd",
-      hoTen: "dasdasd",
-      email: "asdasdasdasdas",
-      soDt: "asdasdad",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "asuka1996",
-      hoTen: "Bùi Minh Quốc",
-      email: "test5@test.com",
-      soDt: "12345678",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "asuka1997",
-      hoTen: "123a212312312",
-      email: "test23@gmail.com",
-      soDt: "12345678",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "asura",
-      hoTen: "asdfg",
-      email: "queenofdracular@gmail.com",
-      soDt: "0566545255",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "Atulmanwar",
-      hoTen: "Atulmanwar",
-      email: "bmatul139@gmail.com",
-      soDt: "+8412345698",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "bangbang1",
-      hoTen: "bang",
-      email: "phibang7899@gmail.com",
-      soDt: "01225255555",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "banhbeo01",
-      hoTen: "thaiminhhuy",
-      email: "dsadase@gmail.com",
-      soDt: "0543544421",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "batman",
-      hoTen: "batman",
-      email: "xyz@gmail.com",
-      soDt: "123456789",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "bom",
-      hoTen: "bommm",
-      email: "bom@gmail.com",
-      soDt: "",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "caochihieu",
-      hoTen: "Abcxyz212345@@@",
-      email: "hieucaochi25598a@gmail.com",
-      soDt: "1234567890123123",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "chithanh_admin",
-      hoTen: "Mentor Đặng Chí Thanh",
-      email: "chithanh_admin@gmail,com",
-      soDt: "0999999999",
-      maLoaiNguoiDung: "GV",
-    },
-    {
-      taiKhoan: "chithanh_admin2",
-      hoTen: "13131231",
-      email: "trungtd0304@gmail.com",
-      soDt: "dasda",
-      maLoaiNguoiDung: "HV",
-    },
-    {
-      taiKhoan: "chithanh_admin222",
-      hoTen: "c",
-      email: "trungtd03043@gmail.com",
-      soDt: "dasda",
-      maLoaiNguoiDung: "HV",
-    },
-  ];
-
-  const courseTestList = [
-    {
-      maKhoaHoc: "REACT910308",
-      biDanh: "react-hook-2022",
-      tenKhoaHoc: "React Hook 2022",
-    },
-    {
-      maKhoaHoc: "REACT9141053",
-      biDanh: "khoa-hoc-react-nang-cao",
-      tenKhoaHoc: "Khóa Học React Nâng Cao",
-    },
-    {
-      maKhoaHoc: "React991028",
-      biDanh: "the-complete-guide-incl-hooks-react-router-redux-",
-      tenKhoaHoc: "The Complete Guide (incl Hooks, React Router, Redux)",
-    },
-    {
-      maKhoaHoc: "sadasd",
-      biDanh: "lap-trinh-tren-thiet-bi-di-dong",
-      tenKhoaHoc: "Lập trình Trên Thiết Bị Di Động",
-    },
-  ];
-  // -----TESTING DATA-----
-
-  useEffect(() => {
-
-    dispatch(fetchUnRegistCourseUserList(courseCodeName));
-    dispatch(fetchRegistedCourseUserList(courseCodeName));
-    dispatch(fecthUnRegistCourseList(accountName));
-    dispatch(fecthRegistedCourseList(accountName));
-    dispatch(fecthUnApprovalCourseList(accountName));
-    dispatch(fetchCourseList());
-    dispatch(getInfoUserAction());
-  }, [dispatch, courseCodeName, accountName]);
-  }, [dispatch, courseCodeName]);
-
-
-  const unRegistCourseUserList = useSelector((state) => {
-    return state.user.unRegistCourseUserList;
-  });
-
-  const registedCourseUserList = useSelector((state) => {
-    return state.user.registedCourseUserList;
+  const registedCourseCodeName = useSelector((state) => {
+    return state.user.registedCourseCodeName;
   })
 
-  const unRegistCourseList = useSelector((state) => {
-    return state.user.unRegistCourseList;
-  });
+  const registedCourseName = useSelector((state) => {
+    return state.user.registedCourseName;
+  })
 
-  const registedCourseList = useSelector((state) => {
-    return state.user.registedCourseList;
-  });
-
-  const unApprovalCourseList = useSelector((state) => {
-    return state.user.unApprovalCourseList;
+  const registedAccountName = useSelector((state) => {
+    return state.user.registedAccountName;
   })
 
   const courseList = useSelector((state) => {
@@ -290,217 +66,28 @@ export default function Home() {
     dispatch(unRegistCourseAction(taiKhoan, maKhoaHoc));
   };
 
-  // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
-  const subjectListSliderSettings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    arrows: false,
-    variableWidth: true,
-  };
+  const dispatch = useDispatch();
 
-  const userListSliderSettings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    rows: 4,
-    initialSlide: 0,
-    arrows: false,
-    variableWidth: true,
-  };
-  // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [menuContent, setMenuContent] = useState("");
 
-  //-----CÁC HÀM RENDER DỮ LIỆU-----
-  const renderSubjectList = () => {
-    const _courseList = [...courseList];
-    return _courseList.map((item, index) => {
-      const { tenKhoaHoc, maKhoaHoc } = item;
-      return (
-        <div
-          onClick={() => {
-            setCourseCodeName(maKhoaHoc);
-            setCourseName(tenKhoaHoc);
-          }}
-          className="mx-3 py-3  border-t-2 border-b-2 border-gray-600 cursor-pointer"
-          key={index}
-        >
-          {tenKhoaHoc}
-        </div>
-      );
-    });
-  };
+  const [regiterContent, setRegisterContent] = useState("userToCourse");
+  const [courseCodeName, setCourseCodeName] = useState(registedCourseCodeName); //test: "ITEC2104"
+  const [accountName, setAccountName] = useState(registedAccountName); //text:"khai"
+  const [courseName, setCourseName] = useState(registedCourseName);
 
-  const renderEmptyList = () => {
-    return (
-      <tr>
-        <td className="px-3 py-4 whitespace-no-wrap border-b border-gray-200">
-          <div className="flex items-center">
-            <div className="ml-1">
-              <div className="text-sm leading-5 font-medium text-gray-500">
-                <div>Chưa có khóa học nào</div>
-              </div>
-            </div>
-          </div>
-        </td>
-        {/* <td></td> */}
-      </tr>
-    )
-  }
+  useEffect(() => {
+    dispatch(fetchUnRegistCourseUserList(courseCodeName));
+    dispatch(fetchRegistedCourseUserList(courseCodeName));
+    dispatch(fecthUnRegistCourseList(accountName));
+    dispatch(fecthRegistedCourseList(accountName));
+    dispatch(fecthUnApprovalCourseList(accountName));
+    dispatch(fetchCourseList());
+    dispatch(getInfoUserAction());
+  }, [dispatch, courseCodeName, accountName]);
 
-  const renderRegistUserByCourseList = (list, isRegisted) => {
-    if (list.length > 0) {
-      return list.map((item, index) => {
-        const { taiKhoan, hoTen } = item;
-        return (
-          <tr key={index}>
-            <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div className="flex items-center">
-                <div className="ml-1">
-                  <div className="text-sm leading-5 font-medium text-gray-500">
-                    Họ tên: {hoTen}
-                  </div>
-                  <div className="text-sm leading-5 text-gray-500">
-                    Tài khoản: {taiKhoan}
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
-            leading-5 font-medium"
-            >
-              {isRegisted ? (
-                <>
-                  <button className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700">
-                    Ghi danh
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700">
-                    Hủy ghi danh
-                  </button>
-                </>
-              )}
-            </td>
-          </tr>
-        );
-      });
-    } else {
-      return renderEmptyList();
-    }
-  };
-
-  const renderRegistCourseByUserList = (list, isRegisted) => {
-    if (list.length > 0) {
-      return list.map((item, index) => {
-        const { tenKhoaHoc, maKhoaHoc } = item;
-        return (
-          <tr key={index}>
-            <td className="px-2 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div className="flex items-center">
-                <div className="ml-1">
-                  <div className="text-sm leading-5 font-medium text-gray-500">
-                    <div> Tên khóa: </div>
-                    <div>
-                      {tenKhoaHoc.slice(0, 25)}
-                      {tenKhoaHoc.lengh > 25 ? <span>...</span> : <></>}
-                    </div>
-                  </div>
-                  <div className="text-sm leading-5 text-gray-500">
-                    Mã: {maKhoaHoc}
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              className="px-2 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm 
-            leading-5 font-medium"
-            >
-              {isRegisted ? (
-                <>
-                  <button className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700">
-                    Ghi danh
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700">
-                    Hủy ghi danh
-                  </button>
-                </>
-              )}
-            </td>
-          </tr>
-        );
-      });
-    } else {
-      return renderEmptyList();
-    }
-  };
-
-  const renderUnApprovalCourseList = () => {
-    const list = [...unApprovalCourseList];
-    if (list.length > 0) {
-      return list.map((item, index) => {
-        const { tenKhoaHoc, maKhoaHoc } = item;
-        return (
-          <tr key={index}>
-            <td className="px-3 py-4 whitespace-no-wrap border-b border-gray-200">
-              <div className="flex items-center">
-                <div className="ml-1">
-                  <div className="text-sm leading-5 font-medium text-gray-500">
-                    <div>Tên khóa: </div>
-                    <div>{tenKhoaHoc.slice(0, 25)}...</div>
-                    <div>Mã: {maKhoaHoc}</div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            {/* <td></td> */}
-          </tr>
-        );
-      });
-    }
-    else {
-      return renderEmptyList();
-    }
-
-  };
-
-  const renderUserList = () => {
-    const list = [...userList];
-    // console.log("renderUserList run ");
-    return list.map((item, index) => {
-      const { hoTen, taiKhoan } = item;
-      return (
-        <div onClick={() => {
-          setAccountName(taiKhoan);
-        }} key={index} className="cursor-pointer">
-          {hoTen}
-        </div>
-      );
-    });
-  };
-
-  //-----CÁC HÀM RENDER DỮ LIỆU-----
-
-  //-----CÁC HÀM CHUYỂN ĐỔI NỘI DUNG ĐƯỢC HIỂN THỊ KHI CLICK-----
-  const setActiveRegisterItem = (uid) => {
-    switch (uid) {
-      case REGISTER_CONTENT.USER_IN_TO_COURSE:
-        setRegisterContent(uid);
-        break;
-      case REGISTER_CONTENT.COURSE_BY_USER:
-        setRegisterContent(uid);
-        break;
-      default:
-        break;
-    }
-  };
 
   const setActiveMenuItem = (uid) => {
     switch (uid) {
@@ -521,175 +108,6 @@ export default function Home() {
         break;
     }
   };
-  //-----CÁC HÀM CHUYỂN ĐỔI NỘI DUNG ĐƯỢC HIỂN THỊ KHI CLICK-----
-
-  //-----CÁC HÀM CHỨA NỘI DUNG ĐƯỢC HIỂN THỊ THEO PHẦN ĐƯỢC CLICK-----
-  const getRegiterContent = () => {
-    const _unRegistCourseUserList = [...unRegistCourseUserList];
-    const _registedCourseUserList = [...registedCourseUserList];
-    const _unRegistCourseList = [...unRegistCourseList];
-    const _registedCourseList = [...registedCourseList];
-    switch (regiterContent) {
-      case REGISTER_CONTENT.USER_IN_TO_COURSE:
-        return (
-          <main>
-            <div>
-              {/* -----Subject list slider start----- */}
-              <div className="max-w-5xl">
-                <Slider {...subjectListSliderSettings}>
-                  {renderSubjectList()}
-                </Slider>
-              </div>
-              {/* -----Subject list slider end----- */}
-
-              <div className="flex justify-evenly mt-2">
-                {/* -----Chưa ghi danh list container start----- */}
-                <div>
-                  <p className="mb-1 ml-5 font-bold">Chưa ghi danh</p>
-                  <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                    <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                      <table className="min-w-full">
-                        <thead>
-                          <tr>
-                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                              {courseName.slice(0, 20)}...
-                            </th>
-                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                          {renderRegistUserByCourseList(
-                            _unRegistCourseUserList,
-                            true
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                {/* -----Chưa ghi danh list container end----- */}
-
-                {/* -----Đã ghi danh list container start----- */}
-                <div>
-                  <p className="mb-1 ml-5 font-bold">Đã ghi danh</p>
-                  <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                    <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                      <table className="min-w-full">
-                        <thead>
-                          <tr>
-                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                              {courseName.slice(0, 20)}...
-                            </th>
-                            <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                          {renderRegistUserByCourseList(
-                            _registedCourseUserList,
-                            false
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                {/* -----Đã ghi danh list container end----- */}
-              </div>
-            </div>
-          </main>
-        );
-      case REGISTER_CONTENT.COURSE_BY_USER:
-        return (
-          <main>
-            {/* -----User list slider start----- */}
-            <div>
-              <p className="p-3 font-bold">Danh sách học viên</p>
-              <div className="max-w-5xl px-4 border-t-2 border-b-2 border-gray-500">
-                <Slider {...userListSliderSettings}>{renderUserList()}</Slider>
-              </div>
-            </div>
-            {/* -----User list slider end----- */}
-
-            <div className="flex justify-evenly mt-5">
-              {/* -----Chưa ghi danh course container start----- */}
-              <div>
-                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table className="min-w-full">
-                      <thead>
-                        <tr>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Khóa học chưa danh
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        {renderRegistCourseByUserList(
-                          _unRegistCourseList,
-                          true
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              {/* -----Chưa ghi danh course container end----- */}
-
-              {/* -----Đã ghi danh course container start----- */}
-              <div>
-                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table className="min-w-full">
-                      <thead>
-                        <tr>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Khóa học đã ghi danh
-                          </th>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        {renderRegistCourseByUserList(
-                          _registedCourseList,
-                          false
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              {/* -----Đã ghi danh course container end----- */}
-
-              {/* -----Danh sách khóa chờ xét duyệt container start----- */}
-              <div>
-                <div className="-my-2 py-4 py-3 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                  <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                    <table className="min-w-full">
-                      <thead>
-                        <tr>
-                          <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Khóa học chờ xét duyệt
-                          </th>
-                          {/* <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" /> */}
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white">
-                        {renderUnApprovalCourseList()}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              {/* -----Danh sách khóa chờ xét duyệt container end----- */}
-            </div>
-          </main>
-        );
-
-      default:
-        return;
-    }
-  };
 
   const getMenuContent = () => {
     switch (menuContent) {
@@ -704,44 +122,7 @@ export default function Home() {
         return <Course />;
 
       case MENU_CONTENT.REGISTER:
-        return (
-          <>
-            <h3 className="text-gray-700 text-3xl font-medium">Ghi danh</h3>
-
-            {/* -----Switch người dùng/ khóa học start----- */}
-            <div className="mt-3">
-              <div className="flex -mx-6 justify-evenly">
-                {/* -----Người dùng button start----- */}
-                <div className="w-full px-6 sm:w-1/2 xl:w-1/3">
-                  <div className="flex items-center px-2 py-1 shadow-sm rounded-md bg-white">
-                    <button
-                      onClick={() => setActiveRegisterItem("userToCourse")}
-                      className="text-gray-500 px-6 py-3 w-full focus:outline-none"
-                    >
-                      Người dùng vào khóa học
-                    </button>
-                  </div>
-                </div>
-                {/* -----Người dùng button end----- */}
-
-                {/* -----Khóa học button start----- */}
-                <div className="w-full px-6 sm:w-1/2 xl:w-1/3 sm:mt-0">
-                  <div className="flex items-center px-2 py-1 shadow-sm rounded-md bg-white">
-                    <button
-                      onClick={() => setActiveRegisterItem("courseByUser")}
-                      className="text-gray-500 px-6 py-3 w-full focus:outline-none"
-                    >
-                      Khóa học cho người dùng
-                    </button>
-                  </div>
-                </div>
-                {/* -----Khóa học button end----- */}
-              </div>
-            </div>
-            {/* -----Switch người dùng/ khóa học end----- */}
-            <div className="mt-8">{getRegiterContent()}</div>
-          </>
-        );
+        return <main><Register /></main>
 
       default:
         return <User />;

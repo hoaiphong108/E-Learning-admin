@@ -40,7 +40,7 @@ const Course = () => {
     dispatch(deleteCourse(dataRequest));
   };
 
-  console.log("courseList", courseList);
+  // console.log("courseList", courseList);
   const data = React.useMemo(() => courseList, [courseList]);
 
   const columns = React.useMemo(() => [
@@ -88,7 +88,7 @@ const Course = () => {
     },
     {
       Header: "Action",
-      accessor: "action",
+      accessor: "maKhoaHoc",
       className: "text-center",
       width: 110,
       minWidth: 110,
@@ -104,7 +104,10 @@ const Course = () => {
           </button>
           <button
             className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700 ml-2"
-            onClick={handleDeleteCourse(courseList.maKhoaHoc)}
+            onClick={() => {
+              handleDeleteCourse(courseList.maKhoaHoc);
+              // console.log("courseList.maKhoaHoc",);
+            }}
           >
             Xóa
           </button>

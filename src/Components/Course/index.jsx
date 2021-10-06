@@ -40,7 +40,7 @@ const Course = () => {
     dispatch(deleteCourse(dataRequest));
   };
 
-  console.log("courseList", courseList);
+  // console.log("courseList", courseList);
   const data = React.useMemo(() => courseList, [courseList]);
 
   const columns = React.useMemo(() => [
@@ -88,7 +88,7 @@ const Course = () => {
     },
     {
       Header: "Action",
-      accessor: "action",
+      accessor: "maKhoaHoc",
       className: "text-center",
       width: 110,
       minWidth: 110,

@@ -69,6 +69,7 @@ export const addCourseToListAction = (dataRequest) => {
             const result = await courseService.addCourse(dataRequest);
             //không cần dispatch lên
             alert("Tạo khóa học thành công");
+            dispatch(fetchCourseList());
         } catch (err) {
             alert(err);
         }

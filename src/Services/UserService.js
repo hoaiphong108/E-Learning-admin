@@ -5,7 +5,7 @@ export class UserService extends baseService {
   constructor() {
     super();
   }
-
+  
   signIn = (thongTinDangNhap) => {
     return this.post(`api/QuanLyNguoiDung/DangNhap`, thongTinDangNhap);
   };
@@ -22,12 +22,17 @@ export class UserService extends baseService {
       courseCodeName
     );
 
-  registCourseUserList = (maKhoaHoc) => {
-    return this.post(
-      `api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
-      maKhoaHoc
-    );
-  };
+  registedCourseUserList = (courseCodeName) =>
+    this.post(`api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`, courseCodeName);
+
+  unRegistCourseList = (accountName) =>
+    this.post(`api/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh`, accountName);
+
+  registedCourseList = (accountName) =>
+    this.post(`api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`, accountName);
+
+  unApprovalCourseList = (accountName) =>
+    this.post(`api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet`, accountName);
 
   addUser = (thongTinNguoiDung) => {
     return this.post(`api/QuanLyNguoiDung/ThemNguoiDung`, thongTinNguoiDung);
@@ -44,7 +49,7 @@ export class UserService extends baseService {
       thongTinNguoiDung
     );
   };
-  
+
   findUserByName = (tuKhoa) => {
     return this.get(
       `api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${CODE_GROUP}&tuKhoa=${tuKhoa}`

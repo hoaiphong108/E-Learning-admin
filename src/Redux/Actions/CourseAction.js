@@ -5,6 +5,8 @@ import { isEmpty } from "lodash";
 import { createAction } from ".";
 import { actionCourseTypes } from "./Types/CourseType";
 import {
+    fecthRegistedCourseList,
+    fecthUnRegistCourseList,
     fetchRegistedCourseUserList,
     fetchUnRegistCourseUserList,
 } from "./UserAction";
@@ -109,6 +111,9 @@ export const registCourseAction = (user, codeCourse) => {
             const result = await courseService.registCourse(dataRequest);
             alert("Ghi danh thành công");
             const codeCourseName = getState().user.registedCourseCodeName;
+            const registedAccountName = getState().user.registedAccountName;
+            dispatch(fecthRegistedCourseList(registedAccountName));
+            dispatch(fecthUnRegistCourseList(registedAccountName));
 
             dispatch(fetchUnRegistCourseUserList(codeCourseName));
             dispatch(fetchRegistedCourseUserList(codeCourseName));
@@ -124,6 +129,9 @@ export const unRegistCourseAction = (user, codeCourse) => {
             const result = await courseService.unRegistCourse(dataRequest);
             alert("Hủy ghi danh thành công");
             const codeCourseName = getState().user.registedCourseCodeName;
+            const registedAccountName = getState().user.registedAccountName;
+            dispatch(fecthRegistedCourseList(registedAccountName));
+            dispatch(fecthUnRegistCourseList(registedAccountName));
             dispatch(fetchUnRegistCourseUserList(codeCourseName));
             dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {

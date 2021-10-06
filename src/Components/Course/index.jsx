@@ -101,7 +101,7 @@ const Course = () => {
         return (
           <div style={{ minWidth: 100 }} className="text-center">
             <button
-              className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+              className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
               onClick={() => {
                 handleShowModal(showEditModal(true));
                 dispatch(
@@ -115,7 +115,7 @@ const Course = () => {
               Sửa
             </button>
             <button
-              className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700 ml-2"
+              className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
               onClick={() => {
                 handleDeleteCourse(props.row.original.maKhoaHoc);
               }}

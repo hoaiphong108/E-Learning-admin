@@ -6,8 +6,9 @@ import { showEditModal } from "../../Redux/Actions/CourseAction";
 
 export default function EditCourse() {
   const dispatch = useDispatch();
-  const courseUpdated = useSelector((state) => state.course.courseUpdated);
-  // console.log(courseUpdated);
+  const courseUpdated =
+    useSelector((state) => state.course.courseUpdated) || {};
+  console.log(courseUpdated);
   const handleHideModal = () => {
     dispatch(showEditModal(false));
   };
@@ -18,22 +19,26 @@ export default function EditCourse() {
       tenKhoaHoc: courseUpdated.tenKhoaHoc,
       moTa: courseUpdated.moTa,
       luotXem: courseUpdated.luotXem,
-      danhGia: courseUpdated.danhGia,
+      danhGia: courseUpdated?.danhGia,
       hinhAnh: courseUpdated.hinhAnh,
       maNhom: courseUpdated.maNhom,
       ngayTao: courseUpdated.ngayTao,
-      maDanhMucKhoaHoc: courseUpdated.danhMucKhoaHoc?.maDanhMucKhoaHoc,
+      maDanhMucKhoaHoc: courseUpdated?.danhMucKhoaHoc?.maDanhMucKhoaHoc,
       taiKhoanNguoiTao: courseUpdated.nguoiTao?.taiKhoan,
     },
 
-    onSubmit: useCallback((values) => {
-      console.log(courseUpdated);
+    onSubmit: useCallback(
+      (values) => {
+        console.log(courseUpdated);
 
-      // dispatch(updateCourseToListAction(values));
+        // dispatch(updateCourseToListAction(values));
 
-      handleHideModal();
-    }, []),
+        handleHideModal();
+      },
+      [handleHideModal, courseUpdated]
+    ),
   });
+  console.log(formik.values);
   return (
     <>
       <h3 className="text-2xl text-center font-bold">Sửa khóa học</h3>
@@ -90,7 +95,7 @@ export default function EditCourse() {
               onChange={formik.handleChange}
               name="hinhAnh"
               className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-              type="file"
+              //   type="file"
             />
           </div>
           <div className="grid grid-cols-2 gap-4">

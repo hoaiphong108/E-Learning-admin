@@ -114,7 +114,6 @@ export const registCourseAction = (user, codeCourse) => {
             const registedAccountName = getState().user.registedAccountName;
             dispatch(fecthRegistedCourseList(registedAccountName));
             dispatch(fecthUnRegistCourseList(registedAccountName));
-
             dispatch(fetchUnRegistCourseUserList(codeCourseName));
             dispatch(fetchRegistedCourseUserList(codeCourseName));
         } catch (err) {

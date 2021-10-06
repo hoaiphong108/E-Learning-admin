@@ -236,13 +236,23 @@ export default function Register() {
             >
               {isRegisted ? (
                 <>
-                  <button className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700">
+                  <button
+                    className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+                    onClick={() => {
+                      registCousre(accountName, maKhoaHoc);
+                    }}
+                  >
                     Ghi danh
                   </button>
                 </>
               ) : (
                 <>
-                  <button className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700">
+                  <button
+                    className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700"
+                    onClick={() => {
+                      unRegistCourse(accountName, maKhoaHoc);
+                    }}
+                  >
                     Hủy ghi danh
                   </button>
                 </>
@@ -293,6 +303,7 @@ export default function Register() {
           onClick={() => {
             // dispatch(createAction(GET_REGISTED_ACCOUNT_NAME, taiKhoan));
             setAccountName(taiKhoan);
+            dispatch(createAction(GET_REGISTED_ACCOUNT_NAME, taiKhoan));
           }}
           key={index}
           className="cursor-pointer"

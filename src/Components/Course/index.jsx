@@ -14,9 +14,12 @@ import EditCourseModal from "./EditCourseModal";
 // Redux
 import {
   deleteCourse,
+  deleteCourseAction,
   showCreateModal,
   showEditModal,
 } from "../../Redux/Actions/CourseAction";
+import { createAction } from "../../Redux/Actions";
+import { actionCourseTypes } from "../../Redux/Actions/Types/CourseType";
 
 const Course = () => {
   const dispatch = useDispatch();
@@ -32,12 +35,11 @@ const Course = () => {
   }, [courseList]);
 
   const handleShowModal = (action) => {
-    console.log("action", action);
     dispatch(action);
   };
 
-  const handleDeleteCourse = (dataRequest) => {
-    dispatch(deleteCourse(dataRequest));
+  const handleDeleteCourse = (maKhoaHoc) => {
+    dispatch(deleteCourseAction(maKhoaHoc));
   };
 
   // console.log("courseList", courseList);
@@ -88,28 +90,41 @@ const Course = () => {
     },
     {
       Header: "Action",
-      accessor: "maKhoaHoc",
+      accessor: "action",
+
       className: "text-center",
       width: 110,
       minWidth: 110,
-      Cell: ({ cell: { value } }) => (
-        <div className="text-center">
-          <button
-            className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
-            onClick={() => {
-              handleShowModal(showEditModal(true));
-            }}
-          >
-            Sửa
-          </button>
-          <button
-            className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
-            onClick={handleDeleteCourse(courseList.maKhoaHoc)}
-          >
-            Xóa
-          </button>
-        </div>
-      ),
+
+      Cell: (props) => {
+        // console.log(props.row.original);
+        return (
+          <div style={{ minWidth: 100 }} className="text-center">
+            <button
+              className="border-2 rounded p-1 border-green-500 hover:border-green-700 text-green-500 hover:text-green-700"
+              onClick={() => {
+                handleShowModal(showEditModal(true));
+                dispatch(
+                  createAction(
+                    actionCourseTypes.UPDATE_COURSE,
+                    props.row.original
+                  )
+                );
+              }}
+            >
+              Sửa
+            </button>
+            <button
+              className="border-2 rounded p-1 border-red-500 hover:border-red-700 text-red-500 hover:text-red-700 ml-2"
+              onClick={() => {
+                handleDeleteCourse(props.row.original.maKhoaHoc);
+              }}
+            >
+              Xóa
+            </button>
+          </div>
+        );
+      },
     },
   ]);
 

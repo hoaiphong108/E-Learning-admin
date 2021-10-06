@@ -5,15 +5,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
 
 // Redux
-import {
-  showEditModal,
-  updateCourseToList,
-} from "../../Redux/Actions/CourseAction";
+import { showEditModal } from "../../Redux/Actions/CourseAction";
 
 export default function EditCourseModal(props) {
   const dispatch = useDispatch();
 
   const courseUpdated = useSelector((state) => state.course.courseUpdated);
+  // console.log(courseUpdated);
 
   const showEditCourseModal = useSelector((state) => {
     return state.course.showEditCourseModal;
@@ -34,18 +32,18 @@ export default function EditCourseModal(props) {
       hinhAnh: courseUpdated.hinhAnh,
       maNhom: courseUpdated.maNhom,
       ngayTao: courseUpdated.ngayTao,
-      maDanhMucKhoaHoc: courseUpdated.maDanhMucKhoaHoc,
-      taiKhoanNguoiTao: courseUpdated.taiKhoanNguoiTao,
+      maDanhMucKhoaHoc: courseUpdated.danhMucKhoaHoc?.maDanhMucKhoaHoc,
+      taiKhoanNguoiTao: courseUpdated.nguoiTao?.taiKhoan,
     },
-    onSubmit: useCallback((values) => {
-      console.log("values", values);
 
-      dispatch(updateCourseToList(values));
-      
+    onSubmit: useCallback((values) => {
+      console.log(courseUpdated);
+
+      // dispatch(updateCourseToListAction(values));
+
       handleHideModal();
     }, []),
   });
-
   return (
     <Transition.Root show={showEditCourseModal} as={Fragment}>
       <Dialog
@@ -202,7 +200,7 @@ export default function EditCourseModal(props) {
                         Tài Khoản Người Tạo
                       </label>
                       <input
-                        value={formik.values.dantaiKhoanNguoiTaohGia}
+                        value={formik.values.taiKhoanNguoiTao}
                         onChange={formik.handleChange}
                         name="taiKhoanNguoiTao"
                         className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"

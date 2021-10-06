@@ -4,7 +4,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { useFormik } from "formik";
 
 // Redux
-import { addCourseToList, showCreateModal } from "../../Redux/Actions/CourseAction";
+import {
+  addCourseToList,
+  addCourseToListAction,
+  showCreateModal,
+} from "../../Redux/Actions/CourseAction";
 
 export default function AddCourseModal(props) {
   const dispatch = useDispatch();
@@ -29,12 +33,12 @@ export default function AddCourseModal(props) {
       maNhom: "",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
-      taiKhoanNguoiTao: ""
+      taiKhoanNguoiTao: "",
     },
     onSubmit: useCallback((values) => {
       console.log("values", values);
 
-      dispatch(addCourseToList(values));
+      dispatch(addCourseToListAction(values));
 
       handleHideModal();
     }, []),

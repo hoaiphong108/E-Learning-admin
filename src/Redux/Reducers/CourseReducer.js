@@ -9,13 +9,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionCourseTypes.SET_COURSE_LIST ||
-        actionCourseTypes.ADD_COURSE ||
-        actionCourseTypes.DELETE_COURSE ||
-        actionCourseTypes.UPDATE_COURSE:
+        case actionCourseTypes.SET_COURSE_LIST:
             state.courseList = action.payload;
             return {...state };
-
         case actionCourseTypes.SEARCH_COURSE:
             state.courseList = action.payload;
             return {...state };
@@ -25,7 +21,8 @@ const reducer = (state = initialState, action) => {
             return {...state };
 
         case actionCourseTypes.UPDATE_COURSE:
-            state.courseUpdated = action.payloadss;
+            state.courseUpdated = action.payload;
+            console.log(state.courseUpdated);
             return {...state };
 
         case actionCourseTypes.SHOW_CREATE_COURSE_MODAL:

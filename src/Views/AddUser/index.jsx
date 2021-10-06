@@ -33,11 +33,11 @@ export default function AddUser() {
   return (
     <>
       <div className="container mx-auto">
-        <div className="flex justify-center px-6 my-12">
+        <div className="flex justify-center  my-12">
           <div className="w-full  flex">
             {/* Col */}
-            <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
-              <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
+            <div className="w-full bg-white rounded-lg lg:rounded-l-none">
+              <h3 className="pt-4 text-2xl text-center">Tạo Tài Khỏan!</h3>
               <form
                 className="px-8 pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}
@@ -141,7 +141,7 @@ export default function AddUser() {
                 <div className="mb-6 text-center">
                   <button
                     type="submit"
-                    className="w-full px-3 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                    className="w-full px-3 py-2 mb-5 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                   >
                     Thêm người dùng
                   </button>
@@ -155,7 +155,6 @@ export default function AddUser() {
                     Hủy
                   </button>
                 </div>
-                <hr className="mb-6 border-t" />
               </form>
             </div>
           </div>

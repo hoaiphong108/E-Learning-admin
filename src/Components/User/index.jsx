@@ -12,6 +12,7 @@ import { createAction } from "../../Redux/Actions";
 import {
   ADD_USER_MODAL,
   EDIT_USER_MODAL,
+  USER_EDIT,
 } from "../../Redux/Actions/Types/UserType";
 import { deleteUserAction } from "../../Redux/Actions/UserAction";
 
@@ -60,26 +61,31 @@ const User = () => {
       accessor: "action",
       width: 110,
       minWidth: 110,
-      Cell: ({ cell: { value } }) => (
-        <div style={{ minWidth: 100 }} className="text-center">
-          <button
-            className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
-            onClick={() => {
-              showEditModal();
-            }}
-          >
-            Sửa
-          </button>
-          <button
-            className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
-            onClick={() => {
-              dispatch(deleteUserAction(listUser.map((user) => user.taiKhoan)));
-            }}
-          >
-            Xóa
-          </button>
-        </div>
-      ),
+      Cell: (props) => {
+        // console.log(props.row.original.taiKhoan);
+
+        return (
+          <div style={{ minWidth: 100 }} className="text-center">
+            <button
+              className="border-1 rounded py-1 px-2 text-white bg-green-500 hover:bg-green-700"
+              onClick={() => {
+                dispatch(createAction(USER_EDIT, props.row.original));
+                showEditModal();
+              }}
+            >
+              Sửa
+            </button>
+            <button
+              className="border-1 rounded py-1 px-2 text-white bg-red-500 hover:ng-red-700 ml-2"
+              onClick={() => {
+                dispatch(deleteUserAction(props.row.original.taiKhoan));
+              }}
+            >
+              Xóa
+            </button>
+          </div>
+        );
+      },
     },
   ]);
 

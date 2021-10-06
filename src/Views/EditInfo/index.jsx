@@ -3,7 +3,10 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAction } from "../../Redux/Actions";
 import { EDIT_USER_MODAL } from "../../Redux/Actions/Types/UserType";
-import { updateUserAction } from "../../Redux/Actions/UserAction";
+import {
+  getInfoUserAction,
+  updateUserAction,
+} from "../../Redux/Actions/UserAction";
 
 export default function EditInfo(props) {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ export default function EditInfo(props) {
     onSubmit: useCallback((values) => {
       const action = updateUserAction(values);
       dispatch(action);
+      dispatch(getInfoUserAction());
       dispatch(createAction(EDIT_USER_MODAL, false));
     }, []),
   });
@@ -33,10 +37,13 @@ export default function EditInfo(props) {
   return (
     <>
       <div className="container mx-auto max-w-2xl      ">
-        <div className="flex justify-center px-6 my-12">
+        <div className="flex justify-center  my-5">
           <div className="w-full  flex">
             {/* Col */}
-            <div className="w-full bg-white p-5 rounded-lg lg:rounded-l-none">
+            <div className="w-full bg-white  rounded-lg lg:rounded-l-none">
+              <h3 className="pt-4 text-2xl text-center">
+                Chỉnh Sửa Thông Tin!
+              </h3>
               <form
                 className=" pt-6 pb-8 mb-4 bg-white rounded"
                 onSubmit={formik.handleSubmit}
@@ -158,7 +165,6 @@ export default function EditInfo(props) {
                     Xác nhận
                   </button>
                 </div>
-                <hr className="mb-6 border-t" />
               </form>
             </div>
           </div>

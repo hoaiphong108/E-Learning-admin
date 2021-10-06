@@ -63,7 +63,7 @@ export const searchCourse = (dataRequest) => {
     };
 };
 
-export const addCourseToList = (dataRequest) => {
+export const addCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.addCourse(dataRequest);
@@ -75,23 +75,25 @@ export const addCourseToList = (dataRequest) => {
     };
 };
 
-export const deleteCourse = (dataRequest) => {
+export const deleteCourseAction = (maKhoaHoc) => {
     return async(dispatch) => {
         try {
-            const result = await courseService.deleteCourse(dataRequest);
-            dispatch(actionCourseTypes.DELETE_COURSE, result.data);
+            const result = await courseService.deleteCourse(maKhoaHoc);
+            // dispatch(actionCourseTypes.DELETE_COURSE, result.data);
+
             alert("Xóa thành công");
+            dispatch(fetchCourseList());
         } catch (err) {
-            console.log(err);
+            alert(err.response.data);
         }
     };
 };
 
-export const updateCourseToList = (dataRequest) => {
+export const updateCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.updateCourse(dataRequest);
-            dispatch(actionCourseTypes.UPDATE_COURSE, result.data);
+            // dispatch(actionCourseTypes.UPDATE_COURSE, result.data);
             alert("Chỉnh sửa khóa học thành công");
         } catch (err) {
             console.log(err);

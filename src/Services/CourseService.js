@@ -10,10 +10,10 @@ export class CourseService extends baseService {
         this.post(`api/QuanLyKhoaHoc/ThemKhoaHoc`, dataRequest);
 
     updateCourse = (dataRequest) =>
-        this.post(`api/QuanLyKhoaHoc/CapNhatKhoaHoc`, dataRequest);
+        this.put(`api/QuanLyKhoaHoc/CapNhatKhoaHoc`, dataRequest);
 
-    deleteCourse = (dataRequest) =>
-        this.delete(`/api/QuanLyKhoaHoc/XoaKhoaHoc`, dataRequest);
+    deleteCourse = (maKhoaHoc) =>
+        this.delete(`api/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${maKhoaHoc}`);
 
     getCourseList = (dataRequest = "") =>
         this.get(

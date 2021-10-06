@@ -4,6 +4,10 @@ import { userService } from "../../Services/UserService";
 import {
   SIGN_IN_ACTION,
   SET_UNREGIST_COURSE_USERLIST,
+  SET_REGISTED_COURSE_USERLIST,
+  SET_COURSE_LIST_USER_UNREGIST,
+  SET_COURSE_LIST_USER_REGISTED,
+  SET_COURSE_LIST_UNAPPROVAL,
   ADD_USER_ACTION,
   GET_INFO_USER_ACTION,
 } from "./Types/UserType";
@@ -33,11 +37,61 @@ export const fetchUnRegistCourseUserList = (courseCodeName) => {
   };
 };
 
+export const fetchRegistedCourseUserList = (courseCodeName) => {
+  const requestData = { maKhoaHoc: courseCodeName };
+  return async (dispatch) => {
+    try {
+      const result = await userService.registedCourseUserList(requestData);
+      dispatch(createAction(SET_REGISTED_COURSE_USERLIST, result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fecthUnRegistCourseList = (accountName) => {
+  const requestData = { TaiKhoan: accountName };
+  return async (dispatch) => {
+    try {
+      const result = await userService.unRegistCourseList(requestData);
+      dispatch(createAction(SET_COURSE_LIST_USER_UNREGIST, result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fecthRegistedCourseList = (accountName) => {
+  const requestData = { TaiKhoan: accountName };
+  return async (dispatch) => {
+    try {
+      const result = await userService.registedCourseList(requestData);
+      dispatch(createAction(SET_COURSE_LIST_USER_REGISTED, result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fecthUnApprovalCourseList = (accountName) => {
+  const requestData = { TaiKhoan: accountName };
+  return async (dispatch) => {
+    try {
+      const result = await userService.unApprovalCourseList(requestData);
+      dispatch(createAction(SET_COURSE_LIST_UNAPPROVAL, result.data));
+      // console.log("fecthUnApprovalCourseList", result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const getInfoUserAction = () => {
   return async (dispatch) => {
     try {
       const result = await userService.getInfoUser();
       dispatch(createAction(GET_INFO_USER_ACTION, result.data));
+      // console.log("getInfoUserAction", result.data);
     } catch (err) {
       console.log(err.response.data);
     }

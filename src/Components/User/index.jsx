@@ -62,8 +62,6 @@ const User = () => {
       width: 110,
       minWidth: 110,
       Cell: (props) => {
-        // console.log(props.row.original.taiKhoan);
-
         return (
           <div style={{ minWidth: 100 }} className="text-center">
             <button

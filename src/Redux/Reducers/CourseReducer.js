@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
 
         case actionCourseTypes.UPDATE_COURSE:
             state.courseUpdated = action.payload;
-            console.log(state.courseUpdated);
             return {...state };
 
         case actionCourseTypes.SHOW_CREATE_COURSE_MODAL:

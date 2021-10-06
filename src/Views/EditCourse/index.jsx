@@ -2,13 +2,16 @@ import { useFormik } from "formik";
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { showEditModal } from "../../Redux/Actions/CourseAction";
+import {
+  showEditModal,
+  updateCourseToListAction,
+} from "../../Redux/Actions/CourseAction";
 
 export default function EditCourse() {
   const dispatch = useDispatch();
   const courseUpdated =
     useSelector((state) => state.course.courseUpdated) || {};
-  console.log(courseUpdated);
+
   const handleHideModal = () => {
     dispatch(showEditModal(false));
   };
@@ -23,22 +26,20 @@ export default function EditCourse() {
       hinhAnh: courseUpdated.hinhAnh,
       maNhom: courseUpdated.maNhom,
       ngayTao: courseUpdated.ngayTao,
-      maDanhMucKhoaHoc: courseUpdated?.danhMucKhoaHoc?.maDanhMucKhoaHoc,
+      maDanhMucKhoaHoc: courseUpdated.danhMucKhoaHoc?.maDanhMucKhoahoc,
       taiKhoanNguoiTao: courseUpdated.nguoiTao?.taiKhoan,
     },
 
     onSubmit: useCallback(
       (values) => {
-        console.log(courseUpdated);
-
-        // dispatch(updateCourseToListAction(values));
+        dispatch(updateCourseToListAction(values));
 
         handleHideModal();
       },
       [handleHideModal, courseUpdated]
     ),
   });
-  console.log(formik.values);
+
   return (
     <>
       <h3 className="text-2xl text-center font-bold">Sửa khóa học</h3>

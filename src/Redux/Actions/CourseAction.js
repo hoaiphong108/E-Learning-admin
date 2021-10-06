@@ -67,10 +67,10 @@ export const addCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.addCourse(dataRequest);
-            dispatch(actionCourseTypes.ADD_COURSE, result.data);
+            //không cần dispatch lên
             alert("Tạo khóa học thành công");
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     };
 };
@@ -93,8 +93,8 @@ export const updateCourseToListAction = (dataRequest) => {
     return async(dispatch) => {
         try {
             const result = await courseService.updateCourse(dataRequest);
-            // dispatch(actionCourseTypes.UPDATE_COURSE, result.data);
             alert("Chỉnh sửa khóa học thành công");
+            dispatch(fetchCourseList());
         } catch (err) {
             console.log(err);
         }

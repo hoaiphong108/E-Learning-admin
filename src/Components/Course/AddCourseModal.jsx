@@ -1,6 +1,6 @@
 import { Fragment, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
 
 // Redux
@@ -36,8 +36,6 @@ export default function AddCourseModal(props) {
       taiKhoanNguoiTao: "",
     },
     onSubmit: useCallback((values) => {
-      console.log("values", values);
-
       dispatch(addCourseToListAction(values));
 
       handleHideModal();

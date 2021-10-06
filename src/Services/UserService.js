@@ -5,12 +5,16 @@ export class UserService extends baseService {
   constructor() {
     super();
   }
+  
   signIn = (thongTinDangNhap) => {
     return this.post(`api/QuanLyNguoiDung/DangNhap`, thongTinDangNhap);
   };
 
-  getInfoUser = () =>
-    this.get(`api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${CODE_GROUP}`);
+  getInfoUser = () => {
+    return this.get(
+      `api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${CODE_GROUP}`
+    );
+  };
 
   unRegistCourseUserList = (courseCodeName) =>
     this.post(

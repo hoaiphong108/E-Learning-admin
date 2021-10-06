@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable, usePagination } from "react-table";
 
-const CourseList = ({ columns, data }) => {
+const UserList = ({ columns, data }) => {
   // Use the state and functions returned from useTable to build your UI
 
   const {
@@ -136,4 +136,4 @@ const CourseList = ({ columns, data }) => {
   );
 };
 
-export default CourseList;
+export default UserList;

@@ -10,6 +10,7 @@ import {
   USER_EDIT,
   ADD_USER_MODAL,
   EDIT_USER_MODAL,
+  SEARCH_USER,
 } from "../Actions/Types/UserType";
 
 const initialState = {
@@ -39,6 +40,9 @@ const reducer = (state = initialState, action) => {
       state.userEdit = action.payload;
       console.log(state.userEdit);
       return { ...state };
+     case SEARCH_USER:
+state.listUser = action.payload;
+return {...state };
 
     case SET_UNREGIST_COURSE_USERLIST:
       state.unRegistCourseUserList = action.payload;
@@ -71,5 +75,5 @@ const reducer = (state = initialState, action) => {
     default:
       return { ...state };
   }
-};
+
 export default reducer;

@@ -16,6 +16,14 @@ const reducer = (state = initialState, action) => {
       state.courseList = action.payload;
       return { ...state };
 
+    case actionCourseTypes.SEARCH_COURSE:
+      state.courseList = action.payload;
+      return { ...state };
+
+    case actionCourseTypes.SEARCH_COURSE_NO_RESULT:
+      state.courseList = action.payload;
+      return { ...state };
+
     case actionCourseTypes.UPDATE_COURSE:
       state.courseUpdated = action.payloadss;
       return { ...state };

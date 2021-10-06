@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Slider from "react-slick";
 
 import {
+  fetchRegistCourseUserList,
   fetchUnRegistCourseUserList,
   fetchRegistedCourseUserList,
   fecthUnRegistCourseList,
@@ -13,13 +14,17 @@ import {
   fecthUnApprovalCourseList,
   getInfoUserAction,
 } from "../../Redux/Actions/UserAction";
-import { fetchCourseList } from "../../Redux/Actions/CourseAction";
+import {
+  fetchCourseList,
+  registCourseAction,
+  unRegistCourseAction,
+} from "../../Redux/Actions/CourseAction";
 import "./style.css";
 import Course from "../Course";
 import User from "../User";
+import { CODE_GROUP } from "../../util/settings/config";
 
 const MENU_CONTENT = {
-  HOME: "home",
   USER: "user",
   COURSE: "course",
   REGISTER: "register",
@@ -238,6 +243,7 @@ export default function Home() {
   // -----TESTING DATA-----
 
   useEffect(() => {
+
     dispatch(fetchUnRegistCourseUserList(courseCodeName));
     dispatch(fetchRegistedCourseUserList(courseCodeName));
     dispatch(fecthUnRegistCourseList(accountName));
@@ -246,6 +252,8 @@ export default function Home() {
     dispatch(fetchCourseList());
     dispatch(getInfoUserAction());
   }, [dispatch, courseCodeName, accountName]);
+  }, [dispatch, courseCodeName]);
+
 
   const unRegistCourseUserList = useSelector((state) => {
     return state.user.unRegistCourseUserList;
@@ -274,6 +282,13 @@ export default function Home() {
   const userList = useSelector((state) => {
     return state.user.listUser;
   })
+
+  const registCousre = (taiKhoan, maKhoaHoc) => {
+    dispatch(registCourseAction(taiKhoan, maKhoaHoc));
+  };
+  const unRegistCourse = (taiKhoan, maKhoaHoc) => {
+    dispatch(unRegistCourseAction(taiKhoan, maKhoaHoc));
+  };
 
   // -----SETTING CỦA CÁC DANH SÁCH NẰM NGANG-----
   const subjectListSliderSettings = {
@@ -377,7 +392,6 @@ export default function Home() {
     } else {
       return renderEmptyList();
     }
-
   };
 
   const renderRegistCourseByUserList = (list, isRegisted) => {
@@ -479,34 +493,32 @@ export default function Home() {
     switch (uid) {
       case REGISTER_CONTENT.USER_IN_TO_COURSE:
         setRegisterContent(uid);
-        return;
+        break;
       case REGISTER_CONTENT.COURSE_BY_USER:
         setRegisterContent(uid);
-        return;
+        break;
       default:
-        return;
+        break;
     }
   };
 
   const setActiveMenuItem = (uid) => {
     switch (uid) {
-      case MENU_CONTENT.HOME:
-        setMenuContent(uid);
-        return;
-
       case MENU_CONTENT.USER:
         setMenuContent(uid);
-        return;
+        dispatch(getInfoUserAction());
+        break;
 
       case MENU_CONTENT.COURSE:
         setMenuContent(uid);
-        return;
+        dispatch(fetchCourseList());
+        break;
 
       case MENU_CONTENT.REGISTER:
         setMenuContent(uid);
-        return;
+        break;
       default:
-        return;
+        break;
     }
   };
   //-----CÁC HÀM CHUYỂN ĐỔI NỘI DUNG ĐƯỢC HIỂN THỊ KHI CLICK-----
@@ -793,7 +805,7 @@ export default function Home() {
           <nav>
             <div
               onClick={() => {
-                setActiveMenuItem("home");
+                setActiveMenuItem("user");
               }}
               className="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100"
             >

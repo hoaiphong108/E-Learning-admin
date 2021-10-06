@@ -883,27 +883,19 @@ export default function Home() {
               onClick={() => {
                 setActiveMenuItem("user");
               }}
-              className="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100"
+              className="flex items-center mt-4 py-2 px-6 text-white hover:bg-blue-500 hover:text-white cursor-pointer bg-blue-500"
             >
               <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                className="h-5 w-5"
+                viewBox="64 64 896 896"
+                focusable="false"
+                data-icon="user"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
-                />
+                <path d="M858.5 763.6a374 374 0 00-80.6-119.5 375.63 375.63 0 00-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 00-80.6 119.5A371.7 371.7 0 00136 901.8a8 8 0 008 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 008-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"></path>
               </svg>
               <span className="mx-3">Người Dùng</span>
             </div>
@@ -911,21 +903,19 @@ export default function Home() {
               onClick={() => {
                 setActiveMenuItem("course");
               }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-blue-500 hover:text-white cursor-pointer"
             >
               <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                className="h-5 w-5"
+                viewBox="64 64 896 896"
+                focusable="false"
+                data-icon="laptop"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                aria-hidden="true"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                ></path>
+                <path d="M956.9 845.1L896.4 632V168c0-17.7-14.3-32-32-32h-704c-17.7 0-32 14.3-32 32v464L67.9 845.1C60.4 866 75.8 888 98 888h828.8c22.2 0 37.6-22 30.1-42.9zM200.4 208h624v395h-624V208zm228.3 608l8.1-37h150.3l8.1 37H428.7zm224 0l-19.1-86.7c-.8-3.7-4.1-6.3-7.8-6.3H398.2c-3.8 0-7 2.6-7.8 6.3L371.3 816H151l42.3-149h638.2l42.3 149H652.7z"></path>
               </svg>
               <span className="mx-3">Khóa học</span>
             </div>
@@ -933,10 +923,10 @@ export default function Home() {
               onClick={() => {
                 setActiveMenuItem("register");
               }}
-              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
+              className="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-blue-500 hover:text-white cursor-pointer"
             >
               <svg
-                className="h-6 w-6"
+                className="h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

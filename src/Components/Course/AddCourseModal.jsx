@@ -1,4 +1,4 @@
-import { Fragment, useCallback } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Dialog, Transition } from "@headlessui/react";
 import { useFormik } from "formik";
@@ -13,12 +13,38 @@ import {
 export default function AddCourseModal(props) {
   const dispatch = useDispatch();
 
+  const [imgSrc, setImgSrc] = useState(
+    "https://s.udemycdn.com/home/top-categories/lohp-category-photography-v2.jpg"
+  );
+
   const showCreateCourseModal = useSelector((state) => {
     return state.course.showCreateCourseModal;
   });
 
   const handleHideModal = () => {
     dispatch(showCreateModal(false));
+  };
+
+  const hanldeChangeFile = (event) => {
+    let file = event.target.files[0];
+
+    if (
+      file.type === "image/jpg" ||
+      file.type === "image/png" ||
+      file.type === "image/jpeg"
+    ) {
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        setImgSrc(event.target.result);
+      };
+
+      console.log("file", file);
+
+      formik.setValues("hinhAnh", file);
+    }
   };
 
   const formik = useFormik({
@@ -29,7 +55,7 @@ export default function AddCourseModal(props) {
       moTa: "",
       luotXem: parseInt(0),
       danhGia: parseInt(0),
-      hinhAnh: "",
+      hinhAnh: {},
       maNhom: "",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
@@ -127,14 +153,20 @@ export default function AddCourseModal(props) {
                     </div>
                     <div className="mt-4">
                       <label className="block mb-2 text-sm font-bold text-gray-700">
-                        Upload Hình Ảnh
+                        Link hình Ảnh
                       </label>
                       <input
-                        onChange={formik.handleChange}
+                        onChange={hanldeChangeFile}
                         name="hinhAnh"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="file"
                         required
+                      />
+                      <img
+                        src={imgSrc}
+                        alt="Upload image"
+                        style={{ width: 180, height: 180 }}
+                        className="mt-2"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
@@ -233,7 +265,7 @@ export default function AddCourseModal(props) {
                   <div className="text-right mt-4">
                     <button
                       type="button"
-                      className="rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      className="rounded-md border border-transparent shadow-sm px-4 py-1.5 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                       onClick={() => {
                         handleHideModal();
                       }}
@@ -242,7 +274,7 @@ export default function AddCourseModal(props) {
                     </button>
                     <button
                       type="submit"
-                      className="rounded-md border border-gray-300 shadow-sm px-4 py-2 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="rounded-md border border-gray-300 shadow-sm px-4 py-1.5 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                       Thêm
                     </button>

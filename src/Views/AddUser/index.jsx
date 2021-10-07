@@ -140,19 +140,19 @@ export default function AddUser() {
                 </div>
                 <div className=" text-right  ">
                   <button
-                    type="submit"
-                    className="rounded-md border border-gray-300 shadow-sm px-4 py-2  bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    Thêm người dùng
-                  </button>
-                  <button
                     type="button"
                     onClick={() => {
                       hideModal();
                     }}
-                    className="rounded-md border border-transparent shadow-sm px-4 py-2 ml-4 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    className="rounded-md border border-transparent shadow-sm px-4 py-1.5 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
                     Hủy
+                  </button>
+                  <button
+                    type="submit"
+                    className="rounded-md border border-gray-300 shadow-sm px-4 py-1.5 ml-4 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Thêm người dùng
                   </button>
                 </div>
               </form>

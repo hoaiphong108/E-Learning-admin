@@ -102,8 +102,8 @@ export default function Register() {
   const userListSliderSettings = {
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     rows: 4,
     initialSlide: 0,
     arrows: false,
@@ -284,7 +284,7 @@ export default function Register() {
                 </div>
               </div>
             </td>
-            {/* <td></td> */}
+            <td ></td>
           </tr>
         );
       });
@@ -341,8 +341,10 @@ export default function Register() {
         return (
           <main>
             <div>
+              <p className="p-3 font-bold">Danh sách khóa học</p>
+
               {/* -----Subject list slider start----- */}
-              <div className="max-w-5xl">
+              <div className="max-w-6xl">
                 <Slider {...subjectListSliderSettings}>
                   {renderSubjectList()}
                 </Slider>
@@ -358,7 +360,7 @@ export default function Register() {
                       <table className="min-w-full">
                         <thead>
                           <tr>
-                            <th className="px-6 h-16 w-80 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-6 h-16 w-96 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                               {courseName}
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
@@ -384,7 +386,7 @@ export default function Register() {
                       <table className="min-w-full">
                         <thead>
                           <tr>
-                            <th className="px-6  h-16 w-80 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            <th className="px-6  h-16 w-96 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                               {courseName}
                             </th>
                             <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" />
@@ -411,7 +413,7 @@ export default function Register() {
             {/* -----User list slider start----- */}
             <div>
               <p className="p-3 font-bold">Danh sách học viên</p>
-              <div className="max-w-5xl px-4 border-t-2 border-b-2 border-gray-500">
+              <div className="max-w-6xl px-4 border-t-2 border-b-2 border-gray-500">
                 <Slider {...userListSliderSettings}>{renderUserList()}</Slider>
               </div>
             </div>
@@ -478,7 +480,7 @@ export default function Register() {
                           <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Khóa học chờ xét duyệt
                           </th>
-                          {/* <th className="px-6 py-3 border-b border-gray-200 bg-gray-50" /> */}
+                          <th className="border-b border-gray-200 bg-gray-50" />
                         </tr>
                       </thead>
                       <tbody className="bg-white">

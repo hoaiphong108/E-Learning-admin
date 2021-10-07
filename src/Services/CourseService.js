@@ -27,6 +27,8 @@ export class CourseService extends baseService {
     unRegistCourse = (dataRequest) => {
         this.post(`api/QuanLyKhoaHoc/HuyGhiDanh`, dataRequest);
     };
+
+    uploadImage = () => this.post("api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc");
 }
 
 export const courseService = new CourseService();

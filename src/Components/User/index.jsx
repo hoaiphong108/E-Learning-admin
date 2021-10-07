@@ -88,7 +88,7 @@ const User = () => {
   ]);
 
   return (
-    <>
+    <main>
       <>
         <h4 class="text-gray-700 text-2xl font-medium mb-8">
           Danh Sách Người Dùng
@@ -108,7 +108,7 @@ const User = () => {
       <UserList columns={columns} data={data} />
       <AddUserModal />
       <EditUserModal />
-    </>
+    </main>
   );
 };
 

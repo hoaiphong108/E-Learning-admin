@@ -28,7 +28,7 @@ export class CourseService extends baseService {
         this.post(`api/QuanLyKhoaHoc/HuyGhiDanh`, dataRequest);
     };
 
-    uploadImage = () => this.post("api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc");
+    uploadCourseImage = (formData) => this.post("api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc", formData);
 }
 
 export const courseService = new CourseService();

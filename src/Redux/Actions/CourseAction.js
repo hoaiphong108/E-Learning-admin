@@ -140,10 +140,10 @@ export const unRegistCourseAction = (user, codeCourse) => {
   };
 };
 
-export const uploadCourseImage = () => {
+export const uploadCourseImageAction = (formData) => {
  return async (dispatch) => {
   try {
-   const restult = await courseService.uploadImage();
+   const restult = await courseService.uploadCourseImage(formData);
   } catch (err) {
    console.log(err);
   }

@@ -18,7 +18,7 @@ import {
   fetchCourseList,
   registCourseAction,
   unRegistCourseAction,
-  uploadCourseImage,
+  uploadCourseImageAction,
 } from "../../Redux/Actions/CourseAction";
 import "./style.css";
 import Course from "../Course";
@@ -75,7 +75,7 @@ export default function Home() {
   const userLogin = useSelector((state) => state.user.userLogin);
 
   useEffect(() => {
-    dispatch(uploadCourseImage());
+    dispatch(uploadCourseImageAction());
     dispatch(fetchUnRegistCourseUserList(courseCodeName));
     dispatch(fetchRegistedCourseUserList(courseCodeName));
     // dispatch(fetchRegistCourseUserList(courseCodeName));

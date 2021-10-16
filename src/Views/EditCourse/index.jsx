@@ -35,8 +35,6 @@ export default function EditCourse() {
         setImgSrc(event.target.result);
       };
 
-      console.log("file", file);
-
       formik.setValues("hinhAnh", file);
     }
   };
@@ -58,9 +56,18 @@ export default function EditCourse() {
 
     onSubmit: useCallback(
       (values) => {
-        dispatch(updateCourseToListAction(values));
+        // let formData = new FormData();
 
-        console.log("values", values);
+        // for (let key in values) {
+        //   if (key !== "hinhAnh") {
+        //     formData.append(key, values[key]);
+        //   } else {
+        //     formData.append("File", values.hinhAnh, values.hinhAnh.name);
+        //   }
+        // }
+
+        // dispatch(updateCourseToListAction(formData));
+        dispatch(updateCourseToListAction(values));
 
         handleHideModal();
       },
@@ -120,7 +127,7 @@ export default function EditCourse() {
               Upload Hình Ảnh
             </label>
             <input
-              onChange={hanldeChangeFile}
+              onChange={formik.handleChange}
               name="hinhAnh"
               className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               type="file"

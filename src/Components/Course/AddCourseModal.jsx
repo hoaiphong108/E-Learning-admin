@@ -55,7 +55,7 @@ export default function AddCourseModal(props) {
       moTa: "",
       luotXem: parseInt(0),
       danhGia: parseInt(0),
-      hinhAnh: {},
+      hinhAnh: "",
       maNhom: "",
       ngayTao: "",
       maDanhMucKhoaHoc: "",
@@ -157,6 +157,7 @@ export default function AddCourseModal(props) {
                       </label>
                       <input
                         onChange={hanldeChangeFile}
+                        onChange={formik.handleChange}
                         name="hinhAnh"
                         className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                         type="file"
